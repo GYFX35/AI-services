@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>AI Agent</h1>
+        <p>Your AI-powered Software Engineer, Debugger, Marketer, and System Analyzer.</p>
+
+        <div class="agent-section">
+            <h2>Software Engineer</h2>
+            <textarea id="developer-input" placeholder="Describe the website components. E.g.,&#10;title: My Photography Site&#10;header: John Doe Photography&#10;section: About Me&#10;  text: I am a photographer...&#10;footer: Copyright 2024"></textarea>
+            <button id="developer-btn">Build Website</button>
+        </div>
+
+        <div class="agent-section">
+            <h2>Debugger</h2>
+            <textarea id="debugger-input" placeholder="Paste code here to debug..."></textarea>
+            <p class="or-text">OR</p>
+            <input type="text" id="debugger-url-input" class="url-input" placeholder="Enter a GitHub file URL to debug...">
+            <button id="debugger-btn">Debug Code</button>
+        </div>
+
+        <div class="agent-section">
+            <h2>Marketer</h2>
+            <textarea id="marketer-input" placeholder="Describe your business to get a social media post..."></textarea>
+            <button id="marketer-btn">Generate Post</button>
+        </div>
+
+        <div class="agent-section">
+            <h2>System Analyzer</h2>
+            <textarea id="analyzer-input" placeholder="Enter a website URL to analyze..."></textarea>
+            <p class="or-text">OR</p>
+            <input type="text" id="analyzer-url-input" class="url-input" placeholder="Enter a GitHub file URL to analyze...">
+            <button id="analyzer-btn">Analyze System</button>
+        </div>
+
+        <div class="response-section">
+            <h2>Agent's Response</h2>
+            <pre id="response-output"></pre>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
