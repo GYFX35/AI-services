@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+pip-wheel-metadata/
+.installed.cfg
+*.egg-info/
+*.egg
+
+# Logs
+*.log
+logs/
+
+# Generated code
+generated_code/
+
+# Node.js
+node_modules/
+npm-debug.log
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+pid.[0-9]*.log
+yarn-error.log
+lerna-debug.log
+.pnpm-debug.log
