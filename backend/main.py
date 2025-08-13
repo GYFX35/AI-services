@@ -41,9 +41,15 @@ def execute():
     else:
         message = "Unknown role."
 
+    if isinstance(message, str):
+        response_data = {"type": "text", "content": message}
+    else:
+        # Assumes message is already a dict (for code responses)
+        response_data = message
+
     response = {
         "status": "success",
-        "message": message
+        "message": response_data
     }
     return jsonify(response)
 
@@ -128,21 +134,14 @@ img { max-width: 100%; height: auto; margin: 0.5rem; }
 footer { text-align: center; padding: 1rem 0; background: #333; color: #fff; margin-top: 1rem; }
     """
 
-    # 4. Return the generated code as a string
-    response_message = f"""
-Here is the generated code for your website.
-
-**index.html:**
-```html
-{html_content.strip()}
-```
-
-**style.css:**
-```css
-{css_content.strip()}
-```
-"""
-    return response_message.strip()
+    # 4. Return a structured object for the frontend to handle
+    return {
+        "type": "code_multiple",
+        "payload": [
+            {"language": "html", "filename": "index.html", "content": html_content.strip()},
+            {"language": "css", "filename": "style.css", "content": css_content.strip()}
+        ]
+    }
 
 def debug_code(prompt):
     # Check if the prompt is a URL to a GitHub file
@@ -311,7 +310,13 @@ def designer_agent(prompt):
   }
 }
 """
-            return f"Here is a CSS script for a fade-in animation:\n```css\n{css_snippet.strip()}\n```"
+            return {
+                "type": "code_single",
+                "payload": {
+                    "language": "css",
+                    "content": css_snippet.strip()
+                }
+            }
 
     return "Sorry, I can only find photos/videos or create a 'fade in' animation script for now."
 
