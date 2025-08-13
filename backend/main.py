@@ -34,6 +34,8 @@ def execute():
         message = cybersecurity_agent(prompt)
     elif role == 'business':
         message = business_agent(prompt)
+    elif role == 'public_services':
+        message = public_services_agent(prompt)
     else:
         message = "Unknown role."
 
@@ -412,6 +414,44 @@ Here are some suggested Google searches to help you find keywords for '{idea}':
 *This is a generic outline. You should tailor it to the specific needs of '{prompt}'.*
 """
     return business_plan.strip()
+
+def public_services_agent(prompt):
+    """
+    Provides curated links for public service topics.
+    """
+    prompt = prompt.lower()
+
+    resources = {
+        "climate change": {
+            "Intergovernmental Panel on Climate Change (IPCC)": "https://www.ipcc.ch/",
+            "NASA Climate Change": "https://climate.nasa.gov/",
+            "UN Climate Change": "https://unfccc.int/"
+        },
+        "agriculture": {
+            "Food and Agriculture Organization (FAO)": "https://www.fao.org/home/en/",
+            "World Bank - Agriculture": "https://www.worldbank.org/en/topic/agriculture",
+            "USDA": "https://www.usda.gov/"
+        },
+        "biodiversity": {
+            "Convention on Biological Diversity (CBD)": "https://www.cbd.int/",
+            "World Wildlife Fund (WWF)": "https://www.worldwildlife.org/",
+            "IUCN Red List": "https://www.iucnredlist.org/"
+        }
+    }
+
+    found_topic = None
+    for topic in resources.keys():
+        if topic in prompt:
+            found_topic = topic
+            break
+
+    if found_topic:
+        message = f"Here are some authoritative resources for '{found_topic}':\n\n"
+        for name, link in resources[found_topic].items():
+            message += f"- {name}: {link}\n"
+        return message.strip()
+
+    return "Sorry, I don't have specific resources for that topic yet. Please try 'climate change', 'agriculture', or 'biodiversity'."
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

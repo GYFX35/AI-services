@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const educatorBtn = document.getElementById('educator-btn');
     const cyberBtn = document.getElementById('cyber-btn');
     const businessBtn = document.getElementById('business-btn');
+    const publicServicesBtn = document.getElementById('public-services-btn');
     const responseOutput = document.getElementById('response-output');
 
     developerBtn.addEventListener('click', () => {
@@ -51,6 +52,11 @@ document.addEventListener('DOMContentLoaded', () => {
     businessBtn.addEventListener('click', () => {
         const input = document.getElementById('business-input').value;
         sendCommand('business', input);
+    });
+
+    publicServicesBtn.addEventListener('click', () => {
+        const input = document.getElementById('public-services-input').value;
+        sendCommand('public_services', input);
     });
 
     async function sendCommand(role, prompt) {

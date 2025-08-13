@@ -12,6 +12,7 @@ This project is a web-based AI agent that can perform several roles to assist wi
 - **Educator:** Takes any question and provides a direct link to Google search results.
 - **Cybersecurity Analyst:** Scans a website's HTTP headers and reports on key security headers.
 - **Business Developer:** Generates a business plan outline and suggests SEO keyword research queries for a startup idea.
+- **Public Services:** Provides links to authoritative resources on topics like climate change, agriculture, and biodiversity.
 
 ## How to Use
 
@@ -41,6 +42,11 @@ Enter a full website URL (e.g., `https://example.com`) in the "Cybersecurity" in
 The Business agent can help you with your startup idea.
 - **To generate a business plan:** Enter your startup idea, e.g., `an app for dog walkers`.
 - **To get keyword ideas:** Enter a prompt including the word "keywords", e.g., `keywords for a dog walking app`.
+
+### Public Services
+Ask for information on a supported public topic. The agent will return a list of helpful, authoritative links.
+- **Supported topics:** `climate change`, `agriculture`, `biodiversity`.
+- **Example prompt:** `information on climate change`
 
 ## Setup and Installation
 
@@ -91,3 +97,33 @@ docker run -p 8000:8000 ai-agent
 ```
 
 The application will be available at `http://localhost:8000`.
+
+### Deploying to Heroku
+
+This application is also ready to be deployed to Heroku.
+
+#### Prerequisites
+- A Heroku account.
+- The Heroku CLI installed and logged in (`heroku login`).
+
+#### Deployment Steps
+
+1. **Create a Heroku app:**
+   From the root of the project, run:
+   ```bash
+   heroku create your-app-name
+   ```
+   (Replace `your-app-name` with a unique name for your application).
+
+2. **Push to Heroku:**
+   Heroku uses Git for deployments. Push your code to the `heroku` remote:
+   ```bash
+   git push heroku main
+   ```
+   Heroku will automatically detect the Python application via the `requirements.txt` file and the `Procfile`, install dependencies, and start the Gunicorn server.
+
+3. **Open the application:**
+   Once the deployment is complete, you can open your live application in the browser:
+   ```bash
+   heroku open
+   ```
