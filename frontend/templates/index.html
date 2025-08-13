@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>AI Agent</h1>
+        <p>Your AI-powered developer, debugger, and marketer.</p>
+
+        <div class="agent-section">
+            <h2>Developer</h2>
+            <textarea id="developer-input" placeholder="Describe the website you want to create..."></textarea>
+            <button id="developer-btn">Generate Website</button>
+        </div>
+
+        <div class="agent-section">
+            <h2>Debugger</h2>
+            <textarea id="debugger-input" placeholder="Paste code here to debug..."></textarea>
+            <button id="debugger-btn">Debug Code</button>
+        </div>
+
+        <div class="agent-section">
+            <h2>Marketer</h2>
+            <textarea id="marketer-input" placeholder="Describe your business to get a social media post..."></textarea>
+            <button id="marketer-btn">Generate Post</button>
+        </div>
+
+        <div class="response-section">
+            <h2>Agent's Response</h2>
+            <pre id="response-output"></pre>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
