@@ -38,74 +38,99 @@ def execute():
 def generate_website(prompt):
     import datetime
 
-    # Create a unique directory for the generated code
-    timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    site_dir = os.path.join('generated_code', timestamp)
-    os.makedirs(site_dir)
+    # 1. Parse the structured prompt
+    structure = {'sections': []}
+    current_section = None
+    for line in prompt.splitlines():
+        if not line.strip():
+            continue
+        indentation = len(line) - len(line.lstrip(' '))
+        try:
+            key, value = line.strip().split(':', 1)
+            key = key.strip().lower()
+            value = value.strip()
+        except ValueError:
+            continue
+        if indentation == 0:
+            if key == 'section':
+                current_section = {'title': value, 'content': {}}
+                structure['sections'].append(current_section)
+            else:
+                structure[key] = value
+                current_section = None
+        elif indentation > 0 and current_section:
+            current_section['content'][key] = value
 
-    # Simple logic to generate HTML and CSS from the prompt
+    # 2. Generate HTML from the structure
+    title = structure.get('title', 'My Website')
+    header_content = structure.get('header', '')
+    footer_content = structure.get('footer', '')
+
+    main_content = ""
+    for section in structure['sections']:
+        main_content += f"    <section>\n"
+        main_content += f"      <h2>{section.get('title', '')}</h2>\n"
+        if 'text' in section['content']:
+            main_content += f"      <p>{section['content']['text']}</p>\n"
+        if 'images' in section['content']:
+            try:
+                num_images = int(section['content']['images'])
+                for i in range(num_images):
+                    main_content += f"      <img src='https://via.placeholder.com/150' alt='placeholder image {i+1}'>\n"
+            except ValueError:
+                pass # Ignore if 'images' is not a number
+        main_content += f"    </section>\n"
+
     html_content = f"""
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generated Website</title>
+    <title>{title}</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>My Awesome Website</h1>
+        <h1>{header_content}</h1>
     </header>
     <main>
-        <p>{prompt}</p>
+{main_content}
     </main>
     <footer>
-        <p>&copy; 2024 AI Agent</p>
+        <p>{footer_content}</p>
     </footer>
 </body>
 </html>
     """
 
+    # 3. Generate CSS from the structure
     css_content = """
-body {
-    font-family: sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    background: #f4f4f4;
-    color: #333;
-}
-header {
-    background: #333;
-    color: #fff;
-    padding: 1rem 0;
-    text-align: center;
-}
-main {
-    padding: 1rem;
-    margin: 1rem auto;
-    max-width: 800px;
-    background: #fff;
-}
-footer {
-    text-align: center;
-    padding: 1rem 0;
-    background: #333;
-    color: #fff;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
+body { font-family: sans-serif; line-height: 1.6; margin: 0; padding: 0; background: #f4f4f4; color: #333; }
+.container { max-width: 960px; margin: auto; overflow: auto; padding: 0 2rem; }
+header { background: #333; color: #fff; padding: 1rem 0; text-align: center; }
+main { padding: 1rem; background: #fff; }
+section { margin-bottom: 1.5rem; }
+h2 { color: #333; }
+img { max-width: 100%; height: auto; margin: 0.5rem; }
+footer { text-align: center; padding: 1rem 0; background: #333; color: #fff; margin-top: 1rem; }
     """
 
-    with open(os.path.join(site_dir, 'index.html'), 'w') as f:
-        f.write(html_content)
+    # 4. Return the generated code as a string
+    response_message = f"""
+Here is the generated code for your website.
 
-    with open(os.path.join(site_dir, 'style.css'), 'w') as f:
-        f.write(css_content)
+**index.html:**
+```html
+{html_content.strip()}
+```
 
-    return f"Website generated successfully! Files are located in: {site_dir}"
+**style.css:**
+```css
+{css_content.strip()}
+```
+"""
+    return response_message.strip()
 
 def debug_code(code):
     # This is a very basic, custom linter.

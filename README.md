@@ -1,16 +1,31 @@
-# AI Agent: Developer, Debugger, and Marketer
+# AI Agent: Software Engineer, Debugger, Marketer, and System Analyzer
 
-This project is a web-based AI agent that can perform three roles:
-- **Developer:** Generates simple, static websites from a text description.
-- **Debugger:** Lints HTML and CSS code to find basic errors.
-- **Marketer:** Creates promotional social media posts from a business description.
+This project is a web-based AI agent that can perform several roles to assist with software development and business tasks.
 
 ## Features
 
-- **Simple Web Interface:** An easy-to-use interface for interacting with the agent's different roles.
-- **Static Site Generation:** Describe a simple website, and the agent will generate the HTML and CSS for it.
-- **Code Linting:** Paste in HTML or CSS code to get feedback on basic syntax and structure.
-- **Social Media Posts:** Provide a business idea, and the agent will generate a short promotional post.
+- **Software Engineer:** Generates multi-section HTML and CSS for a static website based on a structured text prompt.
+- **Debugger:** Lints HTML and CSS code to find basic errors.
+- **Marketer:** Creates promotional social media posts from a business description.
+- **System Analyzer:** Scans a website URL for broken links and suggests search queries to find solutions.
+
+## How to Use the Software Engineer Agent
+
+The Software Engineer agent uses a simple, indented syntax to define the components of a website. Provide a description in the "Software Engineer" text box, and the agent will return the HTML and CSS code in the response box below.
+
+### Example Prompt Format
+
+```
+title: My Photography Portfolio
+header: Jane Doe | Photographer
+section: About Me
+  text: I am a professional photographer specializing in landscapes.
+section: Gallery
+  images: 4
+footer: Copyright © 2024 Jane Doe
+```
+
+This will generate a webpage with a title, a main header, two sections (one with text, one with 4 placeholder images), and a footer.
 
 ## Setup and Installation
 
