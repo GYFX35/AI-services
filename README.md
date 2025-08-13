@@ -1,6 +1,6 @@
-# AI Agent: Software Engineer, Debugger, Marketer, System Analyzer, Designer, and Educator
+# AI Agent: Software Engineer, Debugger, Marketer, System Analyzer, Designer, Educator, and Cybersecurity Analyst
 
-This project is a web-based AI agent that can perform several roles to assist with software development, business, and educational tasks.
+This project is a web-based AI agent that can perform several roles to assist with software development, business, and security tasks.
 
 ## Features
 
@@ -10,6 +10,7 @@ This project is a web-based AI agent that can perform several roles to assist wi
 - **System Analyzer:** Scans a website URL for broken links and suggests search queries to find solutions.
 - **Designer:** Finds royalty-free images and videos, and generates simple CSS animation scripts.
 - **Educator:** Takes any question and provides a direct link to the Google search results to help you find an answer.
+- **Cybersecurity Analyst:** Scans a website's HTTP headers and reports on the presence of key security headers.
 
 ## How to Use
 
@@ -45,6 +46,9 @@ The Designer agent can help you with visual assets and animations.
 
 ### Educator
 Ask any question in the "Educator" text box to get a link to the Google search results.
+
+### Cybersecurity Analyst
+Enter a full website URL (e.g., `https://example.com`) in the "Cybersecurity" input field to get a report on its security headers.
 
 ## Setup and Installation
 

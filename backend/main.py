@@ -30,6 +30,8 @@ def execute():
         message = designer_agent(prompt)
     elif role == 'educate':
         message = educator_agent(prompt)
+    elif role == 'cybersecurity':
+        message = cybersecurity_agent(prompt)
     else:
         message = "Unknown role."
 
@@ -313,6 +315,43 @@ def educator_agent(prompt):
     """
     search_url = f"https://www.google.com/search?q={quote(prompt)}"
     return f"Here is a Google search link for your question: '{prompt}'\n\n{search_url}"
+
+def cybersecurity_agent(url):
+    """
+    Checks a URL for the presence of important security headers.
+    """
+    try:
+        headers = {'User-Agent': 'AI-Agent-Checker/1.0'}
+        response = requests.head(url, headers=headers, timeout=10, allow_redirects=True)
+        response.raise_for_status()
+    except requests.RequestException as e:
+        return f"Error fetching URL: {e}"
+
+    security_headers = {
+        'Content-Security-Policy': 'Helps prevent XSS attacks.',
+        'Strict-Transport-Security': 'Enforces secure (HTTPS) connections.',
+        'X-Content-Type-Options': 'Prevents browsers from MIME-sniffing a response away from the declared content-type.',
+        'X-Frame-Options': 'Protects against clickjacking attacks.',
+        'Referrer-Policy': 'Controls how much referrer information is sent.',
+        'Permissions-Policy': 'Controls which browser features can be used.'
+    }
+
+    present_headers = []
+    missing_headers = []
+
+    for header, description in security_headers.items():
+        if header in response.headers:
+            present_headers.append(f"- ✅ {header}: Present")
+        else:
+            missing_headers.append(f"- ❌ {header}: Missing. ({description})")
+
+    report = f"Security Header Analysis for {url}:\n\n"
+    if present_headers:
+        report += "Found Headers:\n" + "\n".join(present_headers) + "\n\n"
+    if missing_headers:
+        report += "Missing Headers (Recommended):\n" + "\n".join(missing_headers)
+
+    return report
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

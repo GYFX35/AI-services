@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const analyzerBtn = document.getElementById('analyzer-btn');
     const designerBtn = document.getElementById('designer-btn');
     const educatorBtn = document.getElementById('educator-btn');
+    const cyberBtn = document.getElementById('cyber-btn');
     const responseOutput = document.getElementById('response-output');
 
     developerBtn.addEventListener('click', () => {
@@ -39,6 +40,11 @@ document.addEventListener('DOMContentLoaded', () => {
     educatorBtn.addEventListener('click', () => {
         const input = document.getElementById('educator-input').value;
         sendCommand('educate', input);
+    });
+
+    cyberBtn.addEventListener('click', () => {
+        const input = document.getElementById('cyber-url-input').value;
+        sendCommand('cybersecurity', input);
     });
 
     async function sendCommand(role, prompt) {
