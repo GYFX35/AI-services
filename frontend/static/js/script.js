@@ -11,8 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     debuggerBtn.addEventListener('click', () => {
-        const input = document.getElementById('debugger-input').value;
-        sendCommand('debug', input);
+        const urlInput = document.getElementById('debugger-url-input').value;
+        const textInput = document.getElementById('debugger-input').value;
+        const prompt = urlInput.trim() || textInput;
+        sendCommand('debug', prompt);
     });
 
     marketerBtn.addEventListener('click', () => {
@@ -21,8 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     analyzerBtn.addEventListener('click', () => {
-        const input = document.getElementById('analyzer-input').value;
-        sendCommand('analyze', input);
+        const urlInput = document.getElementById('analyzer-url-input').value;
+        const textInput = document.getElementById('analyzer-input').value;
+        const prompt = urlInput.trim() || textInput;
+        sendCommand('analyze', prompt);
     });
 
     async function sendCommand(role, prompt) {

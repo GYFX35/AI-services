@@ -132,7 +132,17 @@ Here is the generated code for your website.
 """
     return response_message.strip()
 
-def debug_code(code):
+def debug_code(prompt):
+    # Check if the prompt is a URL to a GitHub file
+    if prompt.strip().startswith('http'):
+        code = fetch_github_file(prompt)
+        # Check if fetching the file returned an error message
+        if code.startswith('Error:'):
+            return code
+    else:
+        # If not a URL, the prompt is the code itself
+        code = prompt
+
     # This is a very basic, custom linter.
     errors = []
 
@@ -226,6 +236,36 @@ def analyze_website(url):
             message += f"- Broken Link: {link}\n"
             message += f"  Suggested Search: {search_url}\n\n"
         return message
+
+def fetch_github_file(url):
+    """
+    Fetches the raw content of a file from a GitHub URL.
+    """
+    try:
+        # Transform the URL
+        parsed_url = urlparse(url)
+        if parsed_url.hostname != 'github.com':
+            return "Error: Not a valid GitHub URL."
+
+        path_parts = parsed_url.path.strip('/').split('/')
+        if len(path_parts) < 4 or path_parts[2] != 'blob':
+            return "Error: URL does not appear to be a valid GitHub file URL (e.g., .../user/repo/blob/branch/file)."
+
+        user, repo, _, branch = path_parts[:4]
+        file_path = '/'.join(path_parts[4:])
+
+        raw_url = f"https://raw.githubusercontent.com/{user}/{repo}/{branch}/{file_path}"
+
+        # Fetch the content
+        headers = {'User-Agent': 'AI-Agent-Checker/1.0'}
+        response = requests.get(raw_url, headers=headers, timeout=10)
+        response.raise_for_status()
+
+        return response.text
+    except requests.RequestException as e:
+        return f"Error fetching file from GitHub: {e}"
+    except Exception as e:
+        return f"An unexpected error occurred: {e}"
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
