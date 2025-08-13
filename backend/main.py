@@ -28,6 +28,8 @@ def execute():
         message = analyze_website(prompt)
     elif role == 'design':
         message = designer_agent(prompt)
+    elif role == 'educate':
+        message = educator_agent(prompt)
     else:
         message = "Unknown role."
 
@@ -304,6 +306,13 @@ def designer_agent(prompt):
             return f"Here is a CSS script for a fade-in animation:\n```css\n{css_snippet.strip()}\n```"
 
     return "Sorry, I can only find photos/videos or create a 'fade in' animation script for now."
+
+def educator_agent(prompt):
+    """
+    Takes a user's question and returns a Google search URL for it.
+    """
+    search_url = f"https://www.google.com/search?q={quote(prompt)}"
+    return f"Here is a Google search link for your question: '{prompt}'\n\n{search_url}"
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

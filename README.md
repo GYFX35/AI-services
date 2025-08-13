@@ -1,6 +1,6 @@
-# AI Agent: Software Engineer, Debugger, Marketer, System Analyzer, and Designer
+# AI Agent: Software Engineer, Debugger, Marketer, System Analyzer, Designer, and Educator
 
-This project is a web-based AI agent that can perform several roles to assist with software development and business tasks.
+This project is a web-based AI agent that can perform several roles to assist with software development, business, and educational tasks.
 
 ## Features
 
@@ -9,6 +9,7 @@ This project is a web-based AI agent that can perform several roles to assist wi
 - **Marketer:** Creates promotional social media posts from a business description.
 - **System Analyzer:** Scans a website URL for broken links and suggests search queries to find solutions.
 - **Designer:** Finds royalty-free images and videos, and generates simple CSS animation scripts.
+- **Educator:** Takes any question and provides a direct link to the Google search results to help you find an answer.
 
 ## How to Use
 
@@ -38,9 +39,12 @@ Enter a full website URL (e.g., `https://example.com`) to scan the page for brok
 
 ### Designer
 The Designer agent can help you with visual assets and animations.
-- **To find images:** Use prompts like `a photo of a sunset` or `an image of a computer`. The agent will provide a search link for royalty-free images on Unsplash.
-- **To find videos:** Use prompts like `a video of the ocean`. The agent will provide a search link for royalty-free videos on Pexels.
-- **To generate animations:** Use prompts like `a script for a fade in animation`. The agent will provide a CSS code snippet for the animation.
+- **To find images:** Use prompts like `a photo of a sunset`.
+- **To find videos:** Use prompts like `a video of the ocean`.
+- **To generate animations:** Use prompts like `a script for a fade in animation`.
+
+### Educator
+Ask any question in the "Educator" text box to get a link to the Google search results.
 
 ## Setup and Installation
 
