@@ -32,6 +32,8 @@ def execute():
         message = educator_agent(prompt)
     elif role == 'cybersecurity':
         message = cybersecurity_agent(prompt)
+    elif role == 'business':
+        message = business_agent(prompt)
     else:
         message = "Unknown role."
 
@@ -352,6 +354,64 @@ def cybersecurity_agent(url):
         report += "Missing Headers (Recommended):\n" + "\n".join(missing_headers)
 
     return report
+
+def business_agent(prompt):
+    """
+    Generates a business plan outline or keyword suggestions for a startup idea.
+    """
+    l_prompt = prompt.lower()
+    if 'keywords' in l_prompt or 'seo' in l_prompt:
+        idea = l_prompt.replace('keywords for', '').replace('seo for', '').strip()
+        suggestions = f"""
+Here are some suggested Google searches to help you find keywords for '{idea}':
+
+- `top keywords for {idea}`
+- `long-tail keywords for {idea}`
+- `"{idea}" competitor keywords`
+- `"{idea}" target audience`
+- `how to market {idea}`
+- `content ideas for {idea}`
+"""
+        return suggestions.strip()
+
+    business_plan = f"""
+# Business Plan Outline for: {prompt}
+
+## 1. Executive Summary
+- **Mission Statement:** [A brief, memorable statement about your purpose]
+- **Vision Statement:** [What is the long-term impact you want to have?]
+- **Business Goals:** [e.g., Reach 10,000 users in the first year]
+- **Target Market:** [Briefly describe your ideal customer]
+- **Key Differentiators:** [What makes '{prompt}' unique?]
+
+## 2. Company Description
+- **Company Overview:** [Legal structure, history, and nature of the business]
+- **Team:** [Brief bios of key team members and their roles]
+
+## 3. Market Analysis
+- **Industry Overview:** [Size, growth rate, and trends in your industry]
+- **Target Audience:** [Detailed persona of your ideal customer: demographics, needs, pain points]
+- **Competitor Analysis:** [List key competitors and their strengths/weaknesses]
+
+## 4. Products & Services
+- **Product/Service Description:** [Detailed description of what '{prompt}' offers]
+- **Value Proposition:** [How do you solve your customers' problems or improve their situation?]
+- **Future Products:** [Any plans for future products or services?]
+
+## 5. Marketing & Sales Strategy
+- **Marketing Plan:** [How will you reach your target audience? (e.g., social media, content marketing, SEO)]
+- **Sales Strategy:** [How will you convert leads into customers?]
+- **Pricing Strategy:** [How will you price your product/service?]
+
+## 6. Financial Projections
+- **Startup Costs:** [List of one-time expenses to get started]
+- **Revenue Forecast:** [Projected revenue for the next 3-5 years]
+- **Break-even Analysis:** [When do you expect to become profitable?]
+
+---
+*This is a generic outline. You should tailor it to the specific needs of '{prompt}'.*
+"""
+    return business_plan.strip()
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
