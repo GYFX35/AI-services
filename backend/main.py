@@ -1,4 +1,7 @@
 import os
+import requests
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin, urlparse, quote
 from flask import Flask, jsonify, render_template, request
 
 app = Flask(__name__, template_folder='../frontend/templates', static_folder='../frontend/static')
@@ -21,6 +24,8 @@ def execute():
         message = debug_code(prompt)
     elif role == 'market':
         message = generate_social_media_post(prompt)
+    elif role == 'analyze':
+        message = analyze_website(prompt)
     else:
         message = "Unknown role."
 
@@ -156,6 +161,46 @@ Come and check us out! You won't be disappointed.
 #NewBusiness #GrandOpening #{prompt.replace(" ", "").split(',')[0]} #SupportLocal
     """
     return post.strip()
+
+def analyze_website(url):
+    try:
+        headers = {'User-Agent': 'AI-Agent-Checker/1.0'}
+        response = requests.get(url, headers=headers, timeout=10)
+        response.raise_for_status() # Raise an exception for bad status codes
+    except requests.RequestException as e:
+        return f"Error fetching URL: {e}"
+
+    soup = BeautifulSoup(response.content, 'lxml')
+    links = []
+    for a_tag in soup.find_all('a', href=True):
+        href = a_tag.get('href')
+        # Join relative URLs with the base URL
+        full_url = urljoin(url, href)
+        # Only check http/https URLs
+        if urlparse(full_url).scheme in ['http', 'https']:
+            links.append(full_url)
+
+    broken_links = []
+    for link in links:
+        try:
+            # Use a HEAD request to be more efficient
+            link_response = requests.head(link, headers=headers, timeout=5, allow_redirects=True)
+            if link_response.status_code == 404:
+                broken_links.append(link)
+        except requests.RequestException:
+            # Could be a timeout, DNS error, etc. Count these as "broken" for simplicity.
+            broken_links.append(link)
+
+    if not broken_links:
+        return f"Scanned {len(links)} links on {url} and found no broken links (404s)."
+    else:
+        message = f"Found {len(broken_links)} broken links on {url}:\n\n"
+        for link in broken_links:
+            query = f"'{link}' on page '{url}' is a broken link"
+            search_url = f"https://www.google.com/search?q={quote(query)}"
+            message += f"- Broken Link: {link}\n"
+            message += f"  Suggested Search: {search_url}\n\n"
+        return message
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
