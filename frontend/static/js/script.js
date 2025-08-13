@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cyberBtn = document.getElementById('cyber-btn');
     const businessBtn = document.getElementById('business-btn');
     const publicServicesBtn = document.getElementById('public-services-btn');
+    const gitHelperBtn = document.getElementById('git-helper-btn');
     const responseOutput = document.getElementById('response-output');
 
     developerBtn.addEventListener('click', () => {
@@ -57,6 +58,16 @@ document.addEventListener('DOMContentLoaded', () => {
     publicServicesBtn.addEventListener('click', () => {
         const input = document.getElementById('public-services-input').value;
         sendCommand('public_services', input);
+    });
+
+    gitHelperBtn.addEventListener('click', () => {
+        const branch = document.getElementById('git-branch-input').value;
+        const commitMessage = document.getElementById('git-commit-input').value;
+        const prompt = {
+            branch: branch,
+            commitMessage: commitMessage
+        };
+        sendCommand('git_helper', prompt);
     });
 
     async function sendCommand(role, prompt) {

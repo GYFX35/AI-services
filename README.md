@@ -13,6 +13,7 @@ This project is a web-based AI agent that can perform several roles to assist wi
 - **Cybersecurity Analyst:** Scans a website's HTTP headers and reports on key security headers.
 - **Business Developer:** Generates a business plan outline and suggests SEO keyword research queries for a startup idea.
 - **Public Services:** Provides links to authoritative resources on topics like climate change, agriculture, and biodiversity.
+- **Git Helper:** Generates a shell script with the necessary Git commands to create a branch, commit, and push changes.
 
 ## How to Use
 
@@ -46,7 +47,12 @@ The Business agent can help you with your startup idea.
 ### Public Services
 Ask for information on a supported public topic. The agent will return a list of helpful, authoritative links.
 - **Supported topics:** `climate change`, `agriculture`, `biodiversity`.
-- **Example prompt:** `information on climate change`
+
+### Git Helper
+The Git Helper provides a safe way to automate pull requests. It generates a script of commands for you to review and run in your own terminal.
+1.  Enter a **Branch Name** (e.g., `feat/new-login-page`).
+2.  Enter a **Commit Message**.
+3.  The agent will return a shell script. Copy, paste, and run this script in your local terminal to create the branch, commit your staged changes, and push to the remote repository.
 
 ## Setup and Installation
 

@@ -36,6 +36,8 @@ def execute():
         message = business_agent(prompt)
     elif role == 'public_services':
         message = public_services_agent(prompt)
+    elif role == 'git_helper':
+        message = git_helper_agent(prompt)
     else:
         message = "Unknown role."
 
@@ -452,6 +454,45 @@ def public_services_agent(prompt):
         return message.strip()
 
     return "Sorry, I don't have specific resources for that topic yet. Please try 'climate change', 'agriculture', or 'biodiversity'."
+
+def git_helper_agent(prompt):
+    """
+    Generates a shell script for Git commands based on user input.
+    """
+    branch = prompt.get('branch', 'new-feature')
+    commit_message = prompt.get('commitMessage', 'New changes')
+    repo_url = "https://github.com/gyfx35/AI-services" # Hardcoded for safety
+
+    # Basic validation
+    if not branch or not commit_message:
+        return "Error: Branch name and commit message are required."
+
+    # Sanitize inputs to prevent command injection
+    safe_branch = quote(branch)
+    safe_commit_message = quote(commit_message)
+
+    script = f"""
+#!/bin/bash
+# This script contains the git commands to create a new branch, commit, and push your changes.
+# Review these commands carefully before running them in your terminal.
+
+# 1. Create a new branch
+git checkout -b "{branch}"
+
+# 2. Add all current changes to the staging area
+git add .
+
+# 3. Commit the changes
+git commit -m "{commit_message}"
+
+# 4. Push the new branch to the remote repository
+git push origin "{branch}"
+
+# 5. Open a pull request
+# You can open a pull request by visiting the following URL in your browser:
+echo "Open a pull request here: {repo_url}/pull/new/{branch}"
+"""
+    return f"Here is a shell script to perform the requested Git operations. Please review it carefully before use:\n```bash\n{script.strip()}\n```"
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
