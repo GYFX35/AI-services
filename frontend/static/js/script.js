@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const debuggerBtn = document.getElementById('debugger-btn');
     const marketerBtn = document.getElementById('marketer-btn');
     const analyzerBtn = document.getElementById('analyzer-btn');
+    const designerBtn = document.getElementById('designer-btn');
     const responseOutput = document.getElementById('response-output');
 
     developerBtn.addEventListener('click', () => {
@@ -27,6 +28,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const textInput = document.getElementById('analyzer-input').value;
         const prompt = urlInput.trim() || textInput;
         sendCommand('analyze', prompt);
+    });
+
+    designerBtn.addEventListener('click', () => {
+        const input = document.getElementById('designer-input').value;
+        sendCommand('design', input);
     });
 
     async function sendCommand(role, prompt) {

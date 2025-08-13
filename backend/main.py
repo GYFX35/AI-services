@@ -26,6 +26,8 @@ def execute():
         message = generate_social_media_post(prompt)
     elif role == 'analyze':
         message = analyze_website(prompt)
+    elif role == 'design':
+        message = designer_agent(prompt)
     else:
         message = "Unknown role."
 
@@ -266,6 +268,42 @@ def fetch_github_file(url):
         return f"Error fetching file from GitHub: {e}"
     except Exception as e:
         return f"An unexpected error occurred: {e}"
+
+def designer_agent(prompt):
+    prompt = prompt.lower()
+
+    # Intent: Find image or video
+    if 'image' in prompt or 'photo' in prompt or 'picture' in prompt:
+        search_term = prompt.replace('image of', '').replace('photo of', '').replace('picture of', '').strip()
+        search_url = f"https://unsplash.com/s/photos/{quote(search_term)}"
+        return f"Here are some photos of '{search_term}' on Unsplash:\n{search_url}"
+
+    if 'video' in prompt:
+        search_term = prompt.replace('video of', '').strip()
+        search_url = f"https://www.pexels.com/search/videos/{quote(search_term)}/"
+        return f"Here are some videos of '{search_term}' on Pexels:\n{search_url}"
+
+    # Intent: Generate animation script
+    if 'animation' in prompt or 'script' in prompt:
+        if 'fade in' in prompt:
+            css_snippet = """
+/* CSS for a fade-in animation */
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+"""
+            return f"Here is a CSS script for a fade-in animation:\n```css\n{css_snippet.strip()}\n```"
+
+    return "Sorry, I can only find photos/videos or create a 'fade in' animation script for now."
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
