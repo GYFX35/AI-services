@@ -15,6 +15,7 @@ This project is a web-based AI agent that can perform several roles to assist wi
 - **Public Services:** Provides links to authoritative resources on topics like climate change, agriculture, and biodiversity.
 - **Git Helper:** Generates a shell script with the necessary Git commands to create a branch, commit, and push changes.
 - **Scam Tracker:** Analyzes a URL for common signs of being a scam or phishing site.
+- **Automation:** Generates example scripts and checklists for specialized domains like robotics, aerospace, and automotive.
 
 ## How to Use
 
@@ -33,7 +34,7 @@ Enter a full website URL (e.g., `https://example.com`) to scan the page for brok
 
 ### Designer
 The Designer agent can help you with visual assets and animations.
-- **To find images/videos:** Use prompts like `a photo of a sunset`.
+- **To find images/videos:** Use prompts like `a photo of a sunset` or `a video of the ocean`.
 - **To generate animations:** Use prompts like `a script for a fade in animation`.
 - **To get a color palette:** Use prompts like `suggest a color palette`.
 
@@ -57,6 +58,12 @@ The Git Helper provides a safe way to automate pull requests. It generates a scr
 
 ### Scam Tracker
 Enter a URL in the "Scam Tracker" input field. The agent will analyze it for common red flags and provide a report.
+
+### Automation
+The Automation agent provides example scripts and data for specialized, safety-critical domains. **Note: These are for educational purposes only and should not be used in real-world systems.**
+- **To get a robotics script:** Use a prompt like `a robotics script to move forward`.
+- **To get an aerospace checklist:** Use a prompt like `an aerospace pre-flight checklist`.
+- **To get automotive data:** Use a prompt like `sample automotive CAN bus data`.
 
 ## Setup and Installation
 

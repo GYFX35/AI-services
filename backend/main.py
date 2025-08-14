@@ -40,6 +40,8 @@ def execute():
         message = git_helper_agent(prompt)
     elif role == 'scam_tracker':
         message = scam_tracker_agent(prompt)
+    elif role == 'automation':
+        message = automation_agent(prompt)
     else:
         message = "Unknown role."
 
@@ -575,6 +577,102 @@ def scam_tracker_agent(url):
             report += f"- {flag}\n"
         report += "\nPlease exercise caution before proceeding to this website."
         return report
+
+def automation_agent(prompt):
+    """
+    Generates example scripts for specialized domains.
+    """
+    prompt = prompt.lower()
+
+    if 'aerospace' in prompt:
+        checklist = """
+# Example Pre-Flight Checklist
+
+## 1. Pre-Flight Inspection
+- [ ] Fuselage and wings condition
+- [ ] Control surfaces (ailerons, rudder, elevator)
+- [ ] Landing gear, tires, and brakes
+- [ ] Fuel and oil levels
+
+## 2. Cockpit Setup
+- [ ] Avionics power ON
+- [ ] Flight instruments check
+- [ ] Navigation systems set
+- [ ] Communication frequencies set
+
+## 3. Engine Start
+- [ ] Brakes SET
+- [ ] Engine start sequence initiated
+- [ ] Oil pressure and temperature GREEN
+- [ ] Avionics check post-start
+
+*Disclaimer: This is a simplified, non-functional example for educational purposes only.*
+"""
+        return checklist.strip()
+
+    if 'robotics' in prompt:
+        ros_script = """
+# Example ROS2 Python script to publish a command
+import rclpy
+from rclpy.node import Node
+from geometry_msgs.msg import Twist
+
+class MoveForward(Node):
+    def __init__(self):
+        super().__init__('move_forward_node')
+        self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)
+        timer_period = 0.5  # seconds
+        self.timer = self.create_timer(timer_period, self.timer_callback)
+
+    def timer_callback(self):
+        msg = Twist()
+        msg.linear.x = 0.5  # Move forward at 0.5 m/s
+        self.publisher_.publish(msg)
+        self.get_logger().info('Publishing: "linear.x: 0.5"')
+
+def main(args=None):
+    rclpy.init(args=args)
+    move_forward = MoveForward()
+    rclpy.spin(move_forward)
+    move_forward.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+"""
+        return {
+            "type": "code_single",
+            "payload": {
+                "language": "python",
+                "filename": "ros_move_forward.py",
+                "content": ros_script.strip()
+            }
+        }
+
+    if 'automotive' in prompt:
+        can_data = """
+# Example Automotive CAN Bus Data
+# This is a simplified representation of CAN bus messages.
+
+# ID: 0x18FEF100, Name: Engine Temperature
+# Data: 0x10 0x7D 0x55 0x10 0x00 0xFF 0xFF 0xFF
+#   - Byte 1: Engine Coolant Temp: 0x7D -> 125°C
+#   - Byte 3: Engine Oil Temp: 0x55 -> 85°C
+
+# ID: 0x18FEE000, Name: Vehicle Speed
+# Data: 0x00 0x80 0x00 0x00 0xFF 0xFF 0xFF 0xFF
+#   - Bytes 2-3: Wheel-Based Vehicle Speed: 0x8000 -> 128 km/h
+"""
+        return {
+            "type": "code_single",
+            "payload": {
+                "language": "text",
+                "filename": "can_bus_data.txt",
+                "content": can_data.strip()
+            }
+        }
+
+    return "Sorry, I can only generate example scripts for 'aerospace', 'robotics', or 'automotive'."
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
