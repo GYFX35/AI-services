@@ -1,14 +1,14 @@
 # AI Agent: A Multi-Role Assistant
 
-This project is a web-based AI agent that can perform several roles to assist with software development, business, and security tasks.
+This project is a web-based AI agent that can perform several roles to assist with software development, business, and educational tasks.
 
 ## Features
 
-- **Software Engineer:** Generates multi-section HTML and CSS for a static website based on a structured text prompt.
+- **Software Engineer:** Generates multi-section HTML/CSS for a static website or simple Python scripts.
 - **Debugger:** Lints HTML and CSS code to find basic errors. Can analyze pasted code or fetch a file directly from a GitHub URL.
 - **Marketer:** Creates promotional social media posts from a business description.
 - **System Analyzer:** Scans a website URL for broken links and suggests search queries to find solutions.
-- **Designer:** Finds royalty-free images/videos and generates simple CSS animation scripts.
+- **Designer:** Finds royalty-free images/videos, generates CSS animation scripts, and suggests color palettes.
 - **Educator:** Takes any question and provides a direct link to Google search results.
 - **Cybersecurity Analyst:** Scans a website's HTTP headers and reports on key security headers.
 - **Business Developer:** Generates a business plan outline and suggests SEO keyword research queries for a startup idea.
@@ -19,7 +19,9 @@ This project is a web-based AI agent that can perform several roles to assist wi
 ## How to Use
 
 ### Software Engineer
-The Software Engineer agent uses a simple, indented syntax to define the components of a website. Provide a description in the "Software Engineer" text box, and the agent will return the HTML and CSS code in the response box below.
+The Software Engineer agent can generate two types of code:
+- **To build a website:** Use a simple, indented syntax to define the components of a website.
+- **To generate a script:** Ask for a script in plain language, e.g., `a python script to print hello world`.
 
 ### Debugger
 The Debugger agent can analyze code in two ways:
@@ -31,8 +33,9 @@ Enter a full website URL (e.g., `https://example.com`) to scan the page for brok
 
 ### Designer
 The Designer agent can help you with visual assets and animations.
-- **To find images/videos:** Use prompts like `a photo of a sunset` or `a video of the ocean`.
+- **To find images/videos:** Use prompts like `a photo of a sunset`.
 - **To generate animations:** Use prompts like `a script for a fade in animation`.
+- **To get a color palette:** Use prompts like `suggest a color palette`.
 
 ### Educator
 Ask any question in the "Educator" text box to get a link to the Google search results.
@@ -53,7 +56,7 @@ Ask for information on a supported public topic. The agent will return a list of
 The Git Helper provides a safe way to automate pull requests. It generates a script of commands for you to review and run in your own terminal.
 
 ### Scam Tracker
-Enter a URL in the "Scam Tracker" input field. The agent will analyze it for common red flags (like suspicious domain names or keywords) and provide a report.
+Enter a URL in the "Scam Tracker" input field. The agent will analyze it for common red flags and provide a report.
 
 ## Setup and Installation
 
