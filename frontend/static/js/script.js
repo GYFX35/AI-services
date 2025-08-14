@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const gitHelperBtn = document.getElementById('git-helper-btn');
     const scamTrackerBtn = document.getElementById('scam-tracker-btn');
     const automationBtn = document.getElementById('automation-btn');
+    const astronautBtn = document.getElementById('astronaut-btn');
     const responseOutput = document.getElementById('response-output');
     const loaderOverlay = document.getElementById('loader-overlay');
     const allButtons = document.querySelectorAll('button');
@@ -82,6 +83,11 @@ document.addEventListener('DOMContentLoaded', () => {
     automationBtn.addEventListener('click', () => {
         const input = document.getElementById('automation-input').value;
         sendCommand('automation', input);
+    });
+
+    astronautBtn.addEventListener('click', () => {
+        const input = document.getElementById('astronaut-input').value;
+        sendCommand('astronaut', input);
     });
 
     async function sendCommand(role, prompt) {

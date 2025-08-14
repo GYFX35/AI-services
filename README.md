@@ -16,6 +16,7 @@ This project is a web-based AI agent that can perform several roles to assist wi
 - **Git Helper:** Generates a shell script with the necessary Git commands to create a branch, commit, and push changes.
 - **Scam Tracker:** Analyzes a URL for common signs of being a scam or phishing site.
 - **Automation:** Generates example scripts and checklists for specialized domains like robotics, aerospace, and automotive.
+- **Astronaut:** Provides sample astronaut-related checklists and example drone control scripts.
 
 ## How to Use
 
@@ -64,6 +65,11 @@ The Automation agent provides example scripts and data for specialized, safety-c
 - **To get a robotics script:** Use a prompt like `a robotics script to move forward`.
 - **To get an aerospace checklist:** Use a prompt like `an aerospace pre-flight checklist`.
 - **To get automotive data:** Use a prompt like `sample automotive CAN bus data`.
+
+### Astronaut
+The Astronaut agent provides example checklists and scripts for aerospace topics. **Note: These are for educational purposes only and should not be used in real-world systems.**
+- **To get a spacesuit checklist:** Use a prompt like `a spacesuit checklist`.
+- **To get a drone control script:** Use a prompt like `a drone control script`.
 
 ## Setup and Installation
 
