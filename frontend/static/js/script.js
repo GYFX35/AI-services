@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const businessBtn = document.getElementById('business-btn');
     const publicServicesBtn = document.getElementById('public-services-btn');
     const gitHelperBtn = document.getElementById('git-helper-btn');
+    const scamTrackerBtn = document.getElementById('scam-tracker-btn');
     const responseOutput = document.getElementById('response-output');
     const loaderOverlay = document.getElementById('loader-overlay');
     const allButtons = document.querySelectorAll('button');
@@ -70,6 +71,11 @@ document.addEventListener('DOMContentLoaded', () => {
             commitMessage: commitMessage
         };
         sendCommand('git_helper', prompt);
+    });
+
+    scamTrackerBtn.addEventListener('click', () => {
+        const input = document.getElementById('scam-tracker-input').value;
+        sendCommand('scam_tracker', input);
     });
 
     async function sendCommand(role, prompt) {

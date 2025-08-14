@@ -1,6 +1,6 @@
 # AI Agent: A Multi-Role Assistant
 
-This project is a web-based AI agent that can perform several roles to assist with software development, business, and educational tasks.
+This project is a web-based AI agent that can perform several roles to assist with software development, business, and security tasks.
 
 ## Features
 
@@ -14,6 +14,7 @@ This project is a web-based AI agent that can perform several roles to assist wi
 - **Business Developer:** Generates a business plan outline and suggests SEO keyword research queries for a startup idea.
 - **Public Services:** Provides links to authoritative resources on topics like climate change, agriculture, and biodiversity.
 - **Git Helper:** Generates a shell script with the necessary Git commands to create a branch, commit, and push changes.
+- **Scam Tracker:** Analyzes a URL for common signs of being a scam or phishing site.
 
 ## How to Use
 
@@ -50,9 +51,9 @@ Ask for information on a supported public topic. The agent will return a list of
 
 ### Git Helper
 The Git Helper provides a safe way to automate pull requests. It generates a script of commands for you to review and run in your own terminal.
-1.  Enter a **Branch Name** (e.g., `feat/new-login-page`).
-2.  Enter a **Commit Message**.
-3.  The agent will return a shell script. Copy, paste, and run this script in your local terminal to create the branch, commit your staged changes, and push to the remote repository.
+
+### Scam Tracker
+Enter a URL in the "Scam Tracker" input field. The agent will analyze it for common red flags (like suspicious domain names or keywords) and provide a report.
 
 ## Setup and Installation
 

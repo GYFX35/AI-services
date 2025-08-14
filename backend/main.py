@@ -38,6 +38,8 @@ def execute():
         message = public_services_agent(prompt)
     elif role == 'git_helper':
         message = git_helper_agent(prompt)
+    elif role == 'scam_tracker':
+        message = scam_tracker_agent(prompt)
     else:
         message = "Unknown role."
 
@@ -498,6 +500,38 @@ git push origin "{branch}"
 echo "Open a pull request here: {repo_url}/pull/new/{branch}"
 """
     return f"Here is a shell script to perform the requested Git operations. Please review it carefully before use:\n```bash\n{script.strip()}\n```"
+
+def scam_tracker_agent(url):
+    """
+    Analyzes a URL for common signs of a scam.
+    """
+    red_flags = []
+
+    # 1. Check for URL shorteners
+    shorteners = ['bit.ly', 'tinyurl.com', 'goo.gl', 't.co']
+    parsed_url = urlparse(url)
+    if parsed_url.hostname in shorteners:
+        red_flags.append("URL uses a known URL shortener, which can hide the true destination.")
+
+    # 2. Check for suspicious TLDs
+    suspicious_tlds = ['.xyz', '.top', '.loan', '.stream', '.gdn', '.mom']
+    if parsed_url.hostname and any(parsed_url.hostname.endswith(tld) for tld in suspicious_tlds):
+        red_flags.append(f"URL uses a suspicious Top-Level Domain (TLD) that is common in scams.")
+
+    # 3. Check for keywords in the URL
+    scam_keywords = ['free', 'winner', 'prize', 'congratulations', 'login', 'verify', 'account']
+    if any(keyword in url.lower() for keyword in scam_keywords):
+        red_flags.append("URL contains keywords often used in phishing or scam websites.")
+
+    if not red_flags:
+        return f"Analysis of '{url}' found no immediate red flags. Always remain cautious."
+    else:
+        report = f"Scam Analysis Report for '{url}':\n\n"
+        report += "Potential red flags found:\n"
+        for flag in red_flags:
+            report += f"- {flag}\n"
+        report += "\nPlease exercise caution before proceeding to this website."
+        return report
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
