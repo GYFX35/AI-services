@@ -17,6 +17,7 @@ This project is a web-based AI agent that can perform several roles to assist wi
 - **Scam Tracker:** Analyzes a URL for common signs of being a scam or phishing site.
 - **Automation:** Generates example scripts and checklists for specialized domains like robotics, aerospace, and automotive.
 - **Astronaut:** Provides sample astronaut-related checklists and example drone control scripts.
+- **Medical Information:** Provides a search link for a medical query on an authoritative website, with a strong disclaimer that it is not medical advice.
 
 ## How to Use
 
@@ -70,6 +71,10 @@ The Automation agent provides example scripts and data for specialized, safety-c
 The Astronaut agent provides example checklists and scripts for aerospace topics. **Note: These are for educational purposes only and should not be used in real-world systems.**
 - **To get a spacesuit checklist:** Use a prompt like `a spacesuit checklist`.
 - **To get a drone control script:** Use a prompt like `a drone control script`.
+
+### Medical Information
+Enter any medical-related query (e.g., `symptoms of a cold`) into the "Medical" input field. The agent will return a search link to an authoritative source.
+- **IMPORTANT:** This agent is **not a doctor**. The information provided is for informational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.
 
 ## Setup and Installation
 

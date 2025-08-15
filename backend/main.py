@@ -42,6 +42,8 @@ def execute():
         message = scam_tracker_agent(prompt)
     elif role == 'automation':
         message = automation_agent(prompt)
+    elif role == 'medical':
+        message = medical_agent(prompt)
     else:
         message = "Unknown role."
 
@@ -673,6 +675,22 @@ if __name__ == '__main__':
         }
 
     return "Sorry, I can only generate example scripts for 'aerospace', 'robotics', or 'automotive'."
+
+def medical_agent(prompt):
+    """
+    Provides a disclaimer and a search link for a medical query.
+    """
+    disclaimer = (
+        "**Disclaimer:** I am an AI assistant and not a medical professional. "
+        "The information provided is for informational purposes only and should not be considered medical advice. "
+        "Please consult with a qualified healthcare provider for any health concerns."
+    )
+
+    search_url = f"https://www.mayoclinic.org/search/search-results?q={quote(prompt)}"
+
+    message = f"{disclaimer}\n\nHere is a search link for your query on Mayo Clinic:\n{search_url}"
+
+    return message.strip()
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
