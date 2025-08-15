@@ -20,6 +20,10 @@ def execute():
 
     if role == 'develop':
         message = generate_website(prompt)
+    elif role == 'develop_game':
+        message = generate_game(prompt)
+    elif role == 'develop_app':
+        message = generate_app(prompt)
     elif role == 'debug':
         message = debug_code(prompt)
     elif role == 'market':
@@ -34,6 +38,192 @@ def execute():
         "message": message
     }
     return jsonify(response)
+
+def generate_game(prompt):
+    # Basic prompt parsing
+    name = "Guess the Number"
+    description = "A simple number guessing game."
+    for line in prompt.splitlines():
+        if ':' in line:
+            key, value = line.split(':', 1)
+            if key.strip().lower() == 'name':
+                name = value.strip()
+            elif key.strip().lower() == 'description':
+                description = value.strip()
+
+    html_content = f"""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{name}</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>{name}</h1>
+    <p>{description}</p>
+    <p>I'm thinking of a number between 1 and 100.</p>
+    <input type="number" id="guess-input" min="1" max="100">
+    <button id="guess-btn">Guess</button>
+    <p id="message"></p>
+    <script src="script.js"></script>
+</body>
+</html>
+    """
+
+    css_content = """
+body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+h1 { color: #333; }
+input { padding: 5px; }
+button { padding: 5px 10px; }
+#message { margin-top: 20px; font-weight: bold; }
+    """
+
+    js_content = """
+document.addEventListener('DOMContentLoaded', () => {
+    const guessInput = document.getElementById('guess-input');
+    const guessBtn = document.getElementById('guess-btn');
+    const message = document.getElementById('message');
+
+    let randomNumber = Math.floor(Math.random() * 100) + 1;
+    let attempts = 0;
+
+    guessBtn.addEventListener('click', () => {
+        const userGuess = parseInt(guessInput.value);
+        attempts++;
+
+        if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+            message.textContent = 'Please enter a valid number between 1 and 100.';
+            return;
+        }
+
+        if (userGuess === randomNumber) {
+            message.textContent = `Congratulations! You guessed the number in ${attempts} attempts.`;
+            message.style.color = 'green';
+            guessBtn.disabled = true;
+        } else if (userGuess < randomNumber) {
+            message.textContent = 'Too low! Try again.';
+            message.style.color = 'red';
+        } else {
+            message.textContent = 'Too high! Try again.';
+            message.style.color = 'red';
+        }
+    });
+});
+    """
+
+    response_message = f"""
+Here is the generated code for your game.
+
+**index.html:**
+```html
+{html_content.strip()}
+```
+
+**style.css:**
+```css
+{css_content.strip()}
+```
+
+**script.js:**
+```javascript
+{js_content.strip()}
+```
+"""
+    return response_message.strip()
+
+def generate_app(prompt):
+    # Basic prompt parsing
+    name = "To-Do App"
+    description = "A simple to-do list application."
+    for line in prompt.splitlines():
+        if ':' in line:
+            key, value = line.split(':', 1)
+            if key.strip().lower() == 'name':
+                name = value.strip()
+            elif key.strip().lower() == 'description':
+                description = value.strip()
+
+    html_content = f"""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{name}</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>{name}</h1>
+    <p>{description}</p>
+    <input type="text" id="task-input" placeholder="Add a new task...">
+    <button id="add-task-btn">Add Task</button>
+    <ul id="task-list"></ul>
+    <script src="script.js"></script>
+</body>
+</html>
+    """
+
+    css_content = """
+body { font-family: sans-serif; margin: 2rem; }
+h1 { color: #333; }
+input { padding: 10px; width: 300px; }
+button { padding: 10px 15px; }
+ul { list-style-type: none; padding: 0; }
+li { padding: 10px; border-bottom: 1px solid #ccc; display: flex; justify-content: space-between; align-items: center; }
+li button { background: #ff4d4d; color: white; border: none; padding: 5px 10px; cursor: pointer; }
+    """
+
+    js_content = """
+document.addEventListener('DOMContentLoaded', () => {
+    const taskInput = document.getElementById('task-input');
+    const addTaskBtn = document.getElementById('add-task-btn');
+    const taskList = document.getElementById('task-list');
+
+    addTaskBtn.addEventListener('click', () => {
+        const taskText = taskInput.value.trim();
+        if (taskText !== '') {
+            addTask(taskText);
+            taskInput.value = '';
+        }
+    });
+
+    function addTask(taskText) {
+        const li = document.createElement('li');
+        li.textContent = taskText;
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.addEventListener('click', () => {
+            li.remove();
+        });
+
+        li.appendChild(deleteBtn);
+        taskList.appendChild(li);
+    }
+});
+    """
+
+    response_message = f"""
+Here is the generated code for your app.
+
+**index.html:**
+```html
+{html_content.strip()}
+```
+
+**style.css:**
+```css
+{css_content.strip()}
+```
+
+**script.js:**
+```javascript
+{js_content.strip()}
+```
+"""
+    return response_message.strip()
 
 def generate_website(prompt):
     import datetime

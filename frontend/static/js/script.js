@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const developerBtn = document.getElementById('developer-btn');
+    const gameDeveloperBtn = document.getElementById('game-developer-btn');
+    const appDeveloperBtn = document.getElementById('app-developer-btn');
     const debuggerBtn = document.getElementById('debugger-btn');
     const marketerBtn = document.getElementById('marketer-btn');
     const analyzerBtn = document.getElementById('analyzer-btn');
@@ -8,6 +10,16 @@ document.addEventListener('DOMContentLoaded', () => {
     developerBtn.addEventListener('click', () => {
         const input = document.getElementById('developer-input').value;
         sendCommand('develop', input);
+    });
+
+    gameDeveloperBtn.addEventListener('click', () => {
+        const input = document.getElementById('game-developer-input').value;
+        sendCommand('develop_game', input);
+    });
+
+    appDeveloperBtn.addEventListener('click', () => {
+        const input = document.getElementById('app-developer-input').value;
+        sendCommand('develop_app', input);
     });
 
     debuggerBtn.addEventListener('click', () => {
