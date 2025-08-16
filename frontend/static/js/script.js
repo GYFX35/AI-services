@@ -48,7 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     async function sendCommand(role, prompt) {
-        responseOutput.textContent = 'Thinking...';
+        const responseOutput = document.getElementById('response-output');
+        responseOutput.innerHTML = '<p>Thinking...</p>';
         try {
             const response = await fetch('/api/execute', {
                 method: 'POST',
@@ -64,12 +65,75 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             const data = await response.json();
             if (data.status === 'success') {
-                responseOutput.textContent = data.message;
+                if (role === 'analyze' && typeof data.message === 'object') {
+                    displayAnalysisResults(data.message);
+                } else {
+                    responseOutput.textContent = data.message;
+                }
             } else {
                 responseOutput.textContent = `Error: ${data.message}`;
             }
         } catch (error) {
             responseOutput.textContent = `An error occurred: ${error.message}`;
         }
+    }
+
+    function displayAnalysisResults(results) {
+        const responseOutput = document.getElementById('response-output');
+        responseOutput.innerHTML = ''; // Clear previous results
+
+        if (results.error) {
+            responseOutput.textContent = `Error: ${results.error}`;
+            return;
+        }
+
+        const totalLinks = (results.ok?.length || 0) + (results.broken?.length || 0) + (results.slow?.length || 0);
+
+        if (totalLinks === 0) {
+            responseOutput.innerHTML = '<p>No links found to analyze.</p>';
+            return;
+        }
+
+        responseOutput.innerHTML += `<p>Scanned ${totalLinks} links.</p>`;
+
+        if (results.broken && results.broken.length > 0) {
+            responseOutput.innerHTML += '<h3>Broken Links</h3>';
+            responseOutput.appendChild(createResultsTable(results.broken));
+        }
+
+        if (results.slow && results.slow.length > 0) {
+            responseOutput.innerHTML += '<h3>Slow Links</h3>';
+            responseOutput.appendChild(createResultsTable(results.slow));
+        }
+
+        if (results.ok && results.ok.length > 0) {
+            responseOutput.innerHTML += '<h3>OK Links</h3>';
+            responseOutput.appendChild(createResultsTable(results.ok));
+        }
+    }
+
+    function createResultsTable(links) {
+        const table = document.createElement('table');
+        table.className = 'results-table';
+        const thead = table.createTHead();
+        const headerRow = thead.insertRow();
+        const headers = ['URL', 'Anchor Text', 'Status', 'Response Time (ms)', 'Error'];
+        headers.forEach(text => {
+            const th = document.createElement('th');
+            th.textContent = text;
+            headerRow.appendChild(th);
+        });
+
+        const tbody = table.createTBody();
+        links.forEach(link => {
+            const row = tbody.insertRow();
+            row.insertCell().textContent = link.url;
+            row.insertCell().textContent = link.text;
+            row.insertCell().textContent = link.status;
+            row.insertCell().textContent = link.time_ms !== undefined ? link.time_ms : 'N/A';
+            row.insertCell().textContent = link.error || 'N/A';
+        });
+
+        return table;
     }
 });
