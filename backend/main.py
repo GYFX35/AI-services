@@ -1,4 +1,5 @@
 import os
+import time
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse, quote
@@ -440,41 +441,58 @@ def analyze_website(url):
     try:
         headers = {'User-Agent': 'AI-Agent-Checker/1.0'}
         response = requests.get(url, headers=headers, timeout=10)
-        response.raise_for_status() # Raise an exception for bad status codes
+        response.raise_for_status()
     except requests.RequestException as e:
-        return f"Error fetching URL: {e}"
+        return {'error': f"Error fetching URL: {e}"}
 
     soup = BeautifulSoup(response.content, 'lxml')
-    links = []
+    links_to_check = []
     for a_tag in soup.find_all('a', href=True):
         href = a_tag.get('href')
-        # Join relative URLs with the base URL
         full_url = urljoin(url, href)
-        # Only check http/https URLs
         if urlparse(full_url).scheme in ['http', 'https']:
-            links.append(full_url)
+            links_to_check.append({
+                'url': full_url,
+                'text': a_tag.get_text(strip=True)
+            })
 
-    broken_links = []
-    for link in links:
+    results = {'ok': [], 'broken': [], 'slow': []}
+
+    for link_data in links_to_check:
+        full_url = link_data['url']
+        anchor_text = link_data['text']
+
         try:
-            # Use a HEAD request to be more efficient
-            link_response = requests.head(link, headers=headers, timeout=5, allow_redirects=True)
-            if link_response.status_code == 404:
-                broken_links.append(link)
-        except requests.RequestException:
-            # Could be a timeout, DNS error, etc. Count these as "broken" for simplicity.
-            broken_links.append(link)
+            start_time = time.time()
+            link_response = requests.head(full_url, headers=headers, timeout=5, allow_redirects=True)
+            end_time = time.time()
 
-    if not broken_links:
-        return f"Scanned {len(links)} links on {url} and found no broken links (404s)."
-    else:
-        message = f"Found {len(broken_links)} broken links on {url}:\n\n"
-        for link in broken_links:
-            query = f"'{link}' on page '{url}' is a broken link"
-            search_url = f"https://www.google.com/search?q={quote(query)}"
-            message += f"- Broken Link: {link}\n"
-            message += f"  Suggested Search: {search_url}\n\n"
-        return message
+            response_time = round((end_time - start_time) * 1000)
+            status_code = link_response.status_code
+
+            link_result = {
+                'url': full_url,
+                'text': anchor_text,
+                'status': status_code,
+                'time_ms': response_time
+            }
+
+            if status_code >= 400:
+                results['broken'].append(link_result)
+            elif response_time > 1000:
+                results['slow'].append(link_result)
+            else:
+                results['ok'].append(link_result)
+
+        except requests.RequestException as e:
+            results['broken'].append({
+                'url': full_url,
+                'text': anchor_text,
+                'status': 'Error',
+                'error': str(e)
+            })
+
+    return results
 
 def fetch_github_file(url):
     """

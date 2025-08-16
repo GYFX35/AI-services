@@ -91,3 +91,22 @@ button:hover {
     white-space: pre-wrap;
     word-wrap: break-word;
 }
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.results-table th, .results-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    word-break: break-all;
+}
+
+.results-table th {
+    background-color: #e9e9e9;
+    font-weight: bold;
+}
