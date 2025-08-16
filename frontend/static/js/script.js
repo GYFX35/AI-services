@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const debuggerBtn = document.getElementById('debugger-btn');
     const marketerBtn = document.getElementById('marketer-btn');
     const analyzerBtn = document.getElementById('analyzer-btn');
+    const meteorologistBtn = document.getElementById('meteorologist-btn');
     const responseOutput = document.getElementById('response-output');
 
     developerBtn.addEventListener('click', () => {
@@ -39,6 +40,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const textInput = document.getElementById('analyzer-input').value;
         const prompt = urlInput.trim() || textInput;
         sendCommand('analyze', prompt);
+    });
+
+    meteorologistBtn.addEventListener('click', () => {
+        const input = document.getElementById('meteorologist-input').value;
+        sendCommand('meteorology', input);
     });
 
     async function sendCommand(role, prompt) {

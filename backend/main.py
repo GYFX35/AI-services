@@ -30,6 +30,8 @@ def execute():
         message = generate_social_media_post(prompt)
     elif role == 'analyze':
         message = analyze_website(prompt)
+    elif role == 'meteorology':
+        message = get_weather(prompt)
     else:
         message = "Unknown role."
 
@@ -38,6 +40,53 @@ def execute():
         "message": message
     }
     return jsonify(response)
+
+def get_weather(prompt):
+    api_key = os.environ.get("WEATHER_API_KEY")
+    if not api_key:
+        return "Error: WEATHER_API_KEY environment variable not set."
+
+    location = prompt.strip()
+
+    if not location:
+        return "Please provide a location."
+
+    try:
+        url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={location}"
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()  # Raise an exception for bad status codes
+        data = response.json()
+
+        if "error" in data:
+            return f"Error: {data['error']['message']}"
+
+        # Extract weather information
+        location_data = data.get('location', {})
+        current_data = data.get('current', {})
+
+        city = location_data.get('name')
+        region = location_data.get('region')
+        country = location_data.get('country')
+        temp_c = current_data.get('temp_c')
+        temp_f = current_data.get('temp_f')
+        condition = current_data.get('condition', {}).get('text')
+        wind_mph = current_data.get('wind_mph')
+        humidity = current_data.get('humidity')
+
+        # Format the response
+        message = (
+            f"Weather in {city}, {region}, {country}:\\n"
+            f"Temperature: {temp_c}°C / {temp_f}°F\\n"
+            f"Condition: {condition}\\n"
+            f"Wind: {wind_mph} mph\\n"
+            f"Humidity: {humidity}%"
+        )
+        return message
+
+    except requests.RequestException as e:
+        return f"Error fetching weather data: {e}"
+    except Exception as e:
+        return f"An unexpected error occurred: {e}"
 
 def generate_game(prompt):
     # Basic prompt parsing
