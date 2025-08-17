@@ -29,3 +29,9 @@ pid.[0-9]*.log
 yarn-error.log
 lerna-debug.log
 .pnpm-debug.log
+
+# Flask instance folder
+instance/
+
+# Cookies
+cookies.txt

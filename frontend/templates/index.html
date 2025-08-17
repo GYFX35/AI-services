@@ -1,64 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ get_locale() }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Agent</title>
+    <title>{{ _('AI Agent') }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+    <nav>
+      <ul class="languages">
+        {% for language in LANGUAGES %}
+          <li><a href="{{ url_for('set_language', language=language) }}" {% if language == get_locale() %}class="active"{% endif %}>{{ LANGUAGES[language] }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
     <div class="container">
-        <h1>AI Agent</h1>
-        <p>Your AI-powered Software Engineer, Debugger, Marketer, and System Analyzer.</p>
+        <h1>{{ _('AI Agent') }}</h1>
+        <p>{{ _('Your AI-powered Software Engineer, Debugger, Marketer, and System Analyzer.') }}</p>
 
         <div class="agent-section">
-            <h2>Software Engineer</h2>
-            <textarea id="developer-input" placeholder="Describe the website components. E.g.,&#10;title: My Photography Site&#10;header: John Doe Photography&#10;section: About Me&#10;  text: I am a photographer...&#10;footer: Copyright 2024"></textarea>
-            <button id="developer-btn">Build Website</button>
+            <h2>{{ _('Software Engineer') }}</h2>
+            <textarea id="developer-input" placeholder="{{ _('Describe the website components. E.g.,\ntitle: My Photography Site\nheader: John Doe Photography\nsection: About Me\n  text: I am a photographer...\nfooter: Copyright 2024') }}"></textarea>
+            <button id="developer-btn">{{ _('Build Website') }}</button>
         </div>
 
         <div class="agent-section">
-            <h2>Game Developer</h2>
-            <textarea id="game-developer-input" placeholder="Describe the game you want to create. E.g.,&#10;name: Guess the Number&#10;description: A simple number guessing game."></textarea>
-            <button id="game-developer-btn">Build Game</button>
+            <h2>{{ _('Game Developer') }}</h2>
+            <textarea id="game-developer-input" placeholder="{{ _('Describe the game you want to create. E.g.,\nname: Guess the Number\ndescription: A simple number guessing game.') }}"></textarea>
+            <button id="game-developer-btn">{{ _('Build Game') }}</button>
         </div>
 
         <div class="agent-section">
-            <h2>App Developer</h2>
-            <textarea id="app-developer-input" placeholder="Describe the app you want to create. E.g.,&#10;name: To-Do App&#10;description: A simple to-do list application."></textarea>
-            <button id="app-developer-btn">Build App</button>
+            <h2>{{ _('App Developer') }}</h2>
+            <textarea id="app-developer-input" placeholder="{{ _('Describe the app you want to create. E.g.,\nname: To-Do App\ndescription: A simple to-do list application.') }}"></textarea>
+            <button id="app-developer-btn">{{ _('Build App') }}</button>
         </div>
 
         <div class="agent-section">
-            <h2>Debugger</h2>
-            <textarea id="debugger-input" placeholder="Paste code here to debug..."></textarea>
-            <p class="or-text">OR</p>
-            <input type="text" id="debugger-url-input" class="url-input" placeholder="Enter a GitHub file URL to debug...">
-            <button id="debugger-btn">Debug Code</button>
+            <h2>{{ _('Debugger') }}</h2>
+            <textarea id="debugger-input" placeholder="{{ _('Paste code here to debug...') }}"></textarea>
+            <p class="or-text">{{ _('OR') }}</p>
+            <input type="text" id="debugger-url-input" class="url-input" placeholder="{{ _('Enter a GitHub file URL to debug...') }}">
+            <button id="debugger-btn">{{ _('Debug Code') }}</button>
         </div>
 
         <div class="agent-section">
-            <h2>Marketer</h2>
-            <textarea id="marketer-input" placeholder="Describe your business to get a social media post..."></textarea>
-            <button id="marketer-btn">Generate Post</button>
+            <h2>{{ _('Marketer') }}</h2>
+            <textarea id="marketer-input" placeholder="{{ _('Describe your business to get a social media post...') }}"></textarea>
+            <button id="marketer-btn">{{ _('Generate Post') }}</button>
         </div>
 
         <div class="agent-section">
-            <h2>System Analyzer</h2>
-            <textarea id="analyzer-input" placeholder="Enter a website URL to analyze..."></textarea>
-            <p class="or-text">OR</p>
-            <input type="text" id="analyzer-url-input" class="url-input" placeholder="Enter a GitHub file URL to analyze...">
-            <button id="analyzer-btn">Analyze System</button>
+            <h2>{{ _('System Analyzer') }}</h2>
+            <textarea id="analyzer-input" placeholder="{{ _('Enter a website URL to analyze...') }}"></textarea>
+            <p class="or-text">{{ _('OR') }}</p>
+            <input type="text" id="analyzer-url-input" class="url-input" placeholder="{{ _('Enter a GitHub file URL to analyze...') }}">
+            <button id="analyzer-btn">{{ _('Analyze System') }}</button>
         </div>
 
         <div class="agent-section">
-            <h2>Meteorologist</h2>
-            <textarea id="meteorologist-input" placeholder="Enter a location to get the current weather..."></textarea>
-            <button id="meteorologist-btn">Get Weather</button>
+            <h2>{{ _('Meteorologist') }}</h2>
+            <textarea id="meteorologist-input" placeholder="{{ _('Enter a location to get the current weather...') }}"></textarea>
+            <button id="meteorologist-btn">{{ _('Get Weather') }}</button>
         </div>
 
         <div class="response-section">
-            <h2>Agent's Response</h2>
+            <h2>{{ _('Agent\'s Response') }}</h2>
             <div id="response-output"></div>
         </div>
     </div>
