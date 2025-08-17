@@ -11,6 +11,10 @@
         <h1>AI Agent</h1>
         <p>Your AI-powered Software Engineer, Debugger, Marketer, and System Analyzer.</p>
 
+        <div class="api-key-section">
+            <input type="text" id="api-key-input" class="url-input" placeholder="Enter your API key...">
+        </div>
+
         <div class="agent-section">
             <h2>Software Engineer</h2>
             <textarea id="developer-input" placeholder="Describe the website components. E.g.,&#10;title: My Photography Site&#10;header: John Doe Photography&#10;section: About Me&#10;  text: I am a photographer...&#10;footer: Copyright 2024"></textarea>
@@ -55,6 +59,14 @@
             <h2>Meteorologist</h2>
             <textarea id="meteorologist-input" placeholder="Enter a location to get the current weather..."></textarea>
             <button id="meteorologist-btn">Get Weather</button>
+        </div>
+
+        <div class="agent-section">
+            <h2>Biometric Identification</h2>
+            <input type="text" id="biometric-name-input" class="url-input" placeholder="Enter name for enrollment...">
+            <input type="text" id="biometric-url-input" class="url-input" placeholder="Enter image URL for enrollment or identification...">
+            <button id="biometric-enroll-btn">Enroll Face</button>
+            <button id="biometric-identify-btn">Identify Face</button>
         </div>
 
         <div class="response-section">

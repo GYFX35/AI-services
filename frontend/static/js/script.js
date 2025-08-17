@@ -6,72 +6,86 @@ document.addEventListener('DOMContentLoaded', () => {
     const marketerBtn = document.getElementById('marketer-btn');
     const analyzerBtn = document.getElementById('analyzer-btn');
     const meteorologistBtn = document.getElementById('meteorologist-btn');
+    const biometricEnrollBtn = document.getElementById('biometric-enroll-btn');
+    const biometricIdentifyBtn = document.getElementById('biometric-identify-btn');
     const responseOutput = document.getElementById('response-output');
 
     developerBtn.addEventListener('click', () => {
         const input = document.getElementById('developer-input').value;
-        sendCommand('develop', input);
+        sendCommand('/api/v1/develop/website', { prompt: input });
     });
 
     gameDeveloperBtn.addEventListener('click', () => {
         const input = document.getElementById('game-developer-input').value;
-        sendCommand('develop_game', input);
+        sendCommand('/api/v1/develop/game', { prompt: input });
     });
 
     appDeveloperBtn.addEventListener('click', () => {
         const input = document.getElementById('app-developer-input').value;
-        sendCommand('develop_app', input);
+        sendCommand('/api/v1/develop/app', { prompt: input });
     });
 
     debuggerBtn.addEventListener('click', () => {
         const urlInput = document.getElementById('debugger-url-input').value;
         const textInput = document.getElementById('debugger-input').value;
         const prompt = urlInput.trim() || textInput;
-        sendCommand('debug', prompt);
+        sendCommand('/api/v1/debug', { prompt: prompt });
     });
 
     marketerBtn.addEventListener('click', () => {
         const input = document.getElementById('marketer-input').value;
-        sendCommand('market', input);
+        sendCommand('/api/v1/market/post', { prompt: input });
     });
 
     analyzerBtn.addEventListener('click', () => {
         const urlInput = document.getElementById('analyzer-url-input').value;
         const textInput = document.getElementById('analyzer-input').value;
         const prompt = urlInput.trim() || textInput;
-        sendCommand('analyze', prompt);
+        sendCommand('/api/v1/analyze/website', { url: prompt });
     });
 
     meteorologistBtn.addEventListener('click', () => {
         const input = document.getElementById('meteorologist-input').value;
-        sendCommand('meteorology', input);
+        sendCommand('/api/v1/weather', { location: input });
     });
 
-    async function sendCommand(role, prompt) {
-        const responseOutput = document.getElementById('response-output');
+    biometricEnrollBtn.addEventListener('click', () => {
+        const name = document.getElementById('biometric-name-input').value;
+        const imageUrl = document.getElementById('biometric-url-input').value;
+        sendCommand('/api/v1/biometric/face/enroll', { name: name, image_url: imageUrl });
+    });
+
+    biometricIdentifyBtn.addEventListener('click', () => {
+        const imageUrl = document.getElementById('biometric-url-input').value;
+        sendCommand('/api/v1/biometric/face/identify', { image_url: imageUrl });
+    });
+
+    async function sendCommand(endpoint, body) {
+        const apiKey = document.getElementById('api-key-input').value;
+        if (!apiKey) {
+            responseOutput.textContent = 'Error: API key is required.';
+            return;
+        }
+
         responseOutput.innerHTML = '<p>Thinking...</p>';
         try {
-            const response = await fetch('/api/execute', {
+            const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'X-API-Key': apiKey,
                 },
-                body: JSON.stringify({
-                    command: {
-                        role: role,
-                        prompt: prompt
-                    }
-                }),
+                body: JSON.stringify(body),
             });
             const data = await response.json();
             if (data.status === 'success') {
-                if (role === 'analyze' && typeof data.message === 'object') {
+                if (endpoint === '/api/v1/analyze/website' && typeof data.message === 'object') {
                     displayAnalysisResults(data.message);
                 } else {
                     responseOutput.textContent = data.message;
                 }
             } else {
-                responseOutput.textContent = `Error: ${data.message}`;
+                responseOutput.textContent = `Error: ${data.message || data.error}`;
             }
         } catch (error) {
             responseOutput.textContent = `An error occurred: ${error.message}`;
