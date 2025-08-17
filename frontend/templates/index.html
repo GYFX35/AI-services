@@ -3,72 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ _('AI Agent') }}</title>
+    <title>UsingAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <nav>
-      <ul class="languages">
-        {% for language in LANGUAGES %}
-          <li><a href="{{ url_for('set_language', language=language) }}" {% if language == get_locale() %}class="active"{% endif %}>{{ LANGUAGES[language] }}</a></li>
-        {% endfor %}
-      </ul>
-    </nav>
-    <div class="container">
-        <h1>{{ _('AI Agent') }}</h1>
-        <p>{{ _('Your AI-powered Software Engineer, Debugger, Marketer, and System Analyzer.') }}</p>
+    <header>
+        <nav>
+            <div class="logo">UsingAI</div>
+            <ul>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-        <div class="agent-section">
-            <h2>{{ _('Software Engineer') }}</h2>
-            <textarea id="developer-input" placeholder="{{ _('Describe the website components. E.g.,\ntitle: My Photography Site\nheader: John Doe Photography\nsection: About Me\n  text: I am a photographer...\nfooter: Copyright 2024') }}"></textarea>
-            <button id="developer-btn">{{ _('Build Website') }}</button>
-        </div>
+    <main>
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Welcome to UsingAI</h1>
+                <p>We build custom AI solutions to help your business grow.</p>
+                <a href="#contact" class="btn">Get in Touch</a>
+            </div>
+        </section>
 
-        <div class="agent-section">
-            <h2>{{ _('Game Developer') }}</h2>
-            <textarea id="game-developer-input" placeholder="{{ _('Describe the game you want to create. E.g.,\nname: Guess the Number\ndescription: A simple number guessing game.') }}"></textarea>
-            <button id="game-developer-btn">{{ _('Build Game') }}</button>
-        </div>
+        <section id="services" class="services">
+            <h2>Our Services</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>AI-Powered Development</h3>
+                    <p>We build custom websites, applications, and games using the latest AI technologies.</p>
+                </div>
+                <div class="card">
+                    <h3>Code Debugging & Analysis</h3>
+                    <p>Our AI tools can analyze your code, find bugs, and suggest improvements.</p>
+                </div>
+                <div class="card">
+                    <h3>Marketing & Content Creation</h3>
+                    <p>We generate creative social media posts and marketing copy to promote your brand.</p>
+                </div>
+            </div>
+        </section>
 
-        <div class="agent-section">
-            <h2>{{ _('App Developer') }}</h2>
-            <textarea id="app-developer-input" placeholder="{{ _('Describe the app you want to create. E.g.,\nname: To-Do App\ndescription: A simple to-do list application.') }}"></textarea>
-            <button id="app-developer-btn">{{ _('Build App') }}</button>
-        </div>
+        <section id="portfolio" class="portfolio">
+            <h2>Our Work</h2>
+            <div class="portfolio-gallery">
+                </div>
+        </section>
 
-        <div class="agent-section">
-            <h2>{{ _('Debugger') }}</h2>
-            <textarea id="debugger-input" placeholder="{{ _('Paste code here to debug...') }}"></textarea>
-            <p class="or-text">{{ _('OR') }}</p>
-            <input type="text" id="debugger-url-input" class="url-input" placeholder="{{ _('Enter a GitHub file URL to debug...') }}">
-            <button id="debugger-btn">{{ _('Debug Code') }}</button>
-        </div>
+    </main>
 
-        <div class="agent-section">
-            <h2>{{ _('Marketer') }}</h2>
-            <textarea id="marketer-input" placeholder="{{ _('Describe your business to get a social media post...') }}"></textarea>
-            <button id="marketer-btn">{{ _('Generate Post') }}</button>
-        </div>
-
-        <div class="agent-section">
-            <h2>{{ _('System Analyzer') }}</h2>
-            <textarea id="analyzer-input" placeholder="{{ _('Enter a website URL to analyze...') }}"></textarea>
-            <p class="or-text">{{ _('OR') }}</p>
-            <input type="text" id="analyzer-url-input" class="url-input" placeholder="{{ _('Enter a GitHub file URL to analyze...') }}">
-            <button id="analyzer-btn">{{ _('Analyze System') }}</button>
-        </div>
-
-        <div class="agent-section">
-            <h2>{{ _('Meteorologist') }}</h2>
-            <textarea id="meteorologist-input" placeholder="{{ _('Enter a location to get the current weather...') }}"></textarea>
-            <button id="meteorologist-btn">{{ _('Get Weather') }}</button>
-        </div>
-
-        <div class="response-section">
-            <h2>{{ _('Agent\'s Response') }}</h2>
-            <div id="response-output"></div>
-        </div>
-    </div>
+    <footer id="contact">
+        <p>&copy; 2024 UsingAI. All rights reserved.</p>
+    </footer>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>

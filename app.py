@@ -29,6 +29,15 @@ class User(db.Model):
     def __repr__(self):
         return f'<User {self.username}>'
 
+class Project(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.String(500), nullable=False)
+    image_url = db.Column(db.String(200), nullable=False)
+
+    def __repr__(self):
+        return f'<Project {self.title}>'
+
 # --- Flask App Setup ---
 app = Flask(__name__, template_folder='frontend/templates', static_folder='frontend/static')
 app.config['SECRET_KEY'] = secrets.token_hex(16)
@@ -571,7 +580,27 @@ def me():
         "username": g.user.username
     })
 
+@app.route('/api/v1/portfolio/projects', methods=['GET'])
+def get_projects():
+    projects = Project.query.all()
+    return jsonify([
+        {
+            'id': project.id,
+            'title': project.title,
+            'description': project.description,
+            'image_url': project.image_url
+        } for project in projects
+    ])
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
+        if not Project.query.first():
+            projects = [
+                Project(title='Project One', description='A web application that uses AI to generate recipes based on available ingredients.', image_url='https://via.placeholder.com/300x200'),
+                Project(title='Project Two', description='A mobile game that uses AI to create dynamic and challenging levels.', image_url='https://via.placeholder.com/300x200'),
+                Project(title='Project Three', description='An e-commerce website that uses AI to provide personalized product recommendations.', image_url='https://via.placeholder.com/300x200')
+            ]
+            db.session.bulk_save_objects(projects)
+            db.session.commit()
     app.run(debug=True, port=5000)
