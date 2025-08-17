@@ -1,6 +1,8 @@
 import os
 import time
 import requests
+import httpx
+import asyncio
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
 from flask import Flask, jsonify, render_template, request, g, session, redirect, url_for
@@ -271,7 +273,8 @@ def generate_website(prompt):
     import datetime
     structure = {'sections': []}
     current_section = None
-    for line in prompt.splitlines():
+    errors = []
+    for i, line in enumerate(prompt.splitlines()):
         if not line.strip():
             continue
         indentation = len(line) - len(line.lstrip(' '))
@@ -280,7 +283,8 @@ def generate_website(prompt):
             key = key.strip().lower()
             value = value.strip()
         except ValueError:
-            continue
+            return _("Error on line %(line_number)s: Invalid format. Each line must be in 'key: value' format.", line_number=i+1)
+
         if indentation == 0:
             if key == 'section':
                 current_section = {'title': value, 'content': {}}
@@ -290,23 +294,28 @@ def generate_website(prompt):
                 current_section = None
         elif indentation > 0 and current_section:
             current_section['content'][key] = value
+        else:
+            return _("Error on line %(line_number)s: Indentation error or item outside of a section.", line_number=i+1)
+
     title = structure.get('title', _('My Website'))
     header_content = structure.get('header', '')
     footer_content = structure.get('footer', '')
     main_content = ""
     for section in structure['sections']:
-        main_content += f"    <section>\\n"
-        main_content += f"      <h2>{section.get('title', '')}</h2>\\n"
+        main_content += f"    <section>\n"
+        main_content += f"      <h2>{section.get('title', '')}</h2>\n"
         if 'text' in section['content']:
-            main_content += f"      <p>{section['content']['text']}</p>\\n"
+            main_content += f"      <p>{section['content']['text']}</p>\n"
         if 'images' in section['content']:
             try:
                 num_images = int(section['content']['images'])
+                if not (0 <= num_images <= 10):
+                    return _("Error: Number of images must be between 0 and 10.")
                 for i in range(num_images):
-                    main_content += f"      <img src='https://via.placeholder.com/150' alt='{_("placeholder image %(number)s", number=i+1)}'>\\n"
+                    main_content += f"      <img src='https://via.placeholder.com/150' alt='{_("placeholder image %(number)s", number=i+1)}'>\n"
             except ValueError:
-                pass
-        main_content += f"    </section>\\n"
+                return _("Error: Invalid number for images. Please use an integer.")
+        main_content += f"    </section>\n"
     html_content = f"""
 <!DOCTYPE html>
 <html lang="en">
@@ -398,13 +407,44 @@ def generate_social_media_post(prompt):
     """
     return post.strip()
 
-def analyze_website(url):
+async def check_link(client, link_data, results, headers):
+    full_url = link_data['url']
+    anchor_text = link_data['text']
+    try:
+        start_time = time.time()
+        response = await client.head(full_url, headers=headers, timeout=5)
+        end_time = time.time()
+        response_time = round((end_time - start_time) * 1000)
+        status_code = response.status_code
+        link_result = {
+            'url': full_url,
+            'text': anchor_text,
+            'status': status_code,
+            'time_ms': response_time
+        }
+        if status_code >= 400:
+            results['broken'].append(link_result)
+        elif response_time > 1000:
+            results['slow'].append(link_result)
+        else:
+            results['ok'].append(link_result)
+    except httpx.RequestError as e:
+        results['broken'].append({
+            'url': full_url,
+            'text': anchor_text,
+            'status': 'Error',
+            'error': str(e)
+        })
+
+async def analyze_website(url):
     try:
         headers = {'User-Agent': 'AI-Agent-Checker/1.0'}
-        response = requests.get(url, headers=headers, timeout=10)
-        response.raise_for_status()
-    except requests.RequestException as e:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(url, headers=headers, timeout=10)
+            response.raise_for_status()
+    except httpx.RequestError as e:
         return {'error': _("Error fetching URL: %(error)s", error=e)}
+
     soup = BeautifulSoup(response.content, 'lxml')
     links_to_check = []
     for a_tag in soup.find_all('a', href=True):
@@ -415,35 +455,12 @@ def analyze_website(url):
                 'url': full_url,
                 'text': a_tag.get_text(strip=True)
             })
+
     results = {'ok': [], 'broken': [], 'slow': []}
-    for link_data in links_to_check:
-        full_url = link_data['url']
-        anchor_text = link_data['text']
-        try:
-            start_time = time.time()
-            link_response = requests.head(full_url, headers=headers, timeout=5, allow_redirects=True)
-            end_time = time.time()
-            response_time = round((end_time - start_time) * 1000)
-            status_code = link_response.status_code
-            link_result = {
-                'url': full_url,
-                'text': anchor_text,
-                'status': status_code,
-                'time_ms': response_time
-            }
-            if status_code >= 400:
-                results['broken'].append(link_result)
-            elif response_time > 1000:
-                results['slow'].append(link_result)
-            else:
-                results['ok'].append(link_result)
-        except requests.RequestException as e:
-            results['broken'].append({
-                'url': full_url,
-                'text': anchor_text,
-                'status': 'Error',
-                'error': str(e)
-            })
+    async with httpx.AsyncClient() as client:
+        tasks = [check_link(client, link_data, results, headers) for link_data in links_to_check]
+        await asyncio.gather(*tasks)
+
     return results
 
 def fetch_github_file(url):
@@ -469,7 +486,7 @@ def fetch_github_file(url):
 # --- API Endpoints ---
 def require_api_key(f):
     @wraps(f)
-    def decorated_function(*args, **kwargs):
+    async def decorated_function(*args, **kwargs):
         api_key = request.headers.get('X-API-Key')
         if not api_key:
             return jsonify({"error": _("API key is missing")}), 401
@@ -477,7 +494,7 @@ def require_api_key(f):
         if not user:
             return jsonify({"error": _("Invalid API key")}), 401
         g.user = user
-        return f(*args, **kwargs)
+        return await f(*args, **kwargs) if asyncio.iscoroutinefunction(f) else f(*args, **kwargs)
     return decorated_function
 
 @app.route('/')
@@ -536,12 +553,12 @@ def market_post_endpoint():
 
 @app.route('/api/v1/analyze/website', methods=['POST'])
 @require_api_key
-def analyze_website_endpoint():
+async def analyze_website_endpoint():
     data = request.get_json()
     url = data.get('url')
     if not url:
         return jsonify({"error": _("URL is required")}), 400
-    message = analyze_website(url)
+    message = await analyze_website(url)
     return jsonify({"status": "success", "message": message})
 
 @app.route('/api/v1/weather', methods=['POST'])
