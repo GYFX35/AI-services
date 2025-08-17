@@ -4,6 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse, quote
 from flask import Flask, jsonify, render_template, request
+from backend.api_calls import call_openai_api
 
 app = Flask(__name__, template_folder='../frontend/templates', static_folder='../frontend/static')
 
@@ -90,287 +91,87 @@ def get_weather(prompt):
         return f"An unexpected error occurred: {e}"
 
 def generate_game(prompt):
-    # Basic prompt parsing
-    name = "Guess the Number"
-    description = "A simple number guessing game."
-    for line in prompt.splitlines():
-        if ':' in line:
-            key, value = line.split(':', 1)
-            if key.strip().lower() == 'name':
-                name = value.strip()
-            elif key.strip().lower() == 'description':
-                description = value.strip()
-
-    html_content = f"""
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{name}</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <h1>{name}</h1>
-    <p>{description}</p>
-    <p>I'm thinking of a number between 1 and 100.</p>
-    <input type="number" id="guess-input" min="1" max="100">
-    <button id="guess-btn">Guess</button>
-    <p id="message"></p>
-    <script src="script.js"></script>
-</body>
-</html>
-    """
-
-    css_content = """
-body { font-family: sans-serif; text-align: center; margin-top: 50px; }
-h1 { color: #333; }
-input { padding: 5px; }
-button { padding: 5px 10px; }
-#message { margin-top: 20px; font-weight: bold; }
-    """
-
-    js_content = """
-document.addEventListener('DOMContentLoaded', () => {
-    const guessInput = document.getElementById('guess-input');
-    const guessBtn = document.getElementById('guess-btn');
-    const message = document.getElementById('message');
-
-    let randomNumber = Math.floor(Math.random() * 100) + 1;
-    let attempts = 0;
-
-    guessBtn.addEventListener('click', () => {
-        const userGuess = parseInt(guessInput.value);
-        attempts++;
-
-        if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
-            message.textContent = 'Please enter a valid number between 1 and 100.';
-            return;
-        }
-
-        if (userGuess === randomNumber) {
-            message.textContent = `Congratulations! You guessed the number in ${attempts} attempts.`;
-            message.style.color = 'green';
-            guessBtn.disabled = true;
-        } else if (userGuess < randomNumber) {
-            message.textContent = 'Too low! Try again.';
-            message.style.color = 'red';
-        } else {
-            message.textContent = 'Too high! Try again.';
-            message.style.color = 'red';
-        }
-    });
-});
-    """
-
-    response_message = f"""
-Here is the generated code for your game.
+    api_prompt = f"""
+Generate the HTML, CSS, and JavaScript for a web-based game based on the following prompt.
+The response should be in the same format as the example below, with the HTML, CSS, and JavaScript in separate code blocks.
 
 **index.html:**
 ```html
-{html_content.strip()}
+<!DOCTYPE html>
+...
 ```
 
 **style.css:**
 ```css
-{css_content.strip()}
+body {{
+    ...
+}}
 ```
 
 **script.js:**
 ```javascript
-{js_content.strip()}
+document.addEventListener('DOMContentLoaded', () => {{
+    ...
+}});
 ```
+
+Here is the prompt:
+{prompt}
 """
-    return response_message.strip()
+    return call_openai_api(api_prompt, max_tokens=2048)
 
 def generate_app(prompt):
-    # Basic prompt parsing
-    name = "To-Do App"
-    description = "A simple to-do list application."
-    for line in prompt.splitlines():
-        if ':' in line:
-            key, value = line.split(':', 1)
-            if key.strip().lower() == 'name':
-                name = value.strip()
-            elif key.strip().lower() == 'description':
-                description = value.strip()
-
-    html_content = f"""
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{name}</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <h1>{name}</h1>
-    <p>{description}</p>
-    <input type="text" id="task-input" placeholder="Add a new task...">
-    <button id="add-task-btn">Add Task</button>
-    <ul id="task-list"></ul>
-    <script src="script.js"></script>
-</body>
-</html>
-    """
-
-    css_content = """
-body { font-family: sans-serif; margin: 2rem; }
-h1 { color: #333; }
-input { padding: 10px; width: 300px; }
-button { padding: 10px 15px; }
-ul { list-style-type: none; padding: 0; }
-li { padding: 10px; border-bottom: 1px solid #ccc; display: flex; justify-content: space-between; align-items: center; }
-li button { background: #ff4d4d; color: white; border: none; padding: 5px 10px; cursor: pointer; }
-    """
-
-    js_content = """
-document.addEventListener('DOMContentLoaded', () => {
-    const taskInput = document.getElementById('task-input');
-    const addTaskBtn = document.getElementById('add-task-btn');
-    const taskList = document.getElementById('task-list');
-
-    addTaskBtn.addEventListener('click', () => {
-        const taskText = taskInput.value.trim();
-        if (taskText !== '') {
-            addTask(taskText);
-            taskInput.value = '';
-        }
-    });
-
-    function addTask(taskText) {
-        const li = document.createElement('li');
-        li.textContent = taskText;
-
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'Delete';
-        deleteBtn.addEventListener('click', () => {
-            li.remove();
-        });
-
-        li.appendChild(deleteBtn);
-        taskList.appendChild(li);
-    }
-});
-    """
-
-    response_message = f"""
-Here is the generated code for your app.
+    api_prompt = f"""
+Generate the HTML, CSS, and JavaScript for a web-based application based on the following prompt.
+The response should be in the same format as the example below, with the HTML, CSS, and JavaScript in separate code blocks.
 
 **index.html:**
 ```html
-{html_content.strip()}
+<!DOCTYPE html>
+...
 ```
 
 **style.css:**
 ```css
-{css_content.strip()}
+body {{
+    ...
+}}
 ```
 
 **script.js:**
 ```javascript
-{js_content.strip()}
+document.addEventListener('DOMContentLoaded', () => {{
+    ...
+}});
 ```
+
+Here is the prompt:
+{prompt}
 """
-    return response_message.strip()
+    return call_openai_api(api_prompt, max_tokens=2048)
 
 def generate_website(prompt):
-    import datetime
-
-    # 1. Parse the structured prompt
-    structure = {'sections': []}
-    current_section = None
-    for line in prompt.splitlines():
-        if not line.strip():
-            continue
-        indentation = len(line) - len(line.lstrip(' '))
-        try:
-            key, value = line.strip().split(':', 1)
-            key = key.strip().lower()
-            value = value.strip()
-        except ValueError:
-            continue
-        if indentation == 0:
-            if key == 'section':
-                current_section = {'title': value, 'content': {}}
-                structure['sections'].append(current_section)
-            else:
-                structure[key] = value
-                current_section = None
-        elif indentation > 0 and current_section:
-            current_section['content'][key] = value
-
-    # 2. Generate HTML from the structure
-    title = structure.get('title', 'My Website')
-    header_content = structure.get('header', '')
-    footer_content = structure.get('footer', '')
-
-    main_content = ""
-    for section in structure['sections']:
-        main_content += f"    <section>\n"
-        main_content += f"      <h2>{section.get('title', '')}</h2>\n"
-        if 'text' in section['content']:
-            main_content += f"      <p>{section['content']['text']}</p>\n"
-        if 'images' in section['content']:
-            try:
-                num_images = int(section['content']['images'])
-                for i in range(num_images):
-                    main_content += f"      <img src='https://via.placeholder.com/150' alt='placeholder image {i+1}'>\n"
-            except ValueError:
-                pass # Ignore if 'images' is not a number
-        main_content += f"    </section>\n"
-
-    html_content = f"""
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title}</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <h1>{header_content}</h1>
-    </header>
-    <main>
-{main_content}
-    </main>
-    <footer>
-        <p>{footer_content}</p>
-    </footer>
-</body>
-</html>
-    """
-
-    # 3. Generate CSS from the structure
-    css_content = """
-body { font-family: sans-serif; line-height: 1.6; margin: 0; padding: 0; background: #f4f4f4; color: #333; }
-.container { max-width: 960px; margin: auto; overflow: auto; padding: 0 2rem; }
-header { background: #333; color: #fff; padding: 1rem 0; text-align: center; }
-main { padding: 1rem; background: #fff; }
-section { margin-bottom: 1.5rem; }
-h2 { color: #333; }
-img { max-width: 100%; height: auto; margin: 0.5rem; }
-footer { text-align: center; padding: 1rem 0; background: #333; color: #fff; margin-top: 1rem; }
-    """
-
-    # 4. Return the generated code as a string
-    response_message = f"""
-Here is the generated code for your website.
+    api_prompt = f"""
+Generate the HTML and CSS for a static website based on the following structured text prompt.
+The response should be in the same format as the example below, with the HTML and CSS in separate code blocks.
 
 **index.html:**
 ```html
-{html_content.strip()}
+<!DOCTYPE html>
+...
 ```
 
 **style.css:**
 ```css
-{css_content.strip()}
+body {{
+    ...
+}}
 ```
+
+Here is the prompt:
+{prompt}
 """
-    return response_message.strip()
+    return call_openai_api(api_prompt, max_tokens=2048)
 
 def debug_code(prompt):
     # Check if the prompt is a URL to a GitHub file
@@ -383,59 +184,25 @@ def debug_code(prompt):
         # If not a URL, the prompt is the code itself
         code = prompt
 
-    # This is a very basic, custom linter.
-    errors = []
+    api_prompt = f"""
+Please act as a code debugger. Analyze the following code for errors, and provide a summary of the issues found and suggestions for fixing them.
 
-    # More robust language detection
-    if code.strip().startswith('<'):
-        lang = 'HTML'
-        # HTML checks
-        if not code.lower().strip().startswith('<!doctype html>'):
-            errors.append("Missing <!DOCTYPE html> declaration at the beginning.")
-
-        if code.lower().count('<html') != code.lower().count('</html>'):
-            errors.append("Mismatched <html> tags.")
-
-        if code.lower().count('<head') != code.lower().count('</head>'):
-            errors.append("Mismatched <head> tags.")
-
-        if code.lower().count('<body') != code.lower().count('</body>'):
-            errors.append("Mismatched <body> tags.")
-    else:
-        lang = 'CSS'
-        # CSS checks
-        if code.count('{') != code.count('}'):
-            errors.append("Mismatched curly braces {}.")
-
-        lines = code.split('\n')
-        in_block = False
-        for i, line in enumerate(lines):
-            line = line.strip()
-            if '{' in line:
-                in_block = True
-            if '}' in line:
-                in_block = False
-
-            if in_block and line and not line.endswith('{') and not line.endswith('}') and not line.endswith(';'):
-                 errors.append(f"Line {i+1}: Missing semicolon ';'.")
-
-    if not errors:
-        return f"No obvious issues found in your {lang} code."
-    else:
-        return f"Found potential issues in your {lang} code:\n" + "\n".join(f"- {error}" for error in errors)
+Here is the code:
+```
+{code}
+```
+"""
+    return call_openai_api(api_prompt)
 
 def generate_social_media_post(prompt):
-    # Simple template for a social media post
-    post = f"""
-🚀 Big News! 🚀
+    api_prompt = f"""
+Generate a promotional social media post from the following business description.
+The post should be engaging and include relevant hashtags.
 
-We're excited to announce {prompt}!
-
-Come and check us out! You won't be disappointed.
-
-#NewBusiness #GrandOpening #{prompt.replace(" ", "").split(',')[0]} #SupportLocal
-    """
-    return post.strip()
+Here is the business description:
+{prompt}
+"""
+    return call_openai_api(api_prompt)
 
 def analyze_website(url):
     try:
