@@ -3,13 +3,20 @@ import time
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
-from flask import Flask, jsonify, render_template, request, g
+from flask import Flask, jsonify, render_template, request, g, session, redirect, url_for
 import secrets
 from functools import wraps
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
+from flask_babel import Babel, _
 
 load_dotenv(dotenv_path=".env")
+
+# --- Languages ---
+LANGUAGES = {
+    'en': 'English',
+    'es': 'Español'
+}
 
 # --- Database Setup ---
 db = SQLAlchemy()
@@ -24,24 +31,47 @@ class User(db.Model):
 
 # --- Flask App Setup ---
 app = Flask(__name__, template_folder='frontend/templates', static_folder='frontend/static')
+app.config['SECRET_KEY'] = secrets.token_hex(16)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///project.db'
+app.config['LANGUAGES'] = LANGUAGES
+app.config['BABEL_DEFAULT_LOCALE'] = 'en'
+babel = Babel()
 db.init_app(app)
+
+def get_locale():
+    if 'language' in session:
+        return session['language']
+    return request.accept_languages.best_match(app.config['LANGUAGES'].keys())
+
+babel.init_app(app, locale_selector=get_locale)
+
+@app.context_processor
+def inject_conf_var():
+    return dict(
+        LANGUAGES=app.config['LANGUAGES'],
+        get_locale=get_locale
+    )
+
+@app.route('/language/<language>')
+def set_language(language=None):
+    session['language'] = language
+    return redirect(url_for('index'))
 
 # --- Services ---
 def get_weather(prompt):
     api_key = os.environ.get("WEATHER_API_KEY")
     if not api_key:
-        return "Error: WEATHER_API_KEY environment variable not set."
+        return _("Error: WEATHER_API_KEY environment variable not set.")
     location = prompt.strip()
     if not location:
-        return "Please provide a location."
+        return _("Please provide a location.")
     try:
         url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={location}"
         response = requests.get(url, timeout=10)
         response.raise_for_status()
         data = response.json()
         if "error" in data:
-            return f"Error: {data['error']['message']}"
+            return _("Error: %(message)s", message=data['error']['message'])
         location_data = data.get('location', {})
         current_data = data.get('current', {})
         city = location_data.get('name')
@@ -53,21 +83,21 @@ def get_weather(prompt):
         wind_mph = current_data.get('wind_mph')
         humidity = current_data.get('humidity')
         message = (
-            f"Weather in {city}, {region}, {country}:\\n"
-            f"Temperature: {temp_c}°C / {temp_f}°F\\n"
-            f"Condition: {condition}\\n"
-            f"Wind: {wind_mph} mph\\n"
-            f"Humidity: {humidity}%"
+            _("Weather in %(city)s, %(region)s, %(country)s:\n", city=city, region=region, country=country) +
+            _("Temperature: %(temp_c)s°C / %(temp_f)s°F\n", temp_c=temp_c, temp_f=temp_f) +
+            _("Condition: %(condition)s\n", condition=condition) +
+            _("Wind: %(wind_mph)s mph\n", wind_mph=wind_mph) +
+            _("Humidity: %(humidity)s%%", humidity=humidity)
         )
         return message
     except requests.RequestException as e:
-        return f"Error fetching weather data: {e}"
+        return _("Error fetching weather data: %(error)s", error=e)
     except Exception as e:
-        return f"An unexpected error occurred: {e}"
+        return _("An unexpected error occurred: %(error)s", error=e)
 
 def generate_game(prompt):
-    name = "Guess the Number"
-    description = "A simple number guessing game."
+    name = _("Guess the Number")
+    description = _("A simple number guessing game.")
     for line in prompt.splitlines():
         if ':' in line:
             key, value = line.split(':', 1)
@@ -88,9 +118,9 @@ def generate_game(prompt):
 <body>
     <h1>{name}</h1>
     <p>{description}</p>
-    <p>I'm thinking of a number between 1 and 100.</p>
+    <p>{_("I'm thinking of a number between 1 and 100.")}</p>
     <input type="number" id="guess-input" min="1" max="100">
-    <button id="guess-btn">Guess</button>
+    <button id="guess-btn">{_("Guess")}</button>
     <p id="message"></p>
     <script src="script.js"></script>
 </body>
@@ -103,36 +133,36 @@ input { padding: 5px; }
 button { padding: 5px 10px; }
 #message { margin-top: 20px; font-weight: bold; }
     """
-    js_content = """
-document.addEventListener('DOMContentLoaded', () => {
+    js_content = f"""
+document.addEventListener('DOMContentLoaded', () => {{
     const guessInput = document.getElementById('guess-input');
     const guessBtn = document.getElementById('guess-btn');
     const message = document.getElementById('message');
     let randomNumber = Math.floor(Math.random() * 100) + 1;
     let attempts = 0;
-    guessBtn.addEventListener('click', () => {
+    guessBtn.addEventListener('click', () => {{
         const userGuess = parseInt(guessInput.value);
         attempts++;
-        if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
-            message.textContent = 'Please enter a valid number between 1 and 100.';
+        if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {{
+            message.textContent = '{_("Please enter a valid number between 1 and 100.")}';
             return;
-        }
-        if (userGuess === randomNumber) {
-            message.textContent = `Congratulations! You guessed the number in ${attempts} attempts.`;
+        }}
+        if (userGuess === randomNumber) {{
+            message.textContent = '{_("Congratulations! You guessed the number in %(attempts)s attempts.", attempts="{attempts}")}';
             message.style.color = 'green';
             guessBtn.disabled = true;
-        } else if (userGuess < randomNumber) {
-            message.textContent = 'Too low! Try again.';
+        }} else if (userGuess < randomNumber) {{
+            message.textContent = '{_("Too low! Try again.")}';
             message.style.color = 'red';
-        } else {
-            message.textContent = 'Too high! Try again.';
+        }} else {{
+            message.textContent = '{_("Too high! Try again.")}';
             message.style.color = 'red';
-        }
-    });
-});
-    """
+        }}
+    }});
+}});
+"""
     response_message = f"""
-Here is the generated code for your game.
+{_("Here is the generated code for your game.")}
 **index.html:**
 ```html
 {html_content.strip()}
@@ -149,8 +179,8 @@ Here is the generated code for your game.
     return response_message.strip()
 
 def generate_app(prompt):
-    name = "To-Do App"
-    description = "A simple to-do list application."
+    name = _("To-Do App")
+    description = _("A simple to-do list application.")
     for line in prompt.splitlines():
         if ':' in line:
             key, value = line.split(':', 1)
@@ -170,8 +200,8 @@ def generate_app(prompt):
 <body>
     <h1>{name}</h1>
     <p>{description}</p>
-    <input type="text" id="task-input" placeholder="Add a new task...">
-    <button id="add-task-btn">Add Task</button>
+    <input type="text" id="task-input" placeholder="{_("Add a new task...")}">
+    <button id="add-task-btn">{_("Add Task")}</button>
     <ul id="task-list"></ul>
     <script src="script.js"></script>
 </body>
@@ -186,33 +216,33 @@ ul { list-style-type: none; padding: 0; }
 li { padding: 10px; border-bottom: 1px solid #ccc; display: flex; justify-content: space-between; align-items: center; }
 li button { background: #ff4d4d; color: white; border: none; padding: 5px 10px; cursor: pointer; }
     """
-    js_content = """
-document.addEventListener('DOMContentLoaded', () => {
+    js_content = f"""
+document.addEventListener('DOMContentLoaded', () => {{
     const taskInput = document.getElementById('task-input');
     const addTaskBtn = document.getElementById('add-task-btn');
     const taskList = document.getElementById('task-list');
-    addTaskBtn.addEventListener('click', () => {
+    addTaskBtn.addEventListener('click', () => {{
         const taskText = taskInput.value.trim();
-        if (taskText !== '') {
+        if (taskText !== '') {{
             addTask(taskText);
             taskInput.value = '';
-        }
-    });
-    function addTask(taskText) {
+        }}
+    }});
+    function addTask(taskText) {{
         const li = document.createElement('li');
         li.textContent = taskText;
         const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'Delete';
-        deleteBtn.addEventListener('click', () => {
+        deleteBtn.textContent = '{_("Delete")}';
+        deleteBtn.addEventListener('click', () => {{
             li.remove();
-        });
+        }});
         li.appendChild(deleteBtn);
         taskList.appendChild(li);
-    }
-});
-    """
+    }}
+}});
+"""
     response_message = f"""
-Here is the generated code for your app.
+{_("Here is the generated code for your app.")}
 **index.html:**
 ```html
 {html_content.strip()}
@@ -251,7 +281,7 @@ def generate_website(prompt):
                 current_section = None
         elif indentation > 0 and current_section:
             current_section['content'][key] = value
-    title = structure.get('title', 'My Website')
+    title = structure.get('title', _('My Website'))
     header_content = structure.get('header', '')
     footer_content = structure.get('footer', '')
     main_content = ""
@@ -264,7 +294,7 @@ def generate_website(prompt):
             try:
                 num_images = int(section['content']['images'])
                 for i in range(num_images):
-                    main_content += f"      <img src='https://via.placeholder.com/150' alt='placeholder image {i+1}'>\\n"
+                    main_content += f"      <img src='https://via.placeholder.com/150' alt='{_("placeholder image %(number)s", number=i+1)}'>\\n"
             except ValueError:
                 pass
         main_content += f"    </section>\\n"
@@ -301,7 +331,7 @@ img { max-width: 100%; height: auto; margin: 0.5rem; }
 footer { text-align: center; padding: 1rem 0; background: #333; color: #fff; margin-top: 1rem; }
     """
     response_message = f"""
-Here is the generated code for your website.
+{_("Here is the generated code for your website.")}
 **index.html:**
 ```html
 {html_content.strip()}
@@ -324,17 +354,17 @@ def debug_code(prompt):
     if code.strip().startswith('<'):
         lang = 'HTML'
         if not code.lower().strip().startswith('<!doctype html>'):
-            errors.append("Missing <!DOCTYPE html> declaration at the beginning.")
+            errors.append(_("Missing <!DOCTYPE html> declaration at the beginning."))
         if code.lower().count('<html') != code.lower().count('</html>'):
-            errors.append("Mismatched <html> tags.")
+            errors.append(_("Mismatched <html> tags."))
         if code.lower().count('<head') != code.lower().count('</head>'):
-            errors.append("Mismatched <head> tags.")
+            errors.append(_("Mismatched <head> tags."))
         if code.lower().count('<body') != code.lower().count('</body>'):
-            errors.append("Mismatched <body> tags.")
+            errors.append(_("Mismatched <body> tags."))
     else:
         lang = 'CSS'
         if code.count('{') != code.count('}'):
-            errors.append("Mismatched curly braces {}.")
+            errors.append(_("Mismatched curly braces {}."))
         lines = code.split('\\n')
         in_block = False
         for i, line in enumerate(lines):
@@ -344,17 +374,17 @@ def debug_code(prompt):
             if '}' in line:
                 in_block = False
             if in_block and line and not line.endswith('{') and not line.endswith('}') and not line.endswith(';'):
-                 errors.append(f"Line {i+1}: Missing semicolon ';'.")
+                 errors.append(_("Line %(line_number)s: Missing semicolon ';'.", line_number=i+1))
     if not errors:
-        return f"No obvious issues found in your {lang} code."
+        return _("No obvious issues found in your %(lang)s code.", lang=lang)
     else:
-        return f"Found potential issues in your {lang} code:\\n" + "\\n".join(f"- {error}" for error in errors)
+        return _("Found potential issues in your %(lang)s code:\n", lang=lang) + "\\n".join(f"- {error}" for error in errors)
 
 def generate_social_media_post(prompt):
     post = f"""
 🚀 Big News! 🚀
-We're excited to announce {prompt}!
-Come and check us out! You won't be disappointed.
+{_("We're excited to announce %(prompt)s!", prompt=prompt)}
+{_("Come and check us out! You won't be disappointed.")}
 #NewBusiness #GrandOpening #{prompt.replace(" ", "").split(',')[0]} #SupportLocal
     """
     return post.strip()
@@ -365,7 +395,7 @@ def analyze_website(url):
         response = requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()
     except requests.RequestException as e:
-        return {'error': f"Error fetching URL: {e}"}
+        return {'error': _("Error fetching URL: %(error)s", error=e)}
     soup = BeautifulSoup(response.content, 'lxml')
     links_to_check = []
     for a_tag in soup.find_all('a', href=True):
@@ -411,10 +441,10 @@ def fetch_github_file(url):
     try:
         parsed_url = urlparse(url)
         if parsed_url.hostname != 'github.com':
-            return "Error: Not a valid GitHub URL."
+            return _("Error: Not a valid GitHub URL.")
         path_parts = parsed_url.path.strip('/').split('/')
         if len(path_parts) < 4 or path_parts[2] != 'blob':
-            return "Error: URL does not appear to be a valid GitHub file URL (e.g., .../user/repo/blob/branch/file)."
+            return _("Error: URL does not appear to be a valid GitHub file URL (e.g., .../user/repo/blob/branch/file).")
         user, repo, _, branch = path_parts[:4]
         file_path = '/'.join(path_parts[4:])
         raw_url = f"https.raw.githubusercontent.com/{user}/{repo}/{branch}/{file_path}"
@@ -423,9 +453,9 @@ def fetch_github_file(url):
         response.raise_for_status()
         return response.text
     except requests.RequestException as e:
-        return f"Error fetching file from GitHub: {e}"
+        return _("Error fetching file from GitHub: %(error)s", error=e)
     except Exception as e:
-        return f"An unexpected error occurred: {e}"
+        return _("An unexpected error occurred: %(error)s", error=e)
 
 # --- API Endpoints ---
 def require_api_key(f):
@@ -433,10 +463,10 @@ def require_api_key(f):
     def decorated_function(*args, **kwargs):
         api_key = request.headers.get('X-API-Key')
         if not api_key:
-            return jsonify({"error": "API key is missing"}), 401
+            return jsonify({"error": _("API key is missing")}), 401
         user = User.query.filter_by(api_key=api_key).first()
         if not user:
-            return jsonify({"error": "Invalid API key"}), 401
+            return jsonify({"error": _("Invalid API key")}), 401
         g.user = user
         return f(*args, **kwargs)
     return decorated_function
@@ -451,7 +481,7 @@ def develop_website_endpoint():
     data = request.get_json()
     prompt = data.get('prompt')
     if not prompt:
-        return jsonify({"error": "Prompt is required"}), 400
+        return jsonify({"error": _("Prompt is required")}), 400
     message = generate_website(prompt)
     return jsonify({"status": "success", "message": message})
 
@@ -461,7 +491,7 @@ def develop_game_endpoint():
     data = request.get_json()
     prompt = data.get('prompt')
     if not prompt:
-        return jsonify({"error": "Prompt is required"}), 400
+        return jsonify({"error": _("Prompt is required")}), 400
     message = generate_game(prompt)
     return jsonify({"status": "success", "message": message})
 
@@ -471,7 +501,7 @@ def develop_app_endpoint():
     data = request.get_json()
     prompt = data.get('prompt')
     if not prompt:
-        return jsonify({"error": "Prompt is required"}), 400
+        return jsonify({"error": _("Prompt is required")}), 400
     message = generate_app(prompt)
     return jsonify({"status": "success", "message": message})
 
@@ -481,7 +511,7 @@ def debug_endpoint():
     data = request.get_json()
     prompt = data.get('prompt')
     if not prompt:
-        return jsonify({"error": "Prompt is required"}), 400
+        return jsonify({"error": _("Prompt is required")}), 400
     message = debug_code(prompt)
     return jsonify({"status": "success", "message": message})
 
@@ -491,7 +521,7 @@ def market_post_endpoint():
     data = request.get_json()
     prompt = data.get('prompt')
     if not prompt:
-        return jsonify({"error": "Prompt is required"}), 400
+        return jsonify({"error": _("Prompt is required")}), 400
     message = generate_social_media_post(prompt)
     return jsonify({"status": "success", "message": message})
 
@@ -501,7 +531,7 @@ def analyze_website_endpoint():
     data = request.get_json()
     url = data.get('url')
     if not url:
-        return jsonify({"error": "URL is required"}), 400
+        return jsonify({"error": _("URL is required")}), 400
     message = analyze_website(url)
     return jsonify({"status": "success", "message": message})
 
@@ -511,7 +541,7 @@ def weather_endpoint():
     data = request.get_json()
     location = data.get('location')
     if not location:
-        return jsonify({"error": "Location is required"}), 400
+        return jsonify({"error": _("Location is required")}), 400
     message = get_weather(location)
     return jsonify({"status": "success", "message": message})
 
@@ -520,9 +550,9 @@ def register():
     data = request.get_json()
     username = data.get('username')
     if not username:
-        return jsonify({"error": "Username is required"}), 400
+        return jsonify({"error": _("Username is required")}), 400
     if User.query.filter_by(username=username).first():
-        return jsonify({"error": "Username already exists"}), 400
+        return jsonify({"error": _("Username already exists")}), 400
     api_key = secrets.token_hex(16)
     new_user = User(username=username, api_key=api_key)
     db.session.add(new_user)
