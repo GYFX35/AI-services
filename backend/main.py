@@ -44,6 +44,8 @@ def execute():
         message = automation_agent(prompt)
     elif role == 'medical':
         message = medical_agent(prompt)
+    elif role == 'ads_optimization':
+        message = optimize_ads_agent(prompt)
     else:
         message = "Unknown role."
 
@@ -691,6 +693,35 @@ def medical_agent(prompt):
     message = f"{disclaimer}\n\nHere is a search link for your query on Mayo Clinic:\n{search_url}"
 
     return message.strip()
+
+def optimize_ads_agent(prompt):
+    """
+    Generates ad copy and keywords for a given product or service.
+    """
+    ad_copy = f\"\"\"
+**Ad Copy Suggestions for '{prompt}':**
+
+**Headline 1:** Unlock the Power of {prompt}!
+**Headline 2:** The Ultimate Solution for {prompt}.
+**Headline 3:** Get Started with {prompt} Today.
+
+**Description 1:** Discover how {prompt} can help you achieve your goals. Our innovative solution provides everything you need to succeed.
+**Description 2:** Looking for an edge? {prompt} offers unparalleled features and benefits. Try it now and see the difference.
+
+---
+
+**Keyword Suggestions:**
+
+- {prompt}
+- best {prompt}
+- {prompt} solutions
+- {prompt} software
+- top {prompt} tools
+- {prompt} for small business
+- enterprise {prompt}
+- affordable {prompt}
+\"\"\"
+    return ad_copy.strip()
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

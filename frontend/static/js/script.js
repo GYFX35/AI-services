@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const automationBtn = document.getElementById('automation-btn');
     const astronautBtn = document.getElementById('astronaut-btn');
     const medicalBtn = document.getElementById('medical-btn');
+    const adsBtn = document.getElementById('ads-btn');
     const responseOutput = document.getElementById('response-output');
     const loaderOverlay = document.getElementById('loader-overlay');
     const allButtons = document.querySelectorAll('button');
@@ -94,6 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
     medicalBtn.addEventListener('click', () => {
         const input = document.getElementById('medical-input').value;
         sendCommand('medical_info', input);
+    });
+
+    adsBtn.addEventListener('click', () => {
+        const input = document.getElementById('ads-input').value;
+        sendCommand('ads_optimization', input);
     });
 
     async function sendCommand(role, prompt) {
