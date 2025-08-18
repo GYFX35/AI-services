@@ -407,6 +407,20 @@ def generate_social_media_post(prompt):
     """
     return post.strip()
 
+def optimize_ads(prompt):
+    # Basic keyword extraction and ad copy generation
+    keywords = [word for word in prompt.split() if len(word) > 4]
+    ad_copy = f"Optimized ad for: {prompt}. Try focusing on keywords like {', '.join(keywords[:3])}."
+    return {
+        "ad_copy": ad_copy,
+        "keywords": keywords,
+        "recommendations": [
+            "Use high-quality images.",
+            "A/B test your ad copy.",
+            "Target a specific audience."
+        ]
+    }
+
 async def check_link(client, link_data, results, headers):
     full_url = link_data['url']
     anchor_text = link_data['text']
@@ -549,6 +563,16 @@ def market_post_endpoint():
     if not prompt:
         return jsonify({"error": _("Prompt is required")}), 400
     message = generate_social_media_post(prompt)
+    return jsonify({"status": "success", "message": message})
+
+@app.route('/api/v1/optimize/ads', methods=['POST'])
+@require_api_key
+def optimize_ads_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = optimize_ads(prompt)
     return jsonify({"status": "success", "message": message})
 
 @app.route('/api/v1/analyze/website', methods=['POST'])
