@@ -609,15 +609,33 @@ def get_projects():
         } for project in projects
     ])
 
-if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
-        if not Project.query.first():
-            projects = [
-                Project(title='Project One', description='A web application that uses AI to generate recipes based on available ingredients.', image_url='https://via.placeholder.com/300x200'),
-                Project(title='Project Two', description='A mobile game that uses AI to create dynamic and challenging levels.', image_url='https://via.placeholder.com/300x200'),
-                Project(title='Project Three', description='An e-commerce website that uses AI to provide personalized product recommendations.', image_url='https://via.placeholder.com/300x200')
-            ]
-            db.session.bulk_save_objects(projects)
-            db.session.commit()
-    app.run(debug=True, port=5000)
+# The following block is for development purposes and should not be used in production.
+# Use a production-ready WSGI server like Gunicorn to run the application.
+# Example: gunicorn --bind 0.0.0.0:5000 app:app
+# The database initialization is also handled separately in a production environment.
+# if __name__ == '__main__':
+#     with app.app_context():
+#         db.create_all()
+#         if not Project.query.first():
+#             projects = [
+#                 Project(title='Project One', description='A web application that uses AI to generate recipes based on available ingredients.', image_url='https://via.placeholder.com/300x200'),
+#                 Project(title='Project Two', description='A mobile game that uses AI to create dynamic and challenging levels.', image_url='https://via.placeholder.com/300x200'),
+#                 Project(title='Project Three', description='An e-commerce website that uses AI to provide personalized product recommendations.', image_url='https://via.placeholder.com/300x200')
+#             ]
+#             db.session.bulk_save_objects(projects)
+#             db.session.commit()
+#     app.run(debug=True, port=5000)
+
+@app.cli.command("init-db")
+def init_db_command():
+    """Creates the database tables and populates them with initial data."""
+    db.create_all()
+    if not Project.query.first():
+        projects = [
+            Project(title='Project One', description='A web application that uses AI to generate recipes based on available ingredients.', image_url='https://via.placeholder.com/300x200'),
+            Project(title='Project Two', description='A mobile game that uses AI to create dynamic and challenging levels.', image_url='https://via.placeholder.com/300x200'),
+            Project(title='Project Three', description='An e-commerce website that uses AI to provide personalized product recommendations.', image_url='https://via.placeholder.com/300x200')
+        ]
+        db.session.bulk_save_objects(projects)
+        db.session.commit()
+    print("Database initialized.")
