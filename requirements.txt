@@ -1,4 +1,4 @@
-Flask
+Flask[async]
 Flask-Babel
 Flask-SQLAlchemy
 python-dotenv
@@ -8,3 +8,4 @@ lxml
 httpx
 anyio
 sniffio
+stripe

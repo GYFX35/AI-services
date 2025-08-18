@@ -10,6 +10,7 @@ import secrets
 from functools import wraps
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
+import stripe
 from flask_babel import Babel, _
 
 load_dotenv(dotenv_path=".env")
@@ -40,6 +41,18 @@ class Project(db.Model):
     def __repr__(self):
         return f'<Project {self.title}>'
 
+class Payment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    amount = db.Column(db.Integer, nullable=False)
+    currency = db.Column(db.String(10), nullable=False)
+    status = db.Column(db.String(20), nullable=False, default='pending')
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    meta_payment_id = db.Column(db.String(120), unique=True, nullable=True)
+    user = db.relationship('User', backref=db.backref('payments', lazy=True))
+    def __repr__(self):
+        return f'<Payment {self.id}>'
+
 # --- Flask App Setup ---
 app = Flask(__name__, template_folder='frontend/templates', static_folder='frontend/static')
 app.config['SECRET_KEY'] = secrets.token_hex(16)
@@ -48,6 +61,7 @@ app.config['LANGUAGES'] = LANGUAGES
 app.config['BABEL_DEFAULT_LOCALE'] = 'en'
 babel = Babel()
 db.init_app(app)
+stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
 
 def get_locale():
     if 'language' in session:
@@ -497,6 +511,13 @@ def require_api_key(f):
         return await f(*args, **kwargs) if asyncio.iscoroutinefunction(f) else f(*args, **kwargs)
     return decorated_function
 
+@app.route('/api/config')
+def get_config():
+    return jsonify({
+        'stripePublicKey': os.environ.get('STRIPE_PUBLIC_KEY'),
+        'metaAppId': os.environ.get('META_APP_ID')
+    })
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -608,6 +629,93 @@ def get_projects():
             'image_url': project.image_url
         } for project in projects
     ])
+
+@app.route('/api/v1/payment/create-payment-intent', methods=['POST'])
+@require_api_key
+def create_payment_intent():
+    data = request.get_json()
+    amount = data.get('amount')
+    currency = data.get('currency')
+
+    if not all([amount, currency]):
+        return jsonify({"error": _("Amount and currency are required")}), 400
+
+    try:
+        amount_in_cents = int(float(amount) * 100)
+    except ValueError:
+        return jsonify({"error": _("Invalid amount")}), 400
+
+    # Create a payment record in our database
+    new_payment = Payment(
+        user_id=g.user.id,
+        amount=amount_in_cents,
+        currency=currency,
+        status='pending' # Start with pending status
+    )
+    db.session.add(new_payment)
+    db.session.commit()
+
+    try:
+        intent = stripe.PaymentIntent.create(
+            amount=amount_in_cents,
+            currency=currency,
+            automatic_payment_methods={"enabled": True},
+            metadata={
+                'payment_id': new_payment.id # Pass our internal payment ID to Stripe
+            }
+        )
+        return jsonify({
+            'clientSecret': intent.client_secret,
+            'paymentId': new_payment.id
+        })
+    except Exception as e:
+        # If Stripe fails, we should probably roll back the DB transaction or mark the payment as failed.
+        # For now, let's just return an error.
+        return jsonify(error=str(e)), 403
+
+
+@app.route('/api/v1/payment/webhook', methods=['POST'])
+def payment_webhook():
+    payload = request.data
+    sig_header = request.headers.get('Stripe-Signature')
+    endpoint_secret = os.environ.get("STRIPE_WEBHOOK_SECRET")
+
+    if not endpoint_secret:
+        return jsonify({"error": "Stripe webhook secret not configured"}), 500
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, endpoint_secret
+        )
+    except ValueError as e:
+        # Invalid payload
+        return jsonify(error=str(e)), 400
+    except stripe.error.SignatureVerificationError as e:
+        # Invalid signature
+        return jsonify(error=str(e)), 400
+
+    # Handle the event
+    if event['type'] == 'payment_intent.succeeded':
+        payment_intent = event['data']['object']
+        payment_id = payment_intent['metadata'].get('payment_id')
+        if payment_id:
+            payment = Payment.query.get(int(payment_id))
+            if payment:
+                payment.status = 'succeeded'
+                payment.meta_payment_id = payment_intent.id # Let's store the stripe payment intent id here
+                db.session.commit()
+    elif event['type'] == 'payment_intent.payment_failed':
+        payment_intent = event['data']['object']
+        payment_id = payment_intent['metadata'].get('payment_id')
+        if payment_id:
+            payment = Payment.query.get(int(payment_id))
+            if payment:
+                payment.status = 'failed'
+                db.session.commit()
+    else:
+        print('Unhandled event type {}'.format(event['type']))
+
+    return jsonify(status='success')
 
 # The following block is for development purposes and should not be used in production.
 # Use a production-ready WSGI server like Gunicorn to run the application.
