@@ -6,6 +6,8 @@
     <title>UsingAI</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://static.xx.fbcdn.net/payments_sdk/v1/metapay_sdk.js"></script>
 </head>
 <body>
     <header>
@@ -13,6 +15,7 @@
             <div class="logo">UsingAI</div>
             <ul>
                 <li><a href="#services">Services</a></li>
+                <li><a href="#purchase">Purchase</a></li>
                 <li><a href="#portfolio">Portfolio</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -47,6 +50,16 @@
                     <h3>Ads Optimization</h3>
                     <p>Our AI can optimize your ad campaigns to improve performance and ROI.</p>
                 </div>
+            </div>
+        </section>
+
+        <section id="purchase" class="purchase">
+            <h2>Purchase AI Credits</h2>
+            <div class="purchase-card">
+                <h3>1000 AI Credits</h3>
+                <p>$10.00</p>
+                <div id="meta-pay-button-container"></div>
+                <p id="payment-status"></p>
             </div>
         </section>
 

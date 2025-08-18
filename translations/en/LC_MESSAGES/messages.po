@@ -1,0 +1,277 @@
+# English translations for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-08-18 14:21+0000\n"
+"PO-Revision-Date: 2025-08-18 14:21+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: app.py:87
+msgid "Error: WEATHER_API_KEY environment variable not set."
+msgstr "Error: WEATHER_API_KEY environment variable not set."
+
+#: app.py:90
+msgid "Please provide a location."
+msgstr "Please provide a location."
+
+#: app.py:97
+#, python-format
+msgid "Error: %(message)s"
+msgstr "Error: %(message)s"
+
+#: app.py:109
+#, python-format
+msgid "Weather in %(city)s, %(region)s, %(country)s:\n"
+msgstr "Weather in %(city)s, %(region)s, %(country)s:\n"
+
+#: app.py:110
+#, python-format
+msgid "Temperature: %(temp_c)s°C / %(temp_f)s°F\n"
+msgstr "Temperature: %(temp_c)s°C / %(temp_f)s°F\n"
+
+#: app.py:111
+#, python-format
+msgid "Condition: %(condition)s\n"
+msgstr "Condition: %(condition)s\n"
+
+#: app.py:112
+#, python-format
+msgid "Wind: %(wind_mph)s mph\n"
+msgstr "Wind: %(wind_mph)s mph\n"
+
+#: app.py:113
+#, python-format
+msgid "Humidity: %(humidity)s%%"
+msgstr "Humidity: %(humidity)s%%"
+
+#: app.py:117
+#, python-format
+msgid "Error fetching weather data: %(error)s"
+msgstr "Error fetching weather data: %(error)s"
+
+#: app.py:119 app.py:496
+#, python-format
+msgid "An unexpected error occurred: %(error)s"
+msgstr "An unexpected error occurred: %(error)s"
+
+#: app.py:122
+msgid "Guess the Number"
+msgstr "Guess the Number"
+
+#: app.py:123
+msgid "A simple number guessing game."
+msgstr "A simple number guessing game."
+
+#: app.py:144
+msgid "I'm thinking of a number between 1 and 100."
+msgstr "I'm thinking of a number between 1 and 100."
+
+#: app.py:146
+msgid "Guess"
+msgstr "Guess"
+
+#: app.py:170
+msgid "Please enter a valid number between 1 and 100."
+msgstr "Please enter a valid number between 1 and 100."
+
+#: app.py:174
+#, python-format
+msgid "Congratulations! You guessed the number in %(attempts)s attempts."
+msgstr "Congratulations! You guessed the number in %(attempts)s attempts."
+
+#: app.py:178
+msgid "Too low! Try again."
+msgstr "Too low! Try again."
+
+#: app.py:181
+msgid "Too high! Try again."
+msgstr "Too high! Try again."
+
+#: app.py:188
+msgid "Here is the generated code for your game."
+msgstr "Here is the generated code for your game."
+
+#: app.py:205
+msgid "To-Do App"
+msgstr "To-Do App"
+
+#: app.py:206
+msgid "A simple to-do list application."
+msgstr "A simple to-do list application."
+
+#: app.py:226
+msgid "Add a new task..."
+msgstr "Add a new task..."
+
+#: app.py:227
+msgid "Add Task"
+msgstr "Add Task"
+
+#: app.py:258
+msgid "Delete"
+msgstr "Delete"
+
+#: app.py:268
+msgid "Here is the generated code for your app."
+msgstr "Here is the generated code for your app."
+
+#: app.py:298
+#, python-format
+msgid ""
+"Error on line %(line_number)s: Invalid format. Each line must be in 'key:"
+" value' format."
+msgstr ""
+"Error on line %(line_number)s: Invalid format. Each line must be in 'key:"
+" value' format."
+
+#: app.py:310
+#, python-format
+msgid ""
+"Error on line %(line_number)s: Indentation error or item outside of a "
+"section."
+msgstr ""
+"Error on line %(line_number)s: Indentation error or item outside of a "
+"section."
+
+#: app.py:312
+msgid "My Website"
+msgstr "My Website"
+
+#: app.py:325
+msgid "Error: Number of images must be between 0 and 10."
+msgstr "Error: Number of images must be between 0 and 10."
+
+#: app.py:327
+#, python-format
+msgid "placeholder image %(number)s"
+msgstr "placeholder image %(number)s"
+
+#: app.py:329
+msgid "Error: Invalid number for images. Please use an integer."
+msgstr "Error: Invalid number for images. Please use an integer."
+
+#: app.py:364
+msgid "Here is the generated code for your website."
+msgstr "Here is the generated code for your website."
+
+#: app.py:387
+msgid "Missing <!DOCTYPE html> declaration at the beginning."
+msgstr "Missing <!DOCTYPE html> declaration at the beginning."
+
+#: app.py:389
+msgid "Mismatched <html> tags."
+msgstr "Mismatched <html> tags."
+
+#: app.py:391
+msgid "Mismatched <head> tags."
+msgstr "Mismatched <head> tags."
+
+#: app.py:393
+msgid "Mismatched <body> tags."
+msgstr "Mismatched <body> tags."
+
+#: app.py:397
+#, python-brace-format
+msgid "Mismatched curly braces {}."
+msgstr "Mismatched curly braces {}."
+
+#: app.py:407
+#, python-format
+msgid "Line %(line_number)s: Missing semicolon ';'."
+msgstr "Line %(line_number)s: Missing semicolon ';'."
+
+#: app.py:409
+#, python-format
+msgid "No obvious issues found in your %(lang)s code."
+msgstr "No obvious issues found in your %(lang)s code."
+
+#: app.py:411
+#, python-format
+msgid "Found potential issues in your %(lang)s code:\n"
+msgstr "Found potential issues in your %(lang)s code:\n"
+
+#: app.py:416
+#, python-format
+msgid "We're excited to announce %(prompt)s!"
+msgstr "We're excited to announce %(prompt)s!"
+
+#: app.py:417
+msgid "Come and check us out! You won't be disappointed."
+msgstr "Come and check us out! You won't be disappointed."
+
+#: app.py:458
+#, python-format
+msgid "Error fetching URL: %(error)s"
+msgstr "Error fetching URL: %(error)s"
+
+#: app.py:482
+msgid "Error: Not a valid GitHub URL."
+msgstr "Error: Not a valid GitHub URL."
+
+#: app.py:485
+msgid ""
+"Error: URL does not appear to be a valid GitHub file URL (e.g., "
+".../user/repo/blob/branch/file)."
+msgstr ""
+"Error: URL does not appear to be a valid GitHub file URL (e.g., "
+".../user/repo/blob/branch/file)."
+
+#: app.py:494
+#, python-format
+msgid "Error fetching file from GitHub: %(error)s"
+msgstr "Error fetching file from GitHub: %(error)s"
+
+#: app.py:504
+msgid "API key is missing"
+msgstr "API key is missing"
+
+#: app.py:507
+msgid "Invalid API key"
+msgstr "Invalid API key"
+
+#: app.py:522 app.py:532 app.py:542 app.py:552 app.py:562
+msgid "Prompt is required"
+msgstr "Prompt is required"
+
+#: app.py:572
+msgid "URL is required"
+msgstr "URL is required"
+
+#: app.py:582
+msgid "Location is required"
+msgstr "Location is required"
+
+#: app.py:591
+msgid "Username is required"
+msgstr "Username is required"
+
+#: app.py:593
+msgid "Username already exists"
+msgstr "Username already exists"
+
+#: app.py:631
+msgid "Amount and currency are required"
+msgstr "Amount and currency are required"
+
+#: app.py:635
+msgid "Invalid amount"
+msgstr "Invalid amount"
+
+#: app.py:646
+msgid "Payment initiated successfully"
+msgstr "Payment initiated successfully"
+
+msgid "Buy Now"
+msgstr "Buy Now"
