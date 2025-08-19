@@ -375,6 +375,12 @@ footer { text-align: center; padding: 1rem 0; background: #333; color: #fff; mar
 """
     return response_message.strip()
 
+def get_financial_advice(prompt):
+    advice = _("Based on your query, here is some general financial advice: diversify your investments and create a budget.")
+    # In a real application, this would involve more sophisticated logic,
+    # possibly integrating with financial data APIs or a fine-tuned LLM.
+    return advice
+
 def debug_code(prompt):
     if prompt.strip().startswith('http'):
         code = fetch_github_file(prompt)
@@ -614,6 +620,16 @@ def weather_endpoint():
     if not location:
         return jsonify({"error": _("Location is required")}), 400
     message = get_weather(location)
+    return jsonify({"status": "success", "message": message})
+
+@app.route('/api/v1/finance/advice', methods=['POST'])
+@require_api_key
+def financial_advice_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = get_financial_advice(prompt)
     return jsonify({"status": "success", "message": message})
 
 @app.route('/api/register', methods=['POST'])
