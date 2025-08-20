@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-08-18 14:21+0000\n"
+"POT-Creation-Date: 2025-08-20 10:29+0000\n"
 "PO-Revision-Date: 2025-08-18 14:21+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,116 +18,116 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: app.py:87
+#: app.py:89
 msgid "Error: WEATHER_API_KEY environment variable not set."
 msgstr "Error: La variable de entorno WEATHER_API_KEY no está configurada."
 
-#: app.py:90
+#: app.py:92
 msgid "Please provide a location."
 msgstr "Por favor, proporcione una ubicación."
 
-#: app.py:97
+#: app.py:99
 #, python-format
 msgid "Error: %(message)s"
 msgstr "Error: %(message)s"
 
-#: app.py:109
+#: app.py:111
 #, python-format
 msgid "Weather in %(city)s, %(region)s, %(country)s:\n"
 msgstr "El tiempo en %(city)s, %(region)s, %(country)s:\n"
 
-#: app.py:110
+#: app.py:112
 #, python-format
 msgid "Temperature: %(temp_c)s°C / %(temp_f)s°F\n"
 msgstr "Temperatura: %(temp_c)s°C / %(temp_f)s°F\n"
 
-#: app.py:111
+#: app.py:113
 #, python-format
 msgid "Condition: %(condition)s\n"
 msgstr "Condición: %(condition)s\n"
 
-#: app.py:112
+#: app.py:114
 #, python-format
 msgid "Wind: %(wind_mph)s mph\n"
 msgstr "Viento: %(wind_mph)s mph\n"
 
-#: app.py:113
+#: app.py:115
 #, python-format
 msgid "Humidity: %(humidity)s%%"
 msgstr "Humedad: %(humidity)s%%"
 
-#: app.py:117
+#: app.py:119
 #, python-format
 msgid "Error fetching weather data: %(error)s"
 msgstr "Error al obtener los datos del tiempo: %(error)s"
 
-#: app.py:119 app.py:496
+#: app.py:121 app.py:577
 #, python-format
 msgid "An unexpected error occurred: %(error)s"
 msgstr "Ocurrió un error inesperado: %(error)s"
 
-#: app.py:122
+#: app.py:124
 msgid "Guess the Number"
 msgstr "Adivina el número"
 
-#: app.py:123
+#: app.py:125
 msgid "A simple number guessing game."
 msgstr "Un sencillo juego de adivinar el número."
 
-#: app.py:144
+#: app.py:146
 msgid "I'm thinking of a number between 1 and 100."
 msgstr "Estoy pensando en un número entre 1 y 100."
 
-#: app.py:146
+#: app.py:148
 msgid "Guess"
 msgstr "Adivinar"
 
-#: app.py:170
+#: app.py:172
 msgid "Please enter a valid number between 1 and 100."
 msgstr "Por favor, introduce un número válido entre 1 y 100."
 
-#: app.py:174
+#: app.py:176
 #, python-format
 msgid "Congratulations! You guessed the number in %(attempts)s attempts."
 msgstr "¡Felicidades! Adivinaste el número en %(attempts)s intentos."
 
-#: app.py:178
+#: app.py:180
 msgid "Too low! Try again."
 msgstr "¡Demasiado bajo! Inténtalo de nuevo."
 
-#: app.py:181
+#: app.py:183
 msgid "Too high! Try again."
 msgstr "¡Demasiado alto! Inténtalo de nuevo."
 
-#: app.py:188
+#: app.py:190
 msgid "Here is the generated code for your game."
 msgstr "Aquí tienes el código generado para tu juego."
 
-#: app.py:205
+#: app.py:207
 msgid "To-Do App"
 msgstr "Aplicación de tareas"
 
-#: app.py:206
+#: app.py:208
 msgid "A simple to-do list application."
 msgstr "Una sencilla aplicación de lista de tareas."
 
-#: app.py:226
+#: app.py:228
 msgid "Add a new task..."
 msgstr "Añadir una nueva tarea..."
 
-#: app.py:227
+#: app.py:229
 msgid "Add Task"
 msgstr "Añadir tarea"
 
-#: app.py:258
+#: app.py:260
 msgid "Delete"
 msgstr "Eliminar"
 
-#: app.py:268
+#: app.py:270
 msgid "Here is the generated code for your app."
 msgstr "Aquí tienes el código generado para tu aplicación."
 
-#: app.py:298
+#: app.py:300
 #, python-format
 msgid ""
 "Error on line %(line_number)s: Invalid format. Each line must be in 'key:"
@@ -136,7 +136,7 @@ msgstr ""
 "Error en la línea %(line_number)s: Formato no válido. Cada línea debe "
 "tener el formato 'clave: valor'."
 
-#: app.py:310
+#: app.py:312
 #, python-format
 msgid ""
 "Error on line %(line_number)s: Indentation error or item outside of a "
@@ -145,82 +145,103 @@ msgstr ""
 "Error en la línea %(line_number)s: Error de sangría o elemento fuera de "
 "una sección."
 
-#: app.py:312
+#: app.py:314
 msgid "My Website"
 msgstr "Mi sitio web"
 
-#: app.py:325
+#: app.py:327
 msgid "Error: Number of images must be between 0 and 10."
 msgstr "Error: El número de imágenes debe estar entre 0 y 10."
 
-#: app.py:327
+#: app.py:329
 #, python-format
 msgid "placeholder image %(number)s"
 msgstr "imagen de marcador de posición %(number)s"
 
-#: app.py:329
+#: app.py:331
 msgid "Error: Invalid number for images. Please use an integer."
 msgstr "Error: Número de imágenes no válido. Por favor, use un número entero."
 
-#: app.py:364
+#: app.py:366
 msgid "Here is the generated code for your website."
 msgstr "Aquí tienes el código generado para tu sitio web."
 
-#: app.py:387
+#: app.py:402
+msgid "Here is the generated code for your Python backend."
+msgstr "Aquí está el código generado para su backend de Python."
+
+#: app.py:411
+msgid ""
+"Based on your query, here is some general financial advice: diversify "
+"your investments and create a budget."
+msgstr "Según su consulta, aquí hay algunos consejos financieros generales: diversifique sus inversiones y cree un presupuesto."
+
+#: app.py:417
+#, python-format
+msgid ""
+"This is a placeholder for an art criticism based on your prompt: "
+"%(prompt)s"
+msgstr "Este es un marcador de posición para una crítica de arte basada en su indicación: %(prompt)s"
+
+#: app.py:435
+msgid "Here is the generated automation script for your task."
+msgstr "Aquí está el script de automatización generado para su tarea."
+
+#: app.py:454
 msgid "Missing <!DOCTYPE html> declaration at the beginning."
 msgstr "Falta la declaración <!DOCTYPE html> al principio."
 
-#: app.py:389
+#: app.py:456
 msgid "Mismatched <html> tags."
 msgstr "Etiquetas <html> no coincidentes."
 
-#: app.py:391
+#: app.py:458
 msgid "Mismatched <head> tags."
 msgstr "Etiquetas <head> no coincidentes."
 
-#: app.py:393
+#: app.py:460
 msgid "Mismatched <body> tags."
 msgstr "Etiquetas <body> no coincidentes."
 
-#: app.py:397
+#: app.py:464
 #, python-brace-format
 msgid "Mismatched curly braces {}."
 msgstr "Llaves {} no coincidentes."
 
-#: app.py:407
+#: app.py:474
 #, python-format
 msgid "Line %(line_number)s: Missing semicolon ';'."
 msgstr "Línea %(line_number)s: Falta el punto y coma ';'."
 
-#: app.py:409
+#: app.py:476
 #, python-format
 msgid "No obvious issues found in your %(lang)s code."
 msgstr "No se han encontrado problemas evidentes en tu código %(lang)s."
 
-#: app.py:411
+#: app.py:478
 #, python-format
 msgid "Found potential issues in your %(lang)s code:\n"
 msgstr "Se han encontrado posibles problemas en tu código %(lang)s:\n"
 
-#: app.py:416
+#: app.py:483
 #, python-format
 msgid "We're excited to announce %(prompt)s!"
 msgstr "¡Estamos encantados de anunciar %(prompt)s!"
 
-#: app.py:417
+#: app.py:484
 msgid "Come and check us out! You won't be disappointed."
 msgstr "¡Ven a visitarnos! No te decepcionará."
 
-#: app.py:458
+#: app.py:539
 #, python-format
 msgid "Error fetching URL: %(error)s"
 msgstr "Error al obtener la URL: %(error)s"
 
-#: app.py:482
+#: app.py:563
 msgid "Error: Not a valid GitHub URL."
 msgstr "Error: No es una URL de GitHub válida."
 
-#: app.py:485
+#: app.py:566
 msgid ""
 "Error: URL does not appear to be a valid GitHub file URL (e.g., "
 ".../user/repo/blob/branch/file)."
@@ -228,50 +249,58 @@ msgstr ""
 "Error: La URL no parece ser una URL de archivo de GitHub válida (por "
 "ejemplo, .../usuario/repositorio/blob/rama/archivo)."
 
-#: app.py:494
+#: app.py:575
 #, python-format
 msgid "Error fetching file from GitHub: %(error)s"
 msgstr "Error al obtener el archivo de GitHub: %(error)s"
 
-#: app.py:504
+#: app.py:585
 msgid "API key is missing"
 msgstr "Falta la clave de la API"
 
-#: app.py:507
+#: app.py:588
 msgid "Invalid API key"
 msgstr "Clave de API no válida"
 
-#: app.py:522 app.py:532 app.py:542 app.py:552 app.py:562
+#: app.py:610 app.py:620 app.py:630 app.py:640 app.py:650 app.py:660 app.py:670
+#: app.py:700 app.py:710 app.py:721
 msgid "Prompt is required"
 msgstr "El prompt es obligatorio"
 
-#: app.py:572
+#: app.py:680
 msgid "URL is required"
 msgstr "La URL es obligatoria"
 
-#: app.py:582
+#: app.py:690
 msgid "Location is required"
 msgstr "La ubicación es obligatoria"
 
-#: app.py:591
+#: app.py:731
 msgid "Username is required"
 msgstr "El nombre de usuario es obligatorio"
 
-#: app.py:593
+#: app.py:733
 msgid "Username already exists"
 msgstr "El nombre de usuario ya existe"
 
-#: app.py:631
+#: app.py:772
 msgid "Amount and currency are required"
 msgstr "La cantidad y la moneda son obligatorias"
 
-#: app.py:635
+#: app.py:777
 msgid "Invalid amount"
 msgstr "Cantidad no válida"
 
-#: app.py:646
-msgid "Payment initiated successfully"
-msgstr "Pago iniciado correctamente"
+#: frontend/templates/index.html:66
+msgid "Automation Capacity"
+msgstr "Capacidad de automatización"
 
-msgid "Buy Now"
-msgstr "Comprar ahora"
+#: frontend/templates/index.html:67
+msgid "We can generate automation scripts to handle your repetitive tasks."
+msgstr "Podemos generar scripts de automatización para manejar sus tareas repetitivas."
+
+#~ msgid "Payment initiated successfully"
+#~ msgstr "Pago iniciado correctamente"
+
+#~ msgid "Buy Now"
+#~ msgstr "Comprar ahora"
