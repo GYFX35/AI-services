@@ -375,6 +375,38 @@ footer { text-align: center; padding: 1rem 0; background: #333; color: #fff; mar
 """
     return response_message.strip()
 
+def generate_backend(prompt):
+    route = "/api/data"
+    message = "Hello from your new backend!"
+    for line in prompt.splitlines():
+        if ':' in line:
+            key, value = line.split(':', 1)
+            if key.strip().lower() == 'route':
+                route = value.strip()
+            elif key.strip().lower() == 'message':
+                message = value.strip()
+
+    backend_code = f"""
+from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+@app.route('{route}', methods=['GET'])
+def get_data():
+    return jsonify({{'message': '{message}'}})
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5001)
+"""
+    response_message = f\"\"\"
+{_("Here is the generated code for your Python backend.")}
+**backend.py:**
+```python
+{backend_code.strip()}
+```
+\"\"\"
+    return response_message.strip()
+
 def get_financial_advice(prompt):
     advice = _("Based on your query, here is some general financial advice: diversify your investments and create a budget.")
     # In a real application, this would involve more sophisticated logic,
@@ -576,6 +608,16 @@ def develop_app_endpoint():
     if not prompt:
         return jsonify({"error": _("Prompt is required")}), 400
     message = generate_app(prompt)
+    return jsonify({"status": "success", "message": message})
+
+@app.route('/api/v1/develop/backend', methods=['POST'])
+@require_api_key
+def develop_backend_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = generate_backend(prompt)
     return jsonify({"status": "success", "message": message})
 
 @app.route('/api/v1/debug', methods=['POST'])
