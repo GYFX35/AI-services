@@ -299,6 +299,19 @@ msgstr "Capacidad de automatización"
 msgid "We can generate automation scripts to handle your repetitive tasks."
 msgstr "Podemos generar scripts de automatización para manejar sus tareas repetitivas."
 
+#: frontend/templates/index.html:70
+msgid "Digital Conceptor"
+msgstr "Conceptor Digital"
+
+#: frontend/templates/index.html:71
+msgid ""
+"Our AI can help you brainstorm and structure your digital projects, from "
+"defining objectives to suggesting a technology stack."
+msgstr ""
+"Nuestra IA puede ayudarte a idear y estructurar tus proyectos digitales, "
+"desde la definición de objetivos hasta la sugerencia de una pila "
+"tecnológica."
+
 #~ msgid "Payment initiated successfully"
 #~ msgstr "Pago iniciado correctamente"
 
