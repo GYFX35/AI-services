@@ -482,6 +482,32 @@ predictions = model.predict(X_test)
 \"\"\"
     return response_message.strip()
 
+def orchestrate_task(prompt):
+    prompt_lower = prompt.lower()
+    responses = []
+
+    # Simple keyword-based task identification
+    if 'website' in prompt_lower:
+        responses.append(generate_website(prompt))
+
+    if 'game' in prompt_lower:
+        responses.append(generate_game(prompt))
+
+    if 'app' in prompt_lower:
+        responses.append(generate_app(prompt))
+
+    if 'backend' in prompt_lower:
+        responses.append(generate_backend(prompt))
+
+    if not responses:
+        return _("I'm sorry, I couldn't understand the task. Please specify what you want to create (e.g., 'website', 'game', 'app', 'backend').")
+
+    # Combine all generated content into a single message
+    final_response = f"I have completed the following tasks based on your request:\n\n"
+    final_response += "\n\n---\n\n".join(responses)
+
+    return final_response
+
 def debug_code(prompt):
     if prompt.strip().startswith('http'):
         code = fetch_github_file(prompt)
@@ -642,6 +668,16 @@ def get_config():
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/api/v1/orchestrate', methods=['POST'])
+@require_api_key
+def orchestrate_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = orchestrate_task(prompt)
+    return jsonify({"status": "success", "message": message})
 
 @app.route('/api/v1/develop/website', methods=['POST'])
 @require_api_key
