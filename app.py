@@ -375,6 +375,38 @@ footer { text-align: center; padding: 1rem 0; background: #333; color: #fff; mar
 """
     return response_message.strip()
 
+def generate_backend(prompt):
+    route = "/api/data"
+    message = "Hello from your new backend!"
+    for line in prompt.splitlines():
+        if ':' in line:
+            key, value = line.split(':', 1)
+            if key.strip().lower() == 'route':
+                route = value.strip()
+            elif key.strip().lower() == 'message':
+                message = value.strip()
+
+    backend_code = f"""
+from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+@app.route('{route}', methods=['GET'])
+def get_data():
+    return jsonify({{'message': '{message}'}})
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5001)
+"""
+    response_message = f\"\"\"
+{_("Here is the generated code for your Python backend.")}
+**backend.py:**
+```python
+{backend_code.strip()}
+```
+\"\"\"
+    return response_message.strip()
+
 def get_financial_advice(prompt):
     advice = _("Based on your query, here is some general financial advice: diversify your investments and create a budget.")
     # In a real application, this would involve more sophisticated logic,
@@ -386,6 +418,69 @@ def generate_art_criticism(prompt):
     # In a real application, this would connect to a generative AI model
     # to produce a more meaningful and context-aware art criticism.
     return criticism
+
+def generate_ml_model(prompt):
+    model_type = 'classification'
+    library = 'scikit-learn'
+    features = 'feature1, feature2, feature3'
+    target = 'target'
+
+    for line in prompt.splitlines():
+        if ':' in line:
+            key, value = line.split(':', 1)
+            key = key.strip().lower()
+            value = value.strip()
+            if key == 'model type':
+                model_type = value
+            elif key == 'library':
+                library = value
+            elif key == 'features':
+                features = value
+            elif key == 'target':
+                target = value
+
+    feature_list = [f.strip() for f in features.split(',')]
+
+    code = f"""
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+{'from sklearn.linear_model import LogisticRegression' if model_type == 'classification' else 'from sklearn.linear_model import LinearRegression'}
+from sklearn.metrics import accuracy_score, classification_report
+
+# 1. Load Data
+# Replace 'your_dataset.csv' with the path to your dataset
+data = pd.DataFrame({{
+    {', '.join([f"'{f}': [0, 1, 2, 3, 4]" for f in feature_list])},
+    '{target}': [0, 1, 0, 1, 0]
+}})
+X = data[[{', '.join([f"'{f}'" for f in feature_list])}]]
+y = data['{target}']
+
+# 2. Preprocessing
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# 3. Model Training
+model = {'LogisticRegression(random_state=42)' if model_type == 'classification' else 'LinearRegression()'}
+model.fit(X_train, y_train)
+
+# 4. Evaluation
+predictions = model.predict(X_test)
+{'print("Accuracy:", accuracy_score(y_test, predictions))' if model_type == 'classification' else 'print("Model R2 score:", model.score(X_test, y_test))'}
+{'print(classification_report(y_test, predictions))' if model_type == 'classification' else ''}
+
+"""
+    response_message = f\"\"\"
+{{_("Here is the generated code for your ML model.")}}
+**ml_model.py:**
+```python
+{code.strip()}
+```
+\"\"\"
+    return response_message.strip()
 
 def debug_code(prompt):
     if prompt.strip().startswith('http'):
@@ -578,6 +673,16 @@ def develop_app_endpoint():
     message = generate_app(prompt)
     return jsonify({"status": "success", "message": message})
 
+@app.route('/api/v1/develop/backend', methods=['POST'])
+@require_api_key
+def develop_backend_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = generate_backend(prompt)
+    return jsonify({"status": "success", "message": message})
+
 @app.route('/api/v1/debug', methods=['POST'])
 @require_api_key
 def debug_endpoint():
@@ -646,6 +751,16 @@ def art_criticism_endpoint():
     if not prompt:
         return jsonify({"error": _("Prompt is required")}), 400
     message = generate_art_criticism(prompt)
+    return jsonify({"status": "success", "message": message})
+
+@app.route('/api/v1/ml/model', methods=['POST'])
+@require_api_key
+def ml_model_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = generate_ml_model(prompt)
     return jsonify({"status": "success", "message": message})
 
 @app.route('/api/register', methods=['POST'])
