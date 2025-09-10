@@ -9,3 +9,5 @@ httpx
 anyio
 sniffio
 stripe
+facebook_business
+gunicorn

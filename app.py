@@ -12,6 +12,9 @@ from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 import stripe
 from flask_babel import Babel, _
+from facebook_business.api import FacebookAdsApi
+from facebook_business.adobjects.adaccount import AdAccount
+from facebook_business.adobjects.user import User as AdAccountUser
 
 load_dotenv(dotenv_path=".env")
 
@@ -81,6 +84,16 @@ def inject_conf_var():
 def set_language(language=None):
     session['language'] = language
     return redirect(url_for('index'))
+
+# --- Facebook SDK ---
+def initialize_facebook_api():
+    meta_app_id = os.environ.get('META_APP_ID')
+    meta_app_secret = os.environ.get('META_APP_SECRET')
+    meta_access_token = os.environ.get('META_ACCESS_TOKEN')
+    if meta_app_id and meta_app_secret and meta_access_token:
+        FacebookAdsApi.init(meta_app_id, meta_app_secret, meta_access_token)
+
+initialize_facebook_api()
 
 # --- Services ---
 def get_weather(prompt):
@@ -721,6 +734,17 @@ def automate_script_endpoint():
         return jsonify({"error": _("Prompt is required")}), 400
     message = generate_automation_script(prompt)
     return jsonify({"status": "success", "message": message})
+
+
+@app.route('/api/v1/facebook/adaccounts', methods=['GET'])
+@require_api_key
+def get_facebook_ad_accounts():
+    try:
+        me = AdAccountUser('me')
+        ad_accounts = me.get_ad_accounts()
+        return jsonify([account.export_all_data() for account in ad_accounts])
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 @app.route('/api/register', methods=['POST'])
