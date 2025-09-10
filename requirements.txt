@@ -9,3 +9,4 @@ httpx
 anyio
 sniffio
 stripe
+facebook-business
