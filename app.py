@@ -12,6 +12,9 @@ from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 import stripe
 from flask_babel import Babel, _
+from facebook_business.api import FacebookAdsApi
+from facebook_business.adobjects.adaccount import AdAccount
+from facebook_business.exceptions import FacebookRequestError
 
 load_dotenv(dotenv_path=".env")
 
@@ -62,6 +65,9 @@ app.config['BABEL_DEFAULT_LOCALE'] = 'en'
 babel = Babel()
 db.init_app(app)
 stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
+
+with app.app_context():
+    initialize_meta_sdk()
 
 def get_locale():
     if 'language' in session:
@@ -847,6 +853,43 @@ def payment_webhook():
         print('Unhandled event type {}'.format(event['type']))
 
     return jsonify(status='success')
+
+
+# --- Meta/Facebook Business SDK Integration ---
+def initialize_meta_sdk():
+    """Initializes the Meta Business SDK."""
+    meta_app_id = os.environ.get('META_APP_ID')
+    meta_app_secret = os.environ.get('META_APP_SECRET')
+    meta_access_token = os.environ.get('META_ACCESS_TOKEN')
+    if all([meta_app_id, meta_app_secret, meta_access_token]):
+        try:
+            FacebookAdsApi.init(app_id=meta_app_id, app_secret=meta_app_secret, access_token=meta_access_token)
+            print("Meta Business SDK initialized successfully.")
+        except Exception as e:
+            print(f"Error initializing Meta Business SDK: {e}")
+    else:
+        print("Meta Business SDK credentials not found in environment variables. Skipping initialization.")
+
+@app.route('/api/v1/meta/campaigns', methods=['GET'])
+@require_api_key
+def get_meta_campaigns():
+    """Fetches ad campaigns from the Meta Ads API."""
+    ad_account_id = os.environ.get('META_AD_ACCOUNT_ID')
+    if not ad_account_id:
+        return jsonify({"error": "Meta Ad Account ID is not configured."}), 500
+    try:
+        account = AdAccount(f'act_{ad_account_id}')
+        campaigns = account.get_campaigns(fields=[
+            'name',
+            'status',
+            'objective'
+        ])
+        return jsonify([campaign for campaign in campaigns])
+    except FacebookRequestError as e:
+        return jsonify({"error": f"Meta API Error: {e.api_error_message()}"}), e.api_error_code()
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 # The following block is for development purposes and should not be used in production.
 # Use a production-ready WSGI server like Gunicorn to run the application.
