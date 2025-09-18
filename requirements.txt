@@ -10,3 +10,5 @@ anyio
 sniffio
 stripe
 facebook-business
+google-cloud-aiplatform
+google-auth
