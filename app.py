@@ -1,4 +1,6 @@
+import sys
 import os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import time
 import requests
 import httpx
@@ -15,6 +17,7 @@ from flask_babel import Babel, _
 from facebook_business.api import FacebookAdsApi
 from facebook_business.adobjects.adaccount import AdAccount
 from facebook_business.exceptions import FacebookRequestError
+import google_ai
 
 load_dotenv(dotenv_path=".env")
 
@@ -66,8 +69,24 @@ babel = Babel()
 db.init_app(app)
 stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
 
+# --- Meta/Facebook Business SDK Integration ---
+def initialize_meta_sdk():
+    """Initializes the Meta Business SDK."""
+    meta_app_id = os.environ.get('META_APP_ID')
+    meta_app_secret = os.environ.get('META_APP_SECRET')
+    meta_access_token = os.environ.get('META_ACCESS_TOKEN')
+    if all([meta_app_id, meta_app_secret, meta_access_token]):
+        try:
+            FacebookAdsApi.init(app_id=meta_app_id, app_secret=meta_app_secret, access_token=meta_access_token)
+            print("Meta Business SDK initialized successfully.")
+        except Exception as e:
+            print(f"Error initializing Meta Business SDK: {e}")
+    else:
+        print("Meta Business SDK credentials not found in environment variables. Skipping initialization.")
+
 with app.app_context():
     initialize_meta_sdk()
+    google_ai.init_vertexai()
 
 def get_locale():
     if 'language' in session:
@@ -614,7 +633,18 @@ def develop_website_endpoint():
     prompt = data.get('prompt')
     if not prompt:
         return jsonify({"error": _("Prompt is required")}), 400
-    message = generate_website(prompt)
+    html, css = google_ai.generate_website(prompt)
+    message = f"""
+{_("Here is the generated code for your website.")}
+**index.html:**
+```html
+{html.strip()}
+```
+**style.css:**
+```css
+{css.strip()}
+```
+"""
     return jsonify({"status": "success", "message": message})
 
 @app.route('/api/v1/develop/game', methods=['POST'])
@@ -654,7 +684,18 @@ def debug_endpoint():
     prompt = data.get('prompt')
     if not prompt:
         return jsonify({"error": _("Prompt is required")}), 400
-    message = debug_code(prompt)
+
+    # Simple language detection
+    language = 'html'
+    if prompt.strip().startswith('{') or '{' in prompt and '}' in prompt:
+        language = 'css'
+
+    errors = google_ai.debug_code(prompt, language)
+    if not errors:
+        message = _("No obvious issues found in your %(lang)s code.", lang=language)
+    else:
+        message = _("Found potential issues in your %(lang)s code:\n", lang=language) + "\n".join(f"- {error}" for error in errors)
+
     return jsonify({"status": "success", "message": message})
 
 @app.route('/api/v1/market/post', methods=['POST'])
@@ -664,7 +705,7 @@ def market_post_endpoint():
     prompt = data.get('prompt')
     if not prompt:
         return jsonify({"error": _("Prompt is required")}), 400
-    message = generate_social_media_post(prompt)
+    message = google_ai.generate_social_media_post(prompt)
     return jsonify({"status": "success", "message": message})
 
 @app.route('/api/v1/optimize/ads', methods=['POST'])
@@ -854,21 +895,6 @@ def payment_webhook():
 
     return jsonify(status='success')
 
-
-# --- Meta/Facebook Business SDK Integration ---
-def initialize_meta_sdk():
-    """Initializes the Meta Business SDK."""
-    meta_app_id = os.environ.get('META_APP_ID')
-    meta_app_secret = os.environ.get('META_APP_SECRET')
-    meta_access_token = os.environ.get('META_ACCESS_TOKEN')
-    if all([meta_app_id, meta_app_secret, meta_access_token]):
-        try:
-            FacebookAdsApi.init(app_id=meta_app_id, app_secret=meta_app_secret, access_token=meta_access_token)
-            print("Meta Business SDK initialized successfully.")
-        except Exception as e:
-            print(f"Error initializing Meta Business SDK: {e}")
-    else:
-        print("Meta Business SDK credentials not found in environment variables. Skipping initialization.")
 
 @app.route('/api/v1/meta/campaigns', methods=['GET'])
 @require_api_key
