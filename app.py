@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {{
             return;
         }}
         if (userGuess === randomNumber) {{
-            message.textContent = '{_("Congratulations! You guessed the number in %(attempts)s attempts.", attempts="{attempts}")}';
+            message.textContent = `{_("Congratulations! You guessed the number in %(attempts)s attempts.").replace('%(attempts)s', '$' + '{' + 'attempts' + '}')}`;
             message.style.color = 'green';
             guessBtn.disabled = true;
         }} else if (userGuess < randomNumber) {{
