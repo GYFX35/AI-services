@@ -205,4 +205,85 @@ document.addEventListener('DOMContentLoaded', () => {
             gallery.appendChild(item);
         });
     }
+
+    // --- Create Project ---
+    const createProjectBtn = document.getElementById('create-project-btn');
+    if (createProjectBtn) {
+        createProjectBtn.addEventListener('click', async () => {
+            const titleInput = document.getElementById('project-title-input');
+            const descriptionInput = document.getElementById('project-description-input');
+            const responseContainer = document.getElementById('create-project-response');
+            const apiKey = prompt("Please enter your API key to create a project:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required to create a project.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/projects', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        title: titleInput.value,
+                        description: descriptionInput.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to create project');
+                }
+
+                const newProject = await response.json();
+                responseContainer.textContent = `Project "${newProject.title}" created successfully!`;
+                titleInput.value = '';
+                descriptionInput.value = '';
+                fetchProjects(); // Refresh the portfolio
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
+    // --- Promote Startup ---
+    const promoteStartupBtn = document.getElementById('promote-startup-btn');
+    if (promoteStartupBtn) {
+        promoteStartupBtn.addEventListener('click', async () => {
+            const descriptionInput = document.getElementById('startup-description-input');
+            const responseContainer = document.getElementById('promote-startup-response');
+            const apiKey = prompt("Please enter your API key to generate a promotion:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required to generate a promotion.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/promotions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        description: descriptionInput.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to generate promotion');
+                }
+
+                const promotion = await response.json();
+                responseContainer.textContent = promotion.promotion_text;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
 });

@@ -82,9 +82,41 @@
         <section id="portfolio" class="portfolio">
             <h2>Our Work</h2>
             <div class="portfolio-gallery">
-                </div>
+            </div>
         </section>
 
+        <!-- Create Project Section -->
+        <section id="create-project" class="services">
+            <h2>{{ _('Create a New Project') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Project Details') }}</h3>
+                    <p>{{ _('Enter the title and description for your new project.') }}</p>
+                    <input type="text" id="project-title-input" placeholder="{{ _('Project Title') }}" class="styled-input">
+                    <textarea id="project-description-input" placeholder="{{ _('Project Description') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="create-project-btn" class="btn">{{ _('Create Project') }}</button>
+                    <div class="response-container" id="create-project-response-container">
+                        <pre id="create-project-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Promote Startup Section -->
+        <section id="promote-startup" class="services">
+            <h2>{{ _('Promote Your Startup') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Startup Details') }}</h3>
+                    <p>{{ _('Enter a description of your startup to generate a promotion.') }}</p>
+                    <textarea id="startup-description-input" placeholder="{{ _('Startup Description') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="promote-startup-btn" class="btn">{{ _('Generate Promotion') }}</button>
+                    <div class="response-container" id="promote-startup-response-container">
+                        <pre id="promote-startup-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer id="contact">
