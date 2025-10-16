@@ -808,6 +808,43 @@ def get_projects():
         } for project in projects
     ])
 
+@app.route('/api/v1/projects', methods=['POST'])
+@require_api_key
+def create_project():
+    data = request.get_json()
+    title = data.get('title')
+    description = data.get('description')
+
+    if not all([title, description]):
+        return jsonify({"error": _("Title and description are required")}), 400
+
+    new_project = Project(
+        title=title,
+        description=description,
+        image_url='https://via.placeholder.com/300x200'  # Placeholder image
+    )
+    db.session.add(new_project)
+    db.session.commit()
+
+    return jsonify({
+        'id': new_project.id,
+        'title': new_project.title,
+        'description': new_project.description,
+        'image_url': new_project.image_url
+    }), 201
+
+@app.route('/api/v1/promotions', methods=['POST'])
+@require_api_key
+def create_promotion():
+    data = request.get_json()
+    description = data.get('description')
+
+    if not description:
+        return jsonify({"error": _("Description is required")}), 400
+
+    promotion_text = google_ai.generate_social_media_post(description)
+    return jsonify({"promotion_text": promotion_text})
+
 @app.route('/api/v1/payment/create-payment-intent', methods=['POST'])
 @require_api_key
 def create_payment_intent():
@@ -918,21 +955,21 @@ def get_meta_campaigns():
 
 
 # The following block is for development purposes and should not be used in production.
-# Use a production-ready WSGI server like Gunicorn to run the application.
+# Use a production-ready WSGI server like Gunicorn to run the.
 # Example: gunicorn --bind 0.0.0.0:5000 app:app
 # The database initialization is also handled separately in a production environment.
-# if __name__ == '__main__':
-#     with app.app_context():
-#         db.create_all()
-#         if not Project.query.first():
-#             projects = [
-#                 Project(title='Project One', description='A web application that uses AI to generate recipes based on available ingredients.', image_url='https://via.placeholder.com/300x200'),
-#                 Project(title='Project Two', description='A mobile game that uses AI to create dynamic and challenging levels.', image_url='https://via.placeholder.com/300x200'),
-#                 Project(title='Project Three', description='An e-commerce website that uses AI to provide personalized product recommendations.', image_url='https://via.placeholder.com/300x200')
-#             ]
-#             db.session.bulk_save_objects(projects)
-#             db.session.commit()
-#     app.run(debug=True, port=5000)
+if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
+        if not Project.query.first():
+            projects = [
+                Project(title='Project One', description='A web application that uses AI to generate recipes based on available ingredients.', image_url='https://via.placeholder.com/300x200'),
+                Project(title='Project Two', description='A mobile game that uses AI to create dynamic and challenging levels.', image_url='https://via.placeholder.com/300x200'),
+                Project(title='Project Three', description='An e-commerce website that uses AI to provide personalized product recommendations.', image_url='https://via.placeholder.com/300x200')
+            ]
+            db.session.bulk_save_objects(projects)
+            db.session.commit()
+    app.run(debug=True, port=5001)
 
 @app.cli.command("init-db")
 def init_db_command():
