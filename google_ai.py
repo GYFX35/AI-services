@@ -111,3 +111,31 @@ def generate_social_media_post(description: str) -> str:
     except Exception as e:
         print(f"Error generating social media post with Vertex AI: {e}")
         return f"Error: {e}"
+
+
+def generate_promotion_from_content(url: str, content: str) -> str:
+    """
+    Generates a promotion campaign from a URL and its content using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert marketing strategist. Your task is to create a compelling promotion campaign
+    for the product, startup, business, art, or talent described at the URL: {url}.
+
+    I have extracted the following text content from the page:
+    ---
+    {content}
+    ---
+
+    Based on this content, generate a short, catchy, and engaging promotional text.
+    The text should be suitable for social media and include relevant hashtags.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error generating promotion from content with Vertex AI: {e}")
+        return f"Error: {e}"

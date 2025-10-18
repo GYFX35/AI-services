@@ -622,6 +622,10 @@ def get_config():
         'metaAppId': os.environ.get('META_APP_ID')
     })
 
+@app.route('/promotion')
+def promotion():
+    return render_template('promotion.html')
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -844,6 +848,31 @@ def create_promotion():
 
     promotion_text = google_ai.generate_social_media_post(description)
     return jsonify({"promotion_text": promotion_text})
+
+
+@app.route('/api/v1/promote', methods=['POST'])
+@require_api_key
+def create_promotion_from_url():
+    data = request.get_json()
+    url = data.get('url')
+    if not url:
+        return jsonify({"error": _("URL is required")}), 400
+
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.content, 'html.parser')
+        # Extract text from the body, trying to get meaningful content
+        text_content = ' '.join(t.strip() for t in soup.body.find_all(string=True) if t.parent.name not in ['style', 'script', 'head', 'title', 'meta', '[document]'])
+        if not text_content:
+            return jsonify({"error": _("Could not extract meaningful content from the URL.")}), 400
+        # Limit the content size to avoid overly large payloads to the AI model
+        promotion_text = google_ai.generate_promotion_from_content(url, text_content[:4000])
+        return jsonify({"promotion_text": promotion_text})
+    except requests.RequestException as e:
+        return jsonify({"error": _("Error fetching URL: %(error)s", error=str(e))}), 400
+    except Exception as e:
+        return jsonify({"error": _("An unexpected error occurred: %(error)s", error=str(e))}), 500
 
 @app.route('/api/v1/payment/create-payment-intent', methods=['POST'])
 @require_api_key
