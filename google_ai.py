@@ -121,7 +121,7 @@ def generate_promotion_from_content(url: str, content: str) -> str:
 
     generation_prompt = f"""
     You are an expert marketing strategist. Your task is to create a compelling promotion campaign
-    for the product found at the URL: {url}.
+    for the product, startup, business, art, or talent described at the URL: {url}.
 
     I have extracted the following text content from the page:
     ---
