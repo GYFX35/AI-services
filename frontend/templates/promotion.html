@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promote Your Product</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/promotion.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Promote Your Website, App, or AI Model</h1>
+        <p>Enter the URL of your product below and our AI will generate a promotion campaign for you.</p>
+        <form id="promotion-form">
+            <input type="url" id="url-input" placeholder="https://your-product-url.com" required>
+            <input type="text" id="api-key-input" placeholder="Enter your API Key" required>
+            <button type="submit">Start Promotion</button>
+        </form>
+        <div id="promotion-result"></div>
+    </div>
+    <script src="{{ url_for('static', filename='js/promotion.js') }}"></script>
+</body>
+</html>
