@@ -1031,7 +1031,7 @@ if __name__ == '__main__':
             ]
             db.session.bulk_save_objects(projects)
             db.session.commit()
-    app.run(debug=True, port=5001)
+    app.run(port=5001)
 
 @app.cli.command("init-db")
 def init_db_command():
