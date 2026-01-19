@@ -774,6 +774,39 @@ def automate_script_endpoint():
     return jsonify({"status": "success", "message": message})
 
 
+@app.route('/api/v1/business/strategy', methods=['POST'])
+@require_api_key
+def business_strategy_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.generate_business_strategy(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
+@app.route('/api/v1/support/it', methods=['POST'])
+@require_api_key
+def it_support_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_it_support(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
+@app.route('/api/v1/data/analyze', methods=['POST'])
+@require_api_key
+def analyze_data_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.analyze_data(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
 @app.route('/api/register', methods=['POST'])
 def register():
     data = request.get_json()
