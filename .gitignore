@@ -10,6 +10,8 @@ pip-wheel-metadata/
 .installed.cfg
 *.egg-info/
 *.egg
+dist/
+build/
 
 # Logs
 *.log
