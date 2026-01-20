@@ -432,12 +432,6 @@ if __name__ == '__main__':
 """
     return response_message.strip()
 
-def get_financial_advice(prompt):
-    advice = _("Based on your query, here is some general financial advice: diversify your investments and create a budget.")
-    # In a real application, this would involve more sophisticated logic,
-    # possibly integrating with financial data APIs or a fine-tuned LLM.
-    return advice
-
 def generate_art_criticism(prompt):
     criticism = _("This is a placeholder for an art criticism based on your prompt: %(prompt)s", prompt=prompt)
     # In a real application, this would connect to a generative AI model
@@ -749,7 +743,7 @@ def financial_advice_endpoint():
     prompt = data.get('prompt')
     if not prompt:
         return jsonify({"error": _("Prompt is required")}), 400
-    message = get_financial_advice(prompt)
+    message = google_ai.provide_financial_advice(prompt)
     return jsonify({"status": "success", "message": message})
 
 @app.route('/api/v1/art/criticism', methods=['POST'])
