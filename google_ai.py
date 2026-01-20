@@ -240,3 +240,81 @@ def provide_financial_advice(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing financial advice with Vertex AI: {e}")
         return f"Error: {e}"
+
+
+def generate_blockchain_code(prompt: str) -> str:
+    """
+    Generates blockchain-related code using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert blockchain developer. Your task is to generate code based on the following user prompt.
+
+    User Prompt:
+    ---
+    {prompt}
+    ---
+
+    The code should be well-structured and include comments where necessary.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error generating blockchain code with Vertex AI: {e}")
+        return f"Error: {e}"
+
+
+def generate_blogger_bots_page(prompt: str) -> str:
+    """
+    Generates a blogger bots page using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert blogger and bot developer. Your task is to generate a blogger page with bots based on the following user prompt.
+
+    User Prompt:
+    ---
+    {prompt}
+    ---
+
+    The generated page should be engaging and the bots should be functional.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error generating blogger bots page with Vertex AI: {e}")
+        return f"Error: {e}"
+
+
+def generate_messenger_code(prompt: str) -> str:
+    """
+    Generates Messenger-related code using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert Messenger developer and manager. Your task is to generate code for a Messenger bot or integration based on the following user prompt.
+
+    User Prompt:
+    ---
+    {prompt}
+    ---
+
+    The code should be well-structured and follow best practices for the Messenger Platform.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error generating Messenger code with Vertex AI: {e}")
+        return f"Error: {e}"
