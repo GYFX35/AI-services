@@ -801,6 +801,39 @@ def analyze_data_endpoint():
     return jsonify({"status": "success", "message": message})
 
 
+@app.route('/api/v1/develop/blockchain', methods=['POST'])
+@require_api_key
+def blockchain_code_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.generate_blockchain_code(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
+@app.route('/api/v1/develop/blogger', methods=['POST'])
+@require_api_key
+def blogger_bots_page_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.generate_blogger_bots_page(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
+@app.route('/api/v1/develop/messenger', methods=['POST'])
+@require_api_key
+def messenger_code_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.generate_messenger_code(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
 @app.route('/api/register', methods=['POST'])
 def register():
     data = request.get_json()
