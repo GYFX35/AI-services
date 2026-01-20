@@ -214,3 +214,29 @@ def analyze_data(prompt: str) -> str:
     except Exception as e:
         print(f"Error analyzing data with Vertex AI: {e}")
         return f"Error: {e}"
+
+
+def provide_financial_advice(prompt: str) -> str:
+    """
+    Provides financial advice for a given issue using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert financial advisor. Your task is to provide financial advice based on the following user prompt.
+
+    User Prompt:
+    ---
+    {prompt}
+    ---
+
+    The advice should be comprehensive and include actionable steps.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing financial advice with Vertex AI: {e}")
+        return f"Error: {e}"
