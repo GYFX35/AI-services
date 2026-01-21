@@ -318,3 +318,29 @@ def generate_messenger_code(prompt: str) -> str:
     except Exception as e:
         print(f"Error generating Messenger code with Vertex AI: {e}")
         return f"Error: {e}"
+
+
+def learn_language(prompt: str) -> str:
+    """
+    Provides language learning assistance using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are a friendly and patient language tutor. Your task is to help a user learn a new language based on their request.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a clear, concise, and helpful response. You can provide translations, explanations of grammar, cultural context, or practice exercises.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing language learning assistance with Vertex AI: {e}")
+        return f"Error: {e}"

@@ -834,6 +834,17 @@ def messenger_code_endpoint():
     return jsonify({"status": "success", "message": message})
 
 
+@app.route('/api/v1/learn/language', methods=['POST'])
+@require_api_key
+def learn_language_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.learn_language(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
 @app.route('/api/register', methods=['POST'])
 def register():
     data = request.get_json()
