@@ -344,3 +344,55 @@ def learn_language(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing language learning assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+
+def provide_telecommunication_support(prompt: str) -> str:
+    """
+    Provides telecommunication support for a given issue using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are a knowledgeable telecommunication support specialist. Your task is to provide a solution to the following technical issue.
+
+    User Issue:
+    ---
+    {prompt}
+    ---
+
+    Provide a clear, step-by-step solution.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing telecommunication support with Vertex AI: {e}")
+        return f"Error: {e}"
+
+
+def generate_telecommunication_assistant_response(prompt: str) -> str:
+    """
+    Generates a telecommunication assistant response for a given issue using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are a helpful telecommunication assistant. Your task is to provide a response to the following user query.
+
+    User Query:
+    ---
+    {prompt}
+    ---
+
+    Provide a clear and concise response.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error generating telecommunication assistant response with Vertex AI: {e}")
+        return f"Error: {e}"

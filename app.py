@@ -790,6 +790,28 @@ def it_support_endpoint():
     return jsonify({"status": "success", "message": message})
 
 
+@app.route('/api/v1/support/telecommunication', methods=['POST'])
+@require_api_key
+def telecommunication_support_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_telecommunication_support(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
+@app.route('/api/v1/assistant/telecommunication', methods=['POST'])
+@require_api_key
+def telecommunication_assistant_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.generate_telecommunication_assistant_response(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
 @app.route('/api/v1/data/analyze', methods=['POST'])
 @require_api_key
 def analyze_data_endpoint():
