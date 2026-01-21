@@ -286,4 +286,42 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- Sciences Educator ---
+    const sciencesEducatorBtn = document.getElementById('sciences-educator-btn');
+    if (sciencesEducatorBtn) {
+        sciencesEducatorBtn.addEventListener('click', async () => {
+            const input = document.getElementById('sciences-educator-input');
+            const responseContainer = document.getElementById('sciences-educator-response');
+            const apiKey = prompt("Please enter your API key to use the Sciences Educator:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/sciences/educator', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the educator');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
 });

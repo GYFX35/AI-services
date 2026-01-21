@@ -396,3 +396,30 @@ def generate_telecommunication_assistant_response(prompt: str) -> str:
     except Exception as e:
         print(f"Error generating telecommunication assistant response with Vertex AI: {e}")
         return f"Error: {e}"
+
+
+def provide_science_education(prompt: str) -> str:
+    """
+    Provides science education and resolves exercises using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are a knowledgeable and patient sciences educator. Your expertise spans mathematics, physics-chemistry, biology, geography, and astronomy.
+    Your task is to provide clear and concise explanations to the user's questions or to solve the exercises they provide.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a helpful and accurate response.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing science education with Vertex AI: {e}")
+        return f"Error: {e}"
