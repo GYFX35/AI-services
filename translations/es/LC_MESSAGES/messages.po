@@ -299,6 +299,34 @@ msgstr "Capacidad de automatización"
 msgid "We can generate automation scripts to handle your repetitive tasks."
 msgstr "Podemos generar scripts de automatización para manejar sus tareas repetitivas."
 
+#: frontend/templates/index.html:70
+msgid "Sciences Educator"
+msgstr "Educador de Ciencias"
+
+#: frontend/templates/index.html:71
+msgid ""
+"Our AI can provide science education and resolve exercises in mathematics, "
+"physics-chemistry, biology, geography, and astronomy."
+msgstr ""
+"Nuestra IA puede proporcionar educación científica y resolver ejercicios de "
+"matemáticas, física-química, biología, geografía y astronomía."
+
+#: frontend/templates/index.html:81
+msgid "Ask a question or submit an exercise"
+msgstr "Haz una pregunta o envía un ejercicio"
+
+#: frontend/templates/index.html:82
+msgid "Enter your question or exercise below."
+msgstr "Introduce tu pregunta o ejercicio a continuación."
+
+#: frontend/templates/index.html:83
+msgid "Your question or exercise"
+msgstr "Tu pregunta o ejercicio"
+
+#: frontend/templates/index.html:84
+msgid "Submit"
+msgstr "Enviar"
+
 #~ msgid "Payment initiated successfully"
 #~ msgstr "Pago iniciado correctamente"
 
