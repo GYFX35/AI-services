@@ -2,6 +2,17 @@
 
 This project is a web-based AI agent that can perform several roles to assist with software development and business tasks.
 
+## Devpost Challenge Submission
+
+This project is a submission for the **[Name of Devpost Challenge]**.
+
+*   **Live Demo:** [Link to Live Demo](http://ai-services.devpost.com)
+*   **Video Walkthrough:** [Link to Video Walkthrough]
+
+### How It Works
+
+Our platform connects to multiple AI services to provide a suite of tools for developers and entrepreneurs. The core of the application is a Flask-based backend that serves a user-friendly frontend. The AI functionalities are powered by Google's Vertex AI, enabling features like code generation, debugging, and content creation. The platform is designed to be easily extensible, allowing for the integration of new AI-powered tools in the future.
+
 ## Features
 
 - **Software Engineer:** Generates multi-section HTML and CSS for a static website based on a structured text prompt.
@@ -12,7 +23,7 @@ This project is a web-based AI agent that can perform several roles to assist wi
 ## How to Use
 
 ### Software Engineer
-The Software Engineer agent uses a simple, indented syntax to define the components of a website. Provide a description in the "Software Engineer" text box, and the agent will return the HTML and CSS code in the response box below.
+The Software Engineer agent uses a simple, indented syntax to define the components of a website. Provide a description in the "Software-Engineer" text box, and the agent will return the HTML and CSS code in the response box below.
 
 **Example Prompt:**
 ```
@@ -49,17 +60,34 @@ Enter a full website URL (e.g., `https://example.com`) to scan the page for brok
    cd AI-services
    ```
 
-2. **Install Python dependencies:**
+2. **Set up a virtual environment (recommended):**
    ```bash
-   pip install -r backend/requirements.txt
+   python -m venv venv
+   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   ```
+
+3. **Install Python dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Create a `.env` file:**
+   - Copy the `.env.example` to `.env` and fill in your API keys.
+   ```bash
+   cp .env.example .env
    ```
 
 ### Running the Application
 
-1. **Start the backend server:**
+1. **Initialize the database:**
    ```bash
-   python backend/main.py
+   flask init-db
    ```
 
-2. **Open your web browser:**
+2. **Start the server:**
+   ```bash
+   flask run
+   ```
+
+3. **Open your web browser:**
    Navigate to `http://127.0.0.1:5000` to access the application.

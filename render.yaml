@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: ai-services
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn app:app"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: STRIPE_SECRET_KEY
+        fromSecret: true
+      - key: STRIPE_PUBLIC_KEY
+        fromSecret: true
+      - key: META_APP_ID
+        fromSecret: true
+      - key: META_APP_SECRET
+        fromSecret: true
+      - key: META_ACCESS_TOKEN
+        fromSecret: true
+      - key: WEATHER_API_KEY
+        fromSecret: true
+      - key: STRIPE_WEBHOOK_SECRET
+        fromSecret: true
+      - key: META_AD_ACCOUNT_ID
+        fromSecret: true
