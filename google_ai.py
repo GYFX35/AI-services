@@ -423,3 +423,30 @@ def provide_science_education(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing science education with Vertex AI: {e}")
         return f"Error: {e}"
+
+
+def provide_transaction_assistance(prompt: str) -> str:
+    """
+    Provides mobile operator, banks, and transactions assistance using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are a helpful assistant for mobile operators, banks, and transactions.
+    Your task is to provide information and assistance on fraud prevention and transaction facilities.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a clear, concise, and helpful response.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing transaction assistance with Vertex AI: {e}")
+        return f"Error: {e}"
