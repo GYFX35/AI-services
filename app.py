@@ -889,6 +889,17 @@ def transaction_assistance_endpoint():
     return jsonify({"status": "success", "message": message})
 
 
+@app.route('/api/v1/play/music', methods=['POST'])
+@require_api_key
+def play_music_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.play_music_instrumental(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
 @app.route('/api/register', methods=['POST'])
 def register():
     data = request.get_json()

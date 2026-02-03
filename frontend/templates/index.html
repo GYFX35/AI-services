@@ -70,6 +70,26 @@
                     <h3>{{ _('Sciences Educator') }}</h3>
                     <p>{{ _('Our AI can provide science education and resolve exercises in mathematics, physics-chemistry, biology, geography, and astronomy.') }}</p>
                 </div>
+                <div class="card">
+                    <h3>{{ _('Music Instrumentalist Player') }}</h3>
+                    <p>{{ _('Our AI can provide musical suggestions, help with learning an instrument, and compose short musical pieces.') }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Music Instrumentalist Section -->
+        <section id="music-instrumentalist" class="services">
+            <h2>{{ _('Music Instrumentalist Player') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Get musical assistance or compositions') }}</h3>
+                    <p>{{ _('Enter your musical request below.') }}</p>
+                    <textarea id="music-instrumentalist-input" placeholder="{{ _('Your musical request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="music-instrumentalist-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="music-instrumentalist-response-container">
+                        <pre id="music-instrumentalist-response"></pre>
+                    </div>
+                </div>
             </div>
         </section>
 

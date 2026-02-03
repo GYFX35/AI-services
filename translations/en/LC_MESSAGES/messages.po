@@ -304,3 +304,27 @@ msgstr "We can generate automation scripts to handle your repetitive tasks."
 
 #~ msgid "Buy Now"
 #~ msgstr "Buy Now"
+
+#: frontend/templates/index.html:74 frontend/templates/index.html:81
+msgid "Music Instrumentalist Player"
+msgstr "Music Instrumentalist Player"
+
+#: frontend/templates/index.html:75
+msgid ""
+"Our AI can provide musical suggestions, help with learning an instrument, "
+"and compose short musical pieces."
+msgstr ""
+"Our AI can provide musical suggestions, help with learning an instrument, "
+"and compose short musical pieces."
+
+#: frontend/templates/index.html:84
+msgid "Get musical assistance or compositions"
+msgstr "Get musical assistance or compositions"
+
+#: frontend/templates/index.html:85
+msgid "Enter your musical request below."
+msgstr "Enter your musical request below."
+
+#: frontend/templates/index.html:86
+msgid "Your musical request"
+msgstr "Your musical request"
