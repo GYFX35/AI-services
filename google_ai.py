@@ -450,3 +450,30 @@ def provide_transaction_assistance(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing transaction assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+
+def play_music_instrumental(prompt: str) -> str:
+    """
+    Provides music instrumentalist assistance using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are a virtuoso music instrumentalist. Your expertise includes playing various instruments, music theory, and composition.
+    Your task is to provide musical suggestions, help with learning an instrument, provide tabs or sheet music descriptions, or compose short musical pieces based on the user's request.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional and inspiring musical response.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing music instrumentalist assistance with Vertex AI: {e}")
+        return f"Error: {e}"

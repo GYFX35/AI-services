@@ -332,3 +332,27 @@ msgstr "Enviar"
 
 #~ msgid "Buy Now"
 #~ msgstr "Comprar ahora"
+
+#: frontend/templates/index.html:74 frontend/templates/index.html:81
+msgid "Music Instrumentalist Player"
+msgstr "Músico Instrumentalista"
+
+#: frontend/templates/index.html:75
+msgid ""
+"Our AI can provide musical suggestions, help with learning an instrument, "
+"and compose short musical pieces."
+msgstr ""
+"Nuestra IA puede proporcionar sugerencias musicales, ayudar a aprender un "
+"instrumento y componer piezas musicales cortas."
+
+#: frontend/templates/index.html:84
+msgid "Get musical assistance or compositions"
+msgstr "Obtén asistencia musical o composiciones"
+
+#: frontend/templates/index.html:85
+msgid "Enter your musical request below."
+msgstr "Introduce tu solicitud musical a continuación."
+
+#: frontend/templates/index.html:86
+msgid "Your musical request"
+msgstr "Tu solicitud musical"
