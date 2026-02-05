@@ -249,6 +249,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Document Specialist ---
+    const documentSpecialistBtn = document.getElementById('document-specialist-btn');
+    if (documentSpecialistBtn) {
+        documentSpecialistBtn.addEventListener('click', async () => {
+            const input = document.getElementById('document-specialist-input');
+            const responseContainer = document.getElementById('document-specialist-response');
+            const apiKey = prompt("Please enter your API key to use the Document Specialist:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/assistance/document', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the document specialist');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- Promote Startup ---
     const promoteStartupBtn = document.getElementById('promote-startup-btn');
     if (promoteStartupBtn) {
