@@ -922,6 +922,17 @@ def cartography_assistance_endpoint():
     return jsonify({"status": "success", "message": message})
 
 
+@app.route('/api/v1/assistance/document', methods=['POST'])
+@require_api_key
+def document_assistance_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_document_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
 @app.route('/api/register', methods=['POST'])
 def register():
     data = request.get_json()

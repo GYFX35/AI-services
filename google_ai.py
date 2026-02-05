@@ -531,3 +531,33 @@ def provide_cartography_assistance(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing cartography assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+
+def provide_document_assistance(prompt: str) -> str:
+    """
+    Provides assistance with writing, scanning, and building ebooks, articles, PDFs, and DOCs using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert document specialist. Your task is to provide assistance with writing, scanning, and building ebooks, articles, PDFs, DOCs, and other file formats.
+    Your expertise includes:
+    - Writing: Generating high-quality content for ebooks, articles, and reports.
+    - Scanning: Summarizing, extracting key information, and analyzing document content.
+    - Building: Advising on document structure, formatting, and conversion between different formats.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, detailed, and helpful response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing document assistance with Vertex AI: {e}")
+        return f"Error: {e}"
