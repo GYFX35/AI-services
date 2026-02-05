@@ -362,4 +362,80 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- Geometry Assistant ---
+    const geometryAssistantBtn = document.getElementById('geometry-assistant-btn');
+    if (geometryAssistantBtn) {
+        geometryAssistantBtn.addEventListener('click', async () => {
+            const input = document.getElementById('geometry-assistant-input');
+            const responseContainer = document.getElementById('geometry-assistant-response');
+            const apiKey = prompt("Please enter your API key to use the Geometry Assistant:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/assistance/geometry', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the geometry assistant');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
+    // --- Cartography Assistant ---
+    const cartographyAssistantBtn = document.getElementById('cartography-assistant-btn');
+    if (cartographyAssistantBtn) {
+        cartographyAssistantBtn.addEventListener('click', async () => {
+            const input = document.getElementById('cartography-assistant-input');
+            const responseContainer = document.getElementById('cartography-assistant-response');
+            const apiKey = prompt("Please enter your API key to use the Cartography Assistant:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/assistance/cartography', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the cartography assistant');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
 });

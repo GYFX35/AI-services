@@ -477,3 +477,57 @@ def play_music_instrumental(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing music instrumentalist assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+
+def provide_geometry_assistance(prompt: str) -> str:
+    """
+    Provides geometry assistance using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert mathematician specializing in geometry. Your task is to provide clear, accurate, and helpful assistance with geometry problems, theorems, and concepts.
+    You should be able to explain Euclidean geometry, non-Euclidean geometry, analytic geometry, and differential geometry.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional and educational response.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing geometry assistance with Vertex AI: {e}")
+        return f"Error: {e}"
+
+
+def provide_cartography_assistance(prompt: str) -> str:
+    """
+    Provides cartography assistance using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert cartographer and GIS specialist. Your task is to provide assistance with map making, geographical data analysis, coordinate systems, and map projections.
+    You should be knowledgeable about both historical and modern cartographic techniques.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional and detailed response.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing cartography assistance with Vertex AI: {e}")
+        return f"Error: {e}"
