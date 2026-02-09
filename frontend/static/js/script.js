@@ -476,4 +476,42 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- Business Plan Creator ---
+    const businessPlanBtn = document.getElementById('business-plan-btn');
+    if (businessPlanBtn) {
+        businessPlanBtn.addEventListener('click', async () => {
+            const input = document.getElementById('business-plan-input');
+            const responseContainer = document.getElementById('business-plan-response');
+            const apiKey = prompt("Please enter your API key to use the Business Plan Creator:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/business/plan', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the business plan creator');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
 });

@@ -561,3 +561,33 @@ def provide_document_assistance(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing document assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+
+def provide_business_plan_assistance(prompt: str) -> str:
+    """
+    Provides assistance with creating, perfecting, and developing business plans using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert business consultant and strategist. Your task is to help the user create, perfect, and develop a comprehensive business plan.
+    Your expertise includes:
+    - Business Plan Creation: Drafting executive summaries, market analyses, operational plans, and financial projections.
+    - Perfection: Reviewing existing business plans for clarity, consistency, and persuasiveness.
+    - Development: Expanding on business ideas, identifying potential risks, and suggesting growth strategies.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, detailed, and actionable response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing business plan assistance with Vertex AI: {e}")
+        return f"Error: {e}"
