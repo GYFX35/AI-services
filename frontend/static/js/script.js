@@ -590,4 +590,42 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- Podcast Assistance ---
+    const podcastAssistanceBtn = document.getElementById('podcast-assistance-btn');
+    if (podcastAssistanceBtn) {
+        podcastAssistanceBtn.addEventListener('click', async () => {
+            const input = document.getElementById('podcast-assistance-input');
+            const responseContainer = document.getElementById('podcast-assistance-response');
+            const apiKey = prompt("Please enter your API key to use the Podcast & Business Podcast Role:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/podcast/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the podcast assistance role');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
 });
