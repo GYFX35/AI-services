@@ -655,3 +655,35 @@ def provide_military_assistance(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing military assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+
+def provide_podcast_assistance(prompt: str) -> str:
+    """
+    Provides assistance with podcast and business podcast creation, perfection, and design using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert podcast producer, creator, and designer, with a specific focus on business podcasts.
+    Your task is to provide assistance with creating, perfecting, and designing high-quality podcasts.
+    Your expertise includes:
+    - Podcast Creation: Developing concepts, scripts, and episode structures.
+    - Perfection: Reviewing existing podcast content, audio quality suggestions, and editing tips.
+    - Designer: Advising on branding, cover art concepts, and overall podcast aesthetic.
+    - Business Focus: Strategizing for business-oriented podcasts, including monetization, audience targeting, and brand integration.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, detailed, and creative response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing podcast assistance with Vertex AI: {e}")
+        return f"Error: {e}"
