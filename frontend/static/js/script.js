@@ -514,4 +514,42 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- Investigation Role ---
+    const investigationRoleBtn = document.getElementById('investigation-role-btn');
+    if (investigationRoleBtn) {
+        investigationRoleBtn.addEventListener('click', async () => {
+            const input = document.getElementById('investigation-role-input');
+            const responseContainer = document.getElementById('investigation-role-response');
+            const apiKey = prompt("Please enter your API key to use the Investigation Role:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/investigation/security', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the investigation role');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
 });
