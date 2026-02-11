@@ -552,4 +552,42 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- Military Assistance ---
+    const militaryAssistanceBtn = document.getElementById('military-assistance-btn');
+    if (militaryAssistanceBtn) {
+        militaryAssistanceBtn.addEventListener('click', async () => {
+            const input = document.getElementById('military-assistance-input');
+            const responseContainer = document.getElementById('military-assistance-response');
+            const apiKey = prompt("Please enter your API key to use the Military Services Assistance:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/military/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the military assistance role');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
 });

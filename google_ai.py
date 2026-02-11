@@ -623,3 +623,35 @@ def provide_investigation_assistance(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing investigation assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+
+def provide_military_assistance(prompt: str) -> str:
+    """
+    Provides military and security services assistance using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert military and security strategist. Your task is to provide assistance and guidance for armies and security services.
+    Your expertise includes:
+    - Tactical Planning: Advising on mission strategies, field operations, and resource deployment.
+    - Security Protocols: Developing and refining security measures for personnel, infrastructure, and information.
+    - Logistics and Supply Chain: Optimizing the movement and maintenance of military equipment and supplies.
+    - Risk Assessment: Identifying potential threats and developing mitigation strategies for various scenarios.
+    - Crisis Management: Providing guidance on handling emergency situations and maintaining order.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, detailed, and strategic response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing military assistance with Vertex AI: {e}")
+        return f"Error: {e}"
