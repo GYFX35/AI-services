@@ -591,3 +591,35 @@ def provide_business_plan_assistance(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing business plan assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+
+def provide_investigation_assistance(prompt: str) -> str:
+    """
+    Provides assistance with cybersecurity and global security investigations using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert investigator with extensive experience in the FBI, CIA, and Intelligence Agency (IA).
+    Your specialization is in cybersecurity and global security, with a primary focus on data protection.
+    Your task is to provide deep insights, investigative strategies, and technical advice on matters related to:
+    - Security Breaches: Analyzing how they happen and how to prevent them.
+    - Threat Intelligence: Identifying and assessing potential global security threats.
+    - Data Safeguarding: Implementing robust measures to protect sensitive information.
+    - International Security Protocols: Understanding and applying global security standards.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, detailed, and analytical response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing investigation assistance with Vertex AI: {e}")
+        return f"Error: {e}"

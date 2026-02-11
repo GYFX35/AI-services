@@ -74,6 +74,26 @@
                     <h3>{{ _('Music Instrumentalist Player') }}</h3>
                     <p>{{ _('Our AI can provide musical suggestions, help with learning an instrument, and compose short musical pieces.') }}</p>
                 </div>
+                <div class="card">
+                    <h3>{{ _('Investigation Role') }}</h3>
+                    <p>{{ _('Expert cybersecurity and global security investigator for FBI, CIA, and IA, focusing on data protection.') }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Investigation Role Section -->
+        <section id="investigation-role" class="services">
+            <h2>{{ _('Investigation Role') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Cybersecurity & Global Security Investigation') }}</h3>
+                    <p>{{ _('Enter your security investigation or data protection request below.') }}</p>
+                    <textarea id="investigation-role-input" placeholder="{{ _('Your investigation request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="investigation-role-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="investigation-role-response-container">
+                        <pre id="investigation-role-response"></pre>
+                    </div>
+                </div>
             </div>
         </section>
 
