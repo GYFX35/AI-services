@@ -689,6 +689,70 @@ def provide_podcast_assistance(prompt: str) -> str:
         return f"Error: {e}"
 
 
+def provide_supply_chain_assistance(prompt: str) -> str:
+    """
+    Provides assistance with supply chain optimization and management using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert supply chain consultant. Your task is to provide assistance with optimizing and managing supply chain operations.
+    Your expertise includes:
+    - Supply Chain Strategy: Developing and implementing strategic supply chain plans.
+    - Inventory Management: Optimizing inventory levels, reducing carrying costs, and improving order fulfillment.
+    - Sourcing and Procurement: Identifying and evaluating suppliers, negotiating contracts, and managing supplier relationships.
+    - Process Improvement: Identifying and implementing process improvements to increase efficiency and reduce costs.
+    - Technology Integration: Advising on the selection and implementation of supply chain management software and technologies.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, detailed, and actionable response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing supply chain assistance with Vertex AI: {e}")
+        return f"Error: {e}"
+
+
+def provide_logistics_assistance(prompt: str) -> str:
+    """
+    Provides assistance with logistics and transportation management using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert logistics and transportation specialist. Your task is to provide assistance with managing the movement of goods and materials.
+    Your expertise includes:
+    - Transportation Management: Planning and executing transportation operations, selecting carriers, and negotiating rates.
+    - Route Optimization: Optimizing delivery routes to reduce transportation costs and improve delivery times.
+    - Warehousing and Distribution: Managing warehouse operations, optimizing storage space, and improving distribution efficiency.
+    - International Logistics: Navigating the complexities of international shipping, customs regulations, and trade compliance.
+    - Freight Forwarding: Coordinating the movement of freight across various modes of transportation.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, detailed, and practical response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing logistics assistance with Vertex AI: {e}")
+        return f"Error: {e}"
+
+
 def translate_text(text: str, target_language: str) -> str:
     """
     Translates text to a target language using Vertex AI.
