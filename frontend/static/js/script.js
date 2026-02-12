@@ -628,4 +628,194 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- Supply Chain Assistance ---
+    const supplyChainAssistanceBtn = document.getElementById('supply-chain-assistance-btn');
+    if (supplyChainAssistanceBtn) {
+        supplyChainAssistanceBtn.addEventListener('click', async () => {
+            const input = document.getElementById('supply-chain-assistance-input');
+            const responseContainer = document.getElementById('supply-chain-assistance-response');
+            const apiKey = prompt("Please enter your API key to use the Supply Chain Consultant:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/supply-chain/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the supply chain consultant');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
+    // --- Logistics Assistance ---
+    const logisticsAssistanceBtn = document.getElementById('logistics-assistance-btn');
+    if (logisticsAssistanceBtn) {
+        logisticsAssistanceBtn.addEventListener('click', async () => {
+            const input = document.getElementById('logistics-assistance-input');
+            const responseContainer = document.getElementById('logistics-assistance-response');
+            const apiKey = prompt("Please enter your API key to use the Logistics & Transportation Specialist:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/logistics/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the logistics specialist');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
+    // --- Data Engineering Assistance ---
+    const dataEngineeringAssistanceBtn = document.getElementById('data-engineering-assistance-btn');
+    if (dataEngineeringAssistanceBtn) {
+        dataEngineeringAssistanceBtn.addEventListener('click', async () => {
+            const input = document.getElementById('data-engineering-assistance-input');
+            const responseContainer = document.getElementById('data-engineering-assistance-response');
+            const apiKey = prompt("Please enter your API key to use the Data Engineering & Architecture Assistant:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/data-engineering/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the data engineering assistant');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
+    // --- Incoterm Assistance ---
+    const incotermAssistanceBtn = document.getElementById('incoterm-assistance-btn');
+    if (incotermAssistanceBtn) {
+        incotermAssistanceBtn.addEventListener('click', async () => {
+            const input = document.getElementById('incoterm-assistance-input');
+            const responseContainer = document.getElementById('incoterm-assistance-response');
+            const apiKey = prompt("Please enter your API key to use the Incoterms Expert:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/incoterm/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the incoterms expert');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
+    // --- Digital Twin Assistance ---
+    const digitalTwinAssistanceBtn = document.getElementById('digital-twin-assistance-btn');
+    if (digitalTwinAssistanceBtn) {
+        digitalTwinAssistanceBtn.addEventListener('click', async () => {
+            const input = document.getElementById('digital-twin-assistance-input');
+            const responseContainer = document.getElementById('digital-twin-assistance-response');
+            const apiKey = prompt("Please enter your API key to use the Digital Twin Specialist:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/digital-twin/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the digital twin specialist');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
 });
