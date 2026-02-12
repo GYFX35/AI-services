@@ -104,6 +104,14 @@
                     <h3>{{ _('Logistics & Transportation Specialist') }}</h3>
                     <p>{{ _('Professional specialist for managing goods movement, route optimization, and international logistics.') }}</p>
                 </div>
+                <div class="card">
+                    <h3>{{ _('Data Engineering Expert') }}</h3>
+                    <p>{{ _('Expert data engineer for designing, building, and maintaining robust data pipelines and architectures.') }}</p>
+                </div>
+                <div class="card">
+                    <h3>{{ _('Incoterms Expert') }}</h3>
+                    <p>{{ _('Professional expert for guidance and clarification on international commercial terms (Incoterms).') }}</p>
+                </div>
             </div>
         </section>
 
@@ -134,6 +142,38 @@
                     <button id="logistics-assistance-btn" class="btn">{{ _('Submit') }}</button>
                     <div class="response-container" id="logistics-assistance-response-container">
                         <pre id="logistics-assistance-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Engineering Expert Section -->
+        <section id="data-engineering-assistance" class="services">
+            <h2>{{ _('Data Engineering Expert') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Design & Build Data Pipelines') }}</h3>
+                    <p>{{ _('Enter your data engineering, pipeline design, or architecture request below.') }}</p>
+                    <textarea id="data-engineering-assistance-input" placeholder="{{ _('Your data engineering request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="data-engineering-assistance-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="data-engineering-assistance-response-container">
+                        <pre id="data-engineering-assistance-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Incoterms Expert Section -->
+        <section id="incoterms-assistance" class="services">
+            <h2>{{ _('Incoterms Expert') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Get Guidance on Incoterms') }}</h3>
+                    <p>{{ _('Enter your Incoterms or international trade request below.') }}</p>
+                    <textarea id="incoterms-assistance-input" placeholder="{{ _('Your Incoterms request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="incoterms-assistance-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="incoterms-assistance-response-container">
+                        <pre id="incoterms-assistance-response"></pre>
                     </div>
                 </div>
             </div>
