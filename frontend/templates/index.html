@@ -14,11 +14,17 @@
         <nav>
             <div class="logo">UsingAI</div>
             <ul>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#military-assistance">Military</a></li>
-                <li><a href="#purchase">Purchase</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#services">{{ _('Services') }}</a></li>
+                <li><a href="#development-hub">{{ _('Development') }}</a></li>
+                <li><a href="#supply-chain-assistance">{{ _('Supply Chain') }}</a></li>
+                <li><a href="#logistics-assistance">{{ _('Logistics') }}</a></li>
+                <li><a href="#data-engineering-assistance">{{ _('Data Engineering') }}</a></li>
+                <li><a href="#incoterm-assistance">{{ _('Incoterm') }}</a></li>
+                <li><a href="#digital-twin-assistance">{{ _('Digital Twin') }}</a></li>
+                <li><a href="#military-assistance">{{ _('Military') }}</a></li>
+                <li><a href="#purchase">{{ _('Purchase') }}</a></li>
+                <li><a href="#portfolio">{{ _('Portfolio') }}</a></li>
+                <li><a href="#contact">{{ _('Contact') }}</a></li>
             </ul>
         </nav>
     </header>
@@ -329,6 +335,133 @@
                     <button id="sciences-educator-btn" class="btn">{{ _('Submit') }}</button>
                     <div class="response-container" id="sciences-educator-response-container">
                         <pre id="sciences-educator-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Development Hub Section -->
+        <section id="development-hub" class="services">
+            <h2>{{ _('AI Development Hub') }}</h2>
+            <div class="service-cards">
+                <!-- Website Development -->
+                <div class="card">
+                    <h3>{{ _('Website Development') }}</h3>
+                    <p>{{ _('Describe the website you want to build.') }}</p>
+                    <textarea id="develop-website-input" placeholder="{{ _('Website description...') }}" class="styled-textarea" rows="3"></textarea>
+                    <button id="develop-website-btn" class="btn">{{ _('Develop Website') }}</button>
+                    <div class="response-container" id="develop-website-response-container">
+                        <pre id="develop-website-response"></pre>
+                    </div>
+                </div>
+                <!-- App Development -->
+                <div class="card">
+                    <h3>{{ _('App Development') }}</h3>
+                    <p>{{ _('Describe the application you want to build.') }}</p>
+                    <textarea id="develop-app-input" placeholder="{{ _('App description...') }}" class="styled-textarea" rows="3"></textarea>
+                    <button id="develop-app-btn" class="btn">{{ _('Develop App') }}</button>
+                    <div class="response-container" id="develop-app-response-container">
+                        <pre id="develop-app-response"></pre>
+                    </div>
+                </div>
+                <!-- Game Development -->
+                <div class="card">
+                    <h3>{{ _('Game Development') }}</h3>
+                    <p>{{ _('Describe the game you want to build.') }}</p>
+                    <textarea id="develop-game-input" placeholder="{{ _('Game description...') }}" class="styled-textarea" rows="3"></textarea>
+                    <button id="develop-game-btn" class="btn">{{ _('Develop Game') }}</button>
+                    <div class="response-container" id="develop-game-response-container">
+                        <pre id="develop-game-response"></pre>
+                    </div>
+                </div>
+                <!-- Backend Development -->
+                <div class="card">
+                    <h3>{{ _('Backend Development') }}</h3>
+                    <p>{{ _('Describe the backend API or service you need.') }}</p>
+                    <textarea id="develop-backend-input" placeholder="{{ _('Backend requirements...') }}" class="styled-textarea" rows="3"></textarea>
+                    <button id="develop-backend-btn" class="btn">{{ _('Develop Backend') }}</button>
+                    <div class="response-container" id="develop-backend-response-container">
+                        <pre id="develop-backend-response"></pre>
+                    </div>
+                </div>
+                <!-- Supply Chain Development -->
+                <div class="card">
+                    <h3>{{ _('Supply Chain Development') }}</h3>
+                    <p>{{ _('Develop supply chain models, architectures or solutions.') }}</p>
+                    <textarea id="develop-supply-chain-input" placeholder="{{ _('Supply chain development request...') }}" class="styled-textarea" rows="3"></textarea>
+                    <button id="develop-supply-chain-btn" class="btn">{{ _('Develop Supply Chain') }}</button>
+                    <div class="response-container" id="develop-supply-chain-response-container">
+                        <pre id="develop-supply-chain-response"></pre>
+                    </div>
+                </div>
+                <!-- Logistics Development -->
+                <div class="card">
+                    <h3>{{ _('Logistics Development') }}</h3>
+                    <p>{{ _('Develop logistics systems, algorithms or warehouse models.') }}</p>
+                    <textarea id="develop-logistics-input" placeholder="{{ _('Logistics development request...') }}" class="styled-textarea" rows="3"></textarea>
+                    <button id="develop-logistics-btn" class="btn">{{ _('Develop Logistics') }}</button>
+                    <div class="response-container" id="develop-logistics-response-container">
+                        <pre id="develop-logistics-response"></pre>
+                    </div>
+                </div>
+                <!-- Data Engineering Development -->
+                <div class="card">
+                    <h3>{{ _('Data Engineering Development') }}</h3>
+                    <p>{{ _('Develop data pipelines, ETL scripts or data infrastructure.') }}</p>
+                    <textarea id="develop-data-engineering-input" placeholder="{{ _('Data engineering request...') }}" class="styled-textarea" rows="3"></textarea>
+                    <button id="develop-data-engineering-btn" class="btn">{{ _('Develop Data Engineering') }}</button>
+                    <div class="response-container" id="develop-data-engineering-response-container">
+                        <pre id="develop-data-engineering-response"></pre>
+                    </div>
+                </div>
+                <!-- Incoterm Development -->
+                <div class="card">
+                    <h3>{{ _('Incoterm Development') }}</h3>
+                    <p>{{ _('Develop trade compliance frameworks or contract templates.') }}</p>
+                    <textarea id="develop-incoterm-input" placeholder="{{ _('Incoterm development request...') }}" class="styled-textarea" rows="3"></textarea>
+                    <button id="develop-incoterm-btn" class="btn">{{ _('Develop Incoterm') }}</button>
+                    <div class="response-container" id="develop-incoterm-response-container">
+                        <pre id="develop-incoterm-response"></pre>
+                    </div>
+                </div>
+                <!-- Digital Twin Development -->
+                <div class="card">
+                    <h3>{{ _('Digital Twin Development') }}</h3>
+                    <p>{{ _('Develop digital twin models, simulation logic or IoT architecture.') }}</p>
+                    <textarea id="develop-digital-twin-input" placeholder="{{ _('Digital twin development request...') }}" class="styled-textarea" rows="3"></textarea>
+                    <button id="develop-digital-twin-btn" class="btn">{{ _('Develop Digital Twin') }}</button>
+                    <div class="response-container" id="develop-digital-twin-response-container">
+                        <pre id="develop-digital-twin-response"></pre>
+                    </div>
+                </div>
+                <!-- Blockchain Development -->
+                <div class="card">
+                    <h3>{{ _('Blockchain Development') }}</h3>
+                    <p>{{ _('Generate blockchain-related code or smart contracts.') }}</p>
+                    <textarea id="develop-blockchain-input" placeholder="{{ _('Blockchain request...') }}" class="styled-textarea" rows="3"></textarea>
+                    <button id="develop-blockchain-btn" class="btn">{{ _('Develop Blockchain') }}</button>
+                    <div class="response-container" id="develop-blockchain-response-container">
+                        <pre id="develop-blockchain-response"></pre>
+                    </div>
+                </div>
+                <!-- Blogger Development -->
+                <div class="card">
+                    <h3>{{ _('Blogger Development') }}</h3>
+                    <p>{{ _('Develop blogger bots or interactive blogger pages.') }}</p>
+                    <textarea id="develop-blogger-input" placeholder="{{ _('Blogger request...') }}" class="styled-textarea" rows="3"></textarea>
+                    <button id="develop-blogger-btn" class="btn">{{ _('Develop Blogger') }}</button>
+                    <div class="response-container" id="develop-blogger-response-container">
+                        <pre id="develop-blogger-response"></pre>
+                    </div>
+                </div>
+                <!-- Messenger Development -->
+                <div class="card">
+                    <h3>{{ _('Messenger Development') }}</h3>
+                    <p>{{ _('Develop messenger bots or integration code.') }}</p>
+                    <textarea id="develop-messenger-input" placeholder="{{ _('Messenger request...') }}" class="styled-textarea" rows="3"></textarea>
+                    <button id="develop-messenger-btn" class="btn">{{ _('Develop Messenger') }}</button>
+                    <div class="response-container" id="develop-messenger-response-container">
+                        <pre id="develop-messenger-response"></pre>
                     </div>
                 </div>
             </div>

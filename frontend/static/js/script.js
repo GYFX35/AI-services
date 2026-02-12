@@ -819,3 +819,60 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+    // --- Helper function for AI Roles ---
+    async function setupAIRole(btnId, inputId, responseId, endpoint, roleName) {
+        const btn = document.getElementById(btnId);
+        if (btn) {
+            btn.addEventListener('click', async () => {
+                const input = document.getElementById(inputId);
+                const responseContainer = document.getElementById(responseId);
+                const apiKey = prompt(`Please enter your API key to use the ${roleName}:`);
+
+                if (!apiKey) {
+                    responseContainer.textContent = 'API key is required.';
+                    return;
+                }
+
+                try {
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-API-Key': apiKey
+                        },
+                        body: JSON.stringify({
+                            prompt: input.value
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const error = await response.json();
+                        throw new Error(error.error || `Failed to get a response from ${roleName}`);
+                    }
+
+                    const result = await response.json();
+                    responseContainer.textContent = result.message;
+                } catch (error) {
+                    responseContainer.textContent = `Error: ${error.message}`;
+                }
+            });
+        }
+    }
+
+    // --- Development Hub Roles ---
+    setupAIRole('develop-website-btn', 'develop-website-input', 'develop-website-response', '/api/v1/develop/website', 'Website Developer');
+    setupAIRole('develop-app-btn', 'develop-app-input', 'develop-app-response', '/api/v1/develop/app', 'App Developer');
+    setupAIRole('develop-game-btn', 'develop-game-input', 'develop-game-response', '/api/v1/develop/game', 'Game Developer');
+    setupAIRole('develop-backend-btn', 'develop-backend-input', 'develop-backend-response', '/api/v1/develop/backend', 'Backend Developer');
+    setupAIRole('develop-blockchain-btn', 'develop-blockchain-input', 'develop-blockchain-response', '/api/v1/develop/blockchain', 'Blockchain Developer');
+
+    // New Development Roles
+    setupAIRole('develop-supply-chain-btn', 'develop-supply-chain-input', 'develop-supply-chain-response', '/api/v1/develop/supply-chain', 'Supply Chain Developer');
+    setupAIRole('develop-logistics-btn', 'develop-logistics-input', 'develop-logistics-response', '/api/v1/develop/logistics', 'Logistics Developer');
+    setupAIRole('develop-data-engineering-btn', 'develop-data-engineering-input', 'develop-data-engineering-response', '/api/v1/develop/data-engineering', 'Data Engineering Developer');
+    setupAIRole('develop-incoterm-btn', 'develop-incoterm-input', 'develop-incoterm-response', '/api/v1/develop/incoterm', 'Incoterm Developer');
+    setupAIRole('develop-digital-twin-btn', 'develop-digital-twin-input', 'develop-digital-twin-response', '/api/v1/develop/digital-twin', 'Digital Twin Developer');
+
+    setupAIRole('develop-blogger-btn', 'develop-blogger-input', 'develop-blogger-response', '/api/v1/develop/blogger', 'Blogger Developer');
+    setupAIRole('develop-messenger-btn', 'develop-messenger-input', 'develop-messenger-response', '/api/v1/develop/messenger', 'Messenger Developer');

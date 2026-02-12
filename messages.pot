@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-02-12 07:38+0000\n"
+"POT-Creation-Date: 2026-02-12 08:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -254,6 +254,7 @@ msgstr ""
 #: app.py:821 app.py:832 app.py:843 app.py:854 app.py:865 app.py:876 app.py:887
 #: app.py:898 app.py:909 app.py:920 app.py:931 app.py:942 app.py:953 app.py:964
 #: app.py:975 app.py:986 app.py:997 app.py:1008 app.py:1019 app.py:1030
+#: app.py:1281 app.py:1291 app.py:1301 app.py:1311 app.py:1321
 msgid "Prompt is required"
 msgstr ""
 
@@ -293,348 +294,588 @@ msgstr ""
 msgid "Invalid amount"
 msgstr ""
 
-#: frontend/templates/index.html:67
+#: frontend/templates/index.html:17
+msgid "Services"
+msgstr ""
+
+#: frontend/templates/index.html:18
+msgid "Development"
+msgstr ""
+
+#: frontend/templates/index.html:19
+msgid "Supply Chain"
+msgstr ""
+
+#: frontend/templates/index.html:20
+msgid "Logistics"
+msgstr ""
+
+#: frontend/templates/index.html:21
+msgid "Data Engineering"
+msgstr ""
+
+#: frontend/templates/index.html:22
+msgid "Incoterm"
+msgstr ""
+
+#: frontend/templates/index.html:23
+msgid "Digital Twin"
+msgstr ""
+
+#: frontend/templates/index.html:24
+msgid "Military"
+msgstr ""
+
+#: frontend/templates/index.html:25
+msgid "Purchase"
+msgstr ""
+
+#: frontend/templates/index.html:26
+msgid "Portfolio"
+msgstr ""
+
+#: frontend/templates/index.html:27
+msgid "Contact"
+msgstr ""
+
+#: frontend/templates/index.html:73
 msgid "Automation Capacity"
 msgstr ""
 
-#: frontend/templates/index.html:68
+#: frontend/templates/index.html:74
 msgid "We can generate automation scripts to handle your repetitive tasks."
 msgstr ""
 
-#: frontend/templates/index.html:71 frontend/templates/index.html:323
+#: frontend/templates/index.html:77 frontend/templates/index.html:329
 msgid "Sciences Educator"
 msgstr ""
 
-#: frontend/templates/index.html:72
+#: frontend/templates/index.html:78
 msgid ""
 "Our AI can provide science education and resolve exercises in "
 "mathematics, physics-chemistry, biology, geography, and astronomy."
 msgstr ""
 
-#: frontend/templates/index.html:75 frontend/templates/index.html:307
+#: frontend/templates/index.html:81 frontend/templates/index.html:313
 msgid "Music Instrumentalist Player"
 msgstr ""
 
-#: frontend/templates/index.html:76
+#: frontend/templates/index.html:82
 msgid ""
 "Our AI can provide musical suggestions, help with learning an instrument,"
 " and compose short musical pieces."
 msgstr ""
 
-#: frontend/templates/index.html:79 frontend/templates/index.html:227
+#: frontend/templates/index.html:85 frontend/templates/index.html:233
 msgid "Investigation Role"
 msgstr ""
 
-#: frontend/templates/index.html:80
+#: frontend/templates/index.html:86
 msgid ""
 "Expert cybersecurity and global security investigator for FBI, CIA, and "
 "IA, focusing on data protection."
 msgstr ""
 
-#: frontend/templates/index.html:83 frontend/templates/index.html:211
+#: frontend/templates/index.html:89 frontend/templates/index.html:217
 msgid "Military Services Assistance"
 msgstr ""
 
-#: frontend/templates/index.html:84
+#: frontend/templates/index.html:90
 msgid ""
 "Strategic assistance for armies and security services, including tactical"
 " planning and risk assessment."
 msgstr ""
 
-#: frontend/templates/index.html:87 frontend/templates/index.html:195
+#: frontend/templates/index.html:93 frontend/templates/index.html:201
 msgid "Podcast & Business Podcast Role"
 msgstr ""
 
-#: frontend/templates/index.html:88
+#: frontend/templates/index.html:94
 msgid ""
 "Expert podcast producer, creator, and designer for high-quality podcasts,"
 " specializing in business."
 msgstr ""
 
-#: frontend/templates/index.html:91 frontend/templates/index.html:115
+#: frontend/templates/index.html:97 frontend/templates/index.html:121
 msgid "Supply Chain Consultant"
 msgstr ""
 
-#: frontend/templates/index.html:92
+#: frontend/templates/index.html:98
 msgid ""
 "Expert in supply chain management, optimization, and strategy to "
 "streamline your operations."
 msgstr ""
 
-#: frontend/templates/index.html:95 frontend/templates/index.html:131
+#: frontend/templates/index.html:101 frontend/templates/index.html:137
 msgid "Logistics & Transportation Specialist"
 msgstr ""
 
-#: frontend/templates/index.html:96
+#: frontend/templates/index.html:102
 msgid ""
 "Assistance with logistics, transportation, warehousing, and international"
 " trade operations."
 msgstr ""
 
-#: frontend/templates/index.html:99 frontend/templates/index.html:147
+#: frontend/templates/index.html:105 frontend/templates/index.html:153
 msgid "Data Engineering & Architecture"
 msgstr ""
 
-#: frontend/templates/index.html:100
+#: frontend/templates/index.html:106
 msgid ""
 "Expert guidance on building scalable data pipelines, modeling, and data "
 "infrastructure."
 msgstr ""
 
-#: frontend/templates/index.html:103 frontend/templates/index.html:163
+#: frontend/templates/index.html:109 frontend/templates/index.html:169
 msgid "Incoterms Expert"
 msgstr ""
 
-#: frontend/templates/index.html:104
+#: frontend/templates/index.html:110
 msgid ""
 "Accurate interpretation and application of International Commercial Terms"
 " for global trade."
 msgstr ""
 
-#: frontend/templates/index.html:107 frontend/templates/index.html:179
+#: frontend/templates/index.html:113 frontend/templates/index.html:185
 msgid "Digital Twin Specialist"
 msgstr ""
 
-#: frontend/templates/index.html:108
+#: frontend/templates/index.html:114
 msgid ""
 "Leverage Digital Twins, IoT, and simulation for operational excellence "
 "and predictive maintenance."
 msgstr ""
 
-#: frontend/templates/index.html:118
+#: frontend/templates/index.html:124
 msgid "Optimize Your Supply Chain"
 msgstr ""
 
-#: frontend/templates/index.html:119
+#: frontend/templates/index.html:125
 msgid "Enter your supply chain management or strategy request below."
 msgstr ""
 
-#: frontend/templates/index.html:120
+#: frontend/templates/index.html:126
 msgid "Your supply chain request"
 msgstr ""
 
-#: frontend/templates/index.html:121 frontend/templates/index.html:137
-#: frontend/templates/index.html:153 frontend/templates/index.html:169
-#: frontend/templates/index.html:185 frontend/templates/index.html:201
-#: frontend/templates/index.html:217 frontend/templates/index.html:233
-#: frontend/templates/index.html:249 frontend/templates/index.html:265
-#: frontend/templates/index.html:281 frontend/templates/index.html:297
-#: frontend/templates/index.html:313 frontend/templates/index.html:329
+#: frontend/templates/index.html:127 frontend/templates/index.html:143
+#: frontend/templates/index.html:159 frontend/templates/index.html:175
+#: frontend/templates/index.html:191 frontend/templates/index.html:207
+#: frontend/templates/index.html:223 frontend/templates/index.html:239
+#: frontend/templates/index.html:255 frontend/templates/index.html:271
+#: frontend/templates/index.html:287 frontend/templates/index.html:303
+#: frontend/templates/index.html:319 frontend/templates/index.html:335
 msgid "Submit"
 msgstr ""
 
-#: frontend/templates/index.html:134
+#: frontend/templates/index.html:140
 msgid "Streamline Your Logistics"
 msgstr ""
 
-#: frontend/templates/index.html:135
+#: frontend/templates/index.html:141
 msgid "Enter your logistics, transportation, or warehousing request below."
 msgstr ""
 
-#: frontend/templates/index.html:136
+#: frontend/templates/index.html:142
 msgid "Your logistics request"
 msgstr ""
 
-#: frontend/templates/index.html:150
+#: frontend/templates/index.html:156
 msgid "Build Your Data Infrastructure"
 msgstr ""
 
-#: frontend/templates/index.html:151
+#: frontend/templates/index.html:157
 msgid "Enter your data engineering or architecture request below."
 msgstr ""
 
-#: frontend/templates/index.html:152
+#: frontend/templates/index.html:158
 msgid "Your data engineering request"
 msgstr ""
 
-#: frontend/templates/index.html:166
+#: frontend/templates/index.html:172
 msgid "Global Trade & Incoterms Advice"
 msgstr ""
 
-#: frontend/templates/index.html:167
+#: frontend/templates/index.html:173
 msgid "Enter your Incoterms interpretation or application request below."
 msgstr ""
 
-#: frontend/templates/index.html:168
+#: frontend/templates/index.html:174
 msgid "Your Incoterms request"
 msgstr ""
 
-#: frontend/templates/index.html:182
+#: frontend/templates/index.html:188
 msgid "Digital Twins & IoT Strategy"
 msgstr ""
 
-#: frontend/templates/index.html:183
+#: frontend/templates/index.html:189
 msgid "Enter your digital twin, IoT, or simulation request below."
 msgstr ""
 
-#: frontend/templates/index.html:184
+#: frontend/templates/index.html:190
 msgid "Your digital twin request"
 msgstr ""
 
-#: frontend/templates/index.html:198
+#: frontend/templates/index.html:204
 msgid "Create, Perfect & Design Your Podcast"
 msgstr ""
 
-#: frontend/templates/index.html:199
+#: frontend/templates/index.html:205
 msgid "Enter your podcast creation, perfection, or design request below."
 msgstr ""
 
-#: frontend/templates/index.html:200
+#: frontend/templates/index.html:206
 msgid "Your podcast request"
 msgstr ""
 
-#: frontend/templates/index.html:214
+#: frontend/templates/index.html:220
 msgid "Tactical Planning & Security Strategy"
 msgstr ""
 
-#: frontend/templates/index.html:215
+#: frontend/templates/index.html:221
 msgid "Enter your request for military or security services assistance below."
 msgstr ""
 
-#: frontend/templates/index.html:216
+#: frontend/templates/index.html:222
 msgid "Your military assistance request"
 msgstr ""
 
-#: frontend/templates/index.html:230
+#: frontend/templates/index.html:236
 msgid "Cybersecurity & Global Security Investigation"
 msgstr ""
 
-#: frontend/templates/index.html:231
+#: frontend/templates/index.html:237
 msgid "Enter your security investigation or data protection request below."
 msgstr ""
 
-#: frontend/templates/index.html:232
+#: frontend/templates/index.html:238
 msgid "Your investigation request"
 msgstr ""
 
-#: frontend/templates/index.html:243
+#: frontend/templates/index.html:249
 msgid "Business Plan Creator"
 msgstr ""
 
-#: frontend/templates/index.html:246
+#: frontend/templates/index.html:252
 msgid "Create, perfect, and develop your business plan"
 msgstr ""
 
-#: frontend/templates/index.html:247
+#: frontend/templates/index.html:253
 msgid "Enter your request for business plan assistance below."
 msgstr ""
 
-#: frontend/templates/index.html:248
+#: frontend/templates/index.html:254
 msgid "Your business plan request"
 msgstr ""
 
-#: frontend/templates/index.html:259
+#: frontend/templates/index.html:265
 msgid "Document Specialist"
 msgstr ""
 
-#: frontend/templates/index.html:262
+#: frontend/templates/index.html:268
 msgid "Write, scan, and build documents"
 msgstr ""
 
-#: frontend/templates/index.html:263
+#: frontend/templates/index.html:269
 msgid "Enter your request for ebooks, articles, PDFs, or DOCs below."
 msgstr ""
 
-#: frontend/templates/index.html:264
+#: frontend/templates/index.html:270
 msgid "Your document request"
 msgstr ""
 
-#: frontend/templates/index.html:275
+#: frontend/templates/index.html:281
 msgid "Geometry Assistant"
 msgstr ""
 
-#: frontend/templates/index.html:278
+#: frontend/templates/index.html:284
 msgid "Get help with geometry problems"
 msgstr ""
 
-#: frontend/templates/index.html:279
+#: frontend/templates/index.html:285
 msgid "Enter your geometry question or problem below."
 msgstr ""
 
-#: frontend/templates/index.html:280
+#: frontend/templates/index.html:286
 msgid "Your geometry question"
 msgstr ""
 
-#: frontend/templates/index.html:291
+#: frontend/templates/index.html:297
 msgid "Cartography Assistant"
 msgstr ""
 
-#: frontend/templates/index.html:294
+#: frontend/templates/index.html:300
 msgid "Get help with maps and cartography"
 msgstr ""
 
-#: frontend/templates/index.html:295
+#: frontend/templates/index.html:301
 msgid "Enter your cartography or GIS question below."
 msgstr ""
 
-#: frontend/templates/index.html:296
+#: frontend/templates/index.html:302
 msgid "Your cartography question"
 msgstr ""
 
-#: frontend/templates/index.html:310
+#: frontend/templates/index.html:316
 msgid "Get musical assistance or compositions"
 msgstr ""
 
-#: frontend/templates/index.html:311
+#: frontend/templates/index.html:317
 msgid "Enter your musical request below."
 msgstr ""
 
-#: frontend/templates/index.html:312
+#: frontend/templates/index.html:318
 msgid "Your musical request"
 msgstr ""
 
-#: frontend/templates/index.html:326
+#: frontend/templates/index.html:332
 msgid "Ask a question or submit an exercise"
 msgstr ""
 
-#: frontend/templates/index.html:327
+#: frontend/templates/index.html:333
 msgid "Enter your question or exercise below."
 msgstr ""
 
-#: frontend/templates/index.html:328
+#: frontend/templates/index.html:334
 msgid "Your question or exercise"
 msgstr ""
 
-#: frontend/templates/index.html:355
-msgid "Create a New Project"
+#: frontend/templates/index.html:345
+msgid "AI Development Hub"
 msgstr ""
 
-#: frontend/templates/index.html:358
-msgid "Project Details"
+#: frontend/templates/index.html:349
+msgid "Website Development"
+msgstr ""
+
+#: frontend/templates/index.html:350
+msgid "Describe the website you want to build."
+msgstr ""
+
+#: frontend/templates/index.html:351
+msgid "Website description..."
+msgstr ""
+
+#: frontend/templates/index.html:352
+msgid "Develop Website"
 msgstr ""
 
 #: frontend/templates/index.html:359
-msgid "Enter the title and description for your new project."
+msgid "App Development"
 msgstr ""
 
 #: frontend/templates/index.html:360
-msgid "Project Title"
+msgid "Describe the application you want to build."
 msgstr ""
 
 #: frontend/templates/index.html:361
-msgid "Project Description"
+msgid "App description..."
 msgstr ""
 
 #: frontend/templates/index.html:362
-msgid "Create Project"
+msgid "Develop App"
+msgstr ""
+
+#: frontend/templates/index.html:369
+msgid "Game Development"
+msgstr ""
+
+#: frontend/templates/index.html:370
+msgid "Describe the game you want to build."
+msgstr ""
+
+#: frontend/templates/index.html:371
+msgid "Game description..."
 msgstr ""
 
 #: frontend/templates/index.html:372
+msgid "Develop Game"
+msgstr ""
+
+#: frontend/templates/index.html:379
+msgid "Backend Development"
+msgstr ""
+
+#: frontend/templates/index.html:380
+msgid "Describe the backend API or service you need."
+msgstr ""
+
+#: frontend/templates/index.html:381
+msgid "Backend requirements..."
+msgstr ""
+
+#: frontend/templates/index.html:382
+msgid "Develop Backend"
+msgstr ""
+
+#: frontend/templates/index.html:389
+msgid "Supply Chain Development"
+msgstr ""
+
+#: frontend/templates/index.html:390
+msgid "Develop supply chain models, architectures or solutions."
+msgstr ""
+
+#: frontend/templates/index.html:391
+msgid "Supply chain development request..."
+msgstr ""
+
+#: frontend/templates/index.html:392
+msgid "Develop Supply Chain"
+msgstr ""
+
+#: frontend/templates/index.html:399
+msgid "Logistics Development"
+msgstr ""
+
+#: frontend/templates/index.html:400
+msgid "Develop logistics systems, algorithms or warehouse models."
+msgstr ""
+
+#: frontend/templates/index.html:401
+msgid "Logistics development request..."
+msgstr ""
+
+#: frontend/templates/index.html:402
+msgid "Develop Logistics"
+msgstr ""
+
+#: frontend/templates/index.html:409
+msgid "Data Engineering Development"
+msgstr ""
+
+#: frontend/templates/index.html:410
+msgid "Develop data pipelines, ETL scripts or data infrastructure."
+msgstr ""
+
+#: frontend/templates/index.html:411
+msgid "Data engineering request..."
+msgstr ""
+
+#: frontend/templates/index.html:412
+msgid "Develop Data Engineering"
+msgstr ""
+
+#: frontend/templates/index.html:419
+msgid "Incoterm Development"
+msgstr ""
+
+#: frontend/templates/index.html:420
+msgid "Develop trade compliance frameworks or contract templates."
+msgstr ""
+
+#: frontend/templates/index.html:421
+msgid "Incoterm development request..."
+msgstr ""
+
+#: frontend/templates/index.html:422
+msgid "Develop Incoterm"
+msgstr ""
+
+#: frontend/templates/index.html:429
+msgid "Digital Twin Development"
+msgstr ""
+
+#: frontend/templates/index.html:430
+msgid "Develop digital twin models, simulation logic or IoT architecture."
+msgstr ""
+
+#: frontend/templates/index.html:431
+msgid "Digital twin development request..."
+msgstr ""
+
+#: frontend/templates/index.html:432
+msgid "Develop Digital Twin"
+msgstr ""
+
+#: frontend/templates/index.html:439
+msgid "Blockchain Development"
+msgstr ""
+
+#: frontend/templates/index.html:440
+msgid "Generate blockchain-related code or smart contracts."
+msgstr ""
+
+#: frontend/templates/index.html:441
+msgid "Blockchain request..."
+msgstr ""
+
+#: frontend/templates/index.html:442
+msgid "Develop Blockchain"
+msgstr ""
+
+#: frontend/templates/index.html:449
+msgid "Blogger Development"
+msgstr ""
+
+#: frontend/templates/index.html:450
+msgid "Develop blogger bots or interactive blogger pages."
+msgstr ""
+
+#: frontend/templates/index.html:451
+msgid "Blogger request..."
+msgstr ""
+
+#: frontend/templates/index.html:452
+msgid "Develop Blogger"
+msgstr ""
+
+#: frontend/templates/index.html:459
+msgid "Messenger Development"
+msgstr ""
+
+#: frontend/templates/index.html:460
+msgid "Develop messenger bots or integration code."
+msgstr ""
+
+#: frontend/templates/index.html:461
+msgid "Messenger request..."
+msgstr ""
+
+#: frontend/templates/index.html:462
+msgid "Develop Messenger"
+msgstr ""
+
+#: frontend/templates/index.html:488
+msgid "Create a New Project"
+msgstr ""
+
+#: frontend/templates/index.html:491
+msgid "Project Details"
+msgstr ""
+
+#: frontend/templates/index.html:492
+msgid "Enter the title and description for your new project."
+msgstr ""
+
+#: frontend/templates/index.html:493
+msgid "Project Title"
+msgstr ""
+
+#: frontend/templates/index.html:494
+msgid "Project Description"
+msgstr ""
+
+#: frontend/templates/index.html:495
+msgid "Create Project"
+msgstr ""
+
+#: frontend/templates/index.html:505
 msgid "Promote Your Startup"
 msgstr ""
 
-#: frontend/templates/index.html:375
+#: frontend/templates/index.html:508
 msgid "Startup Details"
 msgstr ""
 
-#: frontend/templates/index.html:376
+#: frontend/templates/index.html:509
 msgid "Enter a description of your startup to generate a promotion."
 msgstr ""
 
-#: frontend/templates/index.html:377
+#: frontend/templates/index.html:510
 msgid "Startup Description"
 msgstr ""
 
-#: frontend/templates/index.html:378
+#: frontend/templates/index.html:511
 msgid "Generate Promotion"
 msgstr ""

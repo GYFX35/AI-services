@@ -1271,3 +1271,53 @@ def init_db_command():
         db.session.bulk_save_objects(projects)
         db.session.commit()
     print("Database initialized.")
+
+@app.route('/api/v1/develop/supply-chain', methods=['POST'])
+@require_api_key
+def develop_supply_chain_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.develop_supply_chain(prompt)
+    return jsonify({"status": "success", "message": message})
+
+@app.route('/api/v1/develop/logistics', methods=['POST'])
+@require_api_key
+def develop_logistics_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.develop_logistics(prompt)
+    return jsonify({"status": "success", "message": message})
+
+@app.route('/api/v1/develop/data-engineering', methods=['POST'])
+@require_api_key
+def develop_data_engineering_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.develop_data_engineering(prompt)
+    return jsonify({"status": "success", "message": message})
+
+@app.route('/api/v1/develop/incoterm', methods=['POST'])
+@require_api_key
+def develop_incoterm_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.develop_incoterm(prompt)
+    return jsonify({"status": "success", "message": message})
+
+@app.route('/api/v1/develop/digital-twin', methods=['POST'])
+@require_api_key
+def develop_digital_twin_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.develop_digital_twin(prompt)
+    return jsonify({"status": "success", "message": message})
