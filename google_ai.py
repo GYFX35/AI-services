@@ -753,6 +753,69 @@ def provide_logistics_assistance(prompt: str) -> str:
         return f"Error: {e}"
 
 
+def provide_data_engineering_assistance(prompt: str) -> str:
+    """
+    Provides assistance with data engineering and architecture using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert data engineer and architect. Your task is to provide assistance with designing, building, and maintaining data pipelines and architectures.
+    Your expertise includes:
+    - Data Pipeline Design: Creating robust and scalable ETL/ELT processes.
+    - Data Modeling: Designing efficient data models for both SQL and NoSQL databases.
+    - Big Data Technologies: Working with tools like Hadoop, Spark, Kafka, and cloud-native data services (e.g., BigQuery, Redshift, Snowflake).
+    - Data Warehousing: Implementing and optimizing data warehouse solutions.
+    - Data Quality and Governance: Ensuring data accuracy, consistency, and security throughout the data lifecycle.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, technical, and detailed response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing data engineering assistance with Vertex AI: {e}")
+        return f"Error: {e}"
+
+
+def provide_incoterms_assistance(prompt: str) -> str:
+    """
+    Provides assistance with Incoterms and international trade terms using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert in Incoterms (International Commercial Terms) and international trade. Your task is to provide assistance and clarification on the use and interpretation of Incoterms.
+    Your expertise includes:
+    - Incoterms 2020: Deep understanding of all 11 current Incoterms (EXW, FCA, CPT, CIP, DAP, DPU, DDP, FAS, FOB, CFR, CIF).
+    - Risk and Cost Allocation: Clearly explaining when risk and costs transfer from the seller to the buyer for each term.
+    - Logistics and Documentation: Advising on the necessary documentation and logistical arrangements required by different Incoterms.
+    - Compliance and Contracts: Helping users choose the most appropriate Incoterm for their international sales contracts to minimize risk and avoid disputes.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, precise, and authoritative response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing incoterms assistance with Vertex AI: {e}")
+        return f"Error: {e}"
+
+
 def translate_text(text: str, target_language: str) -> str:
     """
     Translates text to a target language using Vertex AI.

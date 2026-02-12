@@ -717,6 +717,82 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Data Engineering Assistance ---
+    const dataEngineeringAssistanceBtn = document.getElementById('data-engineering-assistance-btn');
+    if (dataEngineeringAssistanceBtn) {
+        dataEngineeringAssistanceBtn.addEventListener('click', async () => {
+            const input = document.getElementById('data-engineering-assistance-input');
+            const responseContainer = document.getElementById('data-engineering-assistance-response');
+            const apiKey = getApiKey("Please enter your API key to use the Data Engineering Expert:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/data-engineering/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the data engineering expert');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
+    // --- Incoterms Assistance ---
+    const incotermsAssistanceBtn = document.getElementById('incoterms-assistance-btn');
+    if (incotermsAssistanceBtn) {
+        incotermsAssistanceBtn.addEventListener('click', async () => {
+            const input = document.getElementById('incoterms-assistance-input');
+            const responseContainer = document.getElementById('incoterms-assistance-response');
+            const apiKey = getApiKey("Please enter your API key to use the Incoterms Expert:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/incoterms/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the incoterms expert');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- Global Translator ---
     const translatorBtn = document.getElementById('translator-btn');
     if (translatorBtn) {
