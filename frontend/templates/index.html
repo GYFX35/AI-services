@@ -96,6 +96,46 @@
                     <h3>{{ _('Podcast & Business Podcast Role') }}</h3>
                     <p>{{ _('Expert podcast producer, creator, and designer for high-quality podcasts, specializing in business.') }}</p>
                 </div>
+                <div class="card">
+                    <h3>{{ _('Supply Chain Consultant') }}</h3>
+                    <p>{{ _('Expert consultant for optimizing supply chain strategy, inventory management, and sourcing.') }}</p>
+                </div>
+                <div class="card">
+                    <h3>{{ _('Logistics & Transportation Specialist') }}</h3>
+                    <p>{{ _('Professional specialist for managing goods movement, route optimization, and international logistics.') }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Supply Chain Consultant Section -->
+        <section id="supply-chain-assistance" class="services">
+            <h2>{{ _('Supply Chain Consultant') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Optimize Your Supply Chain') }}</h3>
+                    <p>{{ _('Enter your supply chain strategy, inventory, or sourcing request below.') }}</p>
+                    <textarea id="supply-chain-assistance-input" placeholder="{{ _('Your supply chain request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="supply-chain-assistance-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="supply-chain-assistance-response-container">
+                        <pre id="supply-chain-assistance-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Logistics & Transportation Specialist Section -->
+        <section id="logistics-assistance" class="services">
+            <h2>{{ _('Logistics & Transportation Specialist') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Manage Logistics & Transportation') }}</h3>
+                    <p>{{ _('Enter your logistics, route optimization, or shipping request below.') }}</p>
+                    <textarea id="logistics-assistance-input" placeholder="{{ _('Your logistics request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="logistics-assistance-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="logistics-assistance-response-container">
+                        <pre id="logistics-assistance-response"></pre>
+                    </div>
+                </div>
             </div>
         </section>
 

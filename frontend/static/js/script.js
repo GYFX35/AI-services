@@ -641,6 +641,82 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Supply Chain Assistance ---
+    const supplyChainAssistanceBtn = document.getElementById('supply-chain-assistance-btn');
+    if (supplyChainAssistanceBtn) {
+        supplyChainAssistanceBtn.addEventListener('click', async () => {
+            const input = document.getElementById('supply-chain-assistance-input');
+            const responseContainer = document.getElementById('supply-chain-assistance-response');
+            const apiKey = getApiKey("Please enter your API key to use the Supply Chain Consultant:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/supply-chain/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the supply chain consultant');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
+    // --- Logistics Assistance ---
+    const logisticsAssistanceBtn = document.getElementById('logistics-assistance-btn');
+    if (logisticsAssistanceBtn) {
+        logisticsAssistanceBtn.addEventListener('click', async () => {
+            const input = document.getElementById('logistics-assistance-input');
+            const responseContainer = document.getElementById('logistics-assistance-response');
+            const apiKey = getApiKey("Please enter your API key to use the Logistics & Transportation Specialist:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/logistics/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the logistics specialist');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- Global Translator ---
     const translatorBtn = document.getElementById('translator-btn');
     if (translatorBtn) {
