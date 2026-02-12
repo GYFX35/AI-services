@@ -104,6 +104,26 @@
                     <h3>{{ _('Logistics & Transportation Specialist') }}</h3>
                     <p>{{ _('Professional specialist for managing goods movement, route optimization, and international logistics.') }}</p>
                 </div>
+                <div class="card">
+                    <h3>{{ _('Digital Twins Specialist') }}</h3>
+                    <p>{{ _('Expert specialist for creating, managing, and optimizing digital twins of physical assets and systems.') }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Digital Twins Specialist Section -->
+        <section id="digital-twins-assistance" class="services">
+            <h2>{{ _('Digital Twins Specialist') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Create & Manage Digital Twins') }}</h3>
+                    <p>{{ _('Enter your digital twin modeling, simulation, or predictive maintenance request below.') }}</p>
+                    <textarea id="digital-twins-assistance-input" placeholder="{{ _('Your digital twin request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="digital-twins-assistance-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="digital-twins-assistance-response-container">
+                        <pre id="digital-twins-assistance-response"></pre>
+                    </div>
+                </div>
             </div>
         </section>
 

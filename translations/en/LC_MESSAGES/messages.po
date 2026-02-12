@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-02-12 08:06+0000\n"
+"POT-Creation-Date: 2026-02-12 08:28+0000\n"
 "PO-Revision-Date: 2025-08-18 14:21+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -61,7 +61,7 @@ msgstr "Humidity: %(humidity)s%%"
 msgid "Error fetching weather data: %(error)s"
 msgstr "Error fetching weather data: %(error)s"
 
-#: app.py:146 app.py:596 app.py:1112
+#: app.py:146 app.py:596 app.py:1123
 #, python-format
 msgid "An unexpected error occurred: %(error)s"
 msgstr "An unexpected error occurred: %(error)s"
@@ -228,7 +228,7 @@ msgstr "We're excited to announce %(prompt)s!"
 msgid "Come and check us out! You won't be disappointed."
 msgstr "Come and check us out! You won't be disappointed."
 
-#: app.py:558 app.py:1110
+#: app.py:558 app.py:1121
 #, python-format
 msgid "Error fetching URL: %(error)s"
 msgstr "Error fetching URL: %(error)s"
@@ -262,11 +262,11 @@ msgstr "Invalid API key"
 #: app.py:745 app.py:755 app.py:766 app.py:777 app.py:788 app.py:799 app.py:810
 #: app.py:821 app.py:832 app.py:843 app.py:854 app.py:865 app.py:876 app.py:887
 #: app.py:898 app.py:909 app.py:920 app.py:931 app.py:942 app.py:953 app.py:964
-#: app.py:975 app.py:986 app.py:997
+#: app.py:975 app.py:986 app.py:997 app.py:1008
 msgid "Prompt is required"
 msgstr "Prompt is required"
 
-#: app.py:725 app.py:1096
+#: app.py:725 app.py:1107
 msgid "URL is required"
 msgstr "URL is required"
 
@@ -274,38 +274,38 @@ msgstr "URL is required"
 msgid "Location is required"
 msgstr "Location is required"
 
-#: app.py:1009
+#: app.py:1020
 #, fuzzy
 msgid "Text is required"
 msgstr "URL is required"
 
-#: app.py:1019
+#: app.py:1030
 msgid "Username is required"
 msgstr "Username is required"
 
-#: app.py:1021
+#: app.py:1032
 msgid "Username already exists"
 msgstr "Username already exists"
 
-#: app.py:1060
+#: app.py:1071
 #, fuzzy
 msgid "Title and description are required"
 msgstr "Amount and currency are required"
 
-#: app.py:1084
+#: app.py:1095
 #, fuzzy
 msgid "Description is required"
 msgstr "Location is required"
 
-#: app.py:1105
+#: app.py:1116
 msgid "Could not extract meaningful content from the URL."
 msgstr ""
 
-#: app.py:1122
+#: app.py:1133
 msgid "Amount and currency are required"
 msgstr "Amount and currency are required"
 
-#: app.py:1127
+#: app.py:1138
 msgid "Invalid amount"
 msgstr "Invalid amount"
 
@@ -317,7 +317,7 @@ msgstr "Automation Capacity"
 msgid "We can generate automation scripts to handle your repetitive tasks."
 msgstr "We can generate automation scripts to handle your repetitive tasks."
 
-#: frontend/templates/index.html:80 frontend/templates/index.html:289
+#: frontend/templates/index.html:80 frontend/templates/index.html:309
 msgid "Sciences Educator"
 msgstr ""
 
@@ -327,7 +327,7 @@ msgid ""
 "mathematics, physics-chemistry, biology, geography, and astronomy."
 msgstr ""
 
-#: frontend/templates/index.html:84 frontend/templates/index.html:273
+#: frontend/templates/index.html:84 frontend/templates/index.html:293
 msgid "Music Instrumentalist Player"
 msgstr "Music Instrumentalist Player"
 
@@ -339,7 +339,7 @@ msgstr ""
 "Our AI can provide musical suggestions, help with learning an instrument,"
 " and compose short musical pieces."
 
-#: frontend/templates/index.html:88 frontend/templates/index.html:193
+#: frontend/templates/index.html:88 frontend/templates/index.html:213
 msgid "Investigation Role"
 msgstr ""
 
@@ -349,7 +349,7 @@ msgid ""
 "IA, focusing on data protection."
 msgstr ""
 
-#: frontend/templates/index.html:92 frontend/templates/index.html:177
+#: frontend/templates/index.html:92 frontend/templates/index.html:197
 msgid "Military Services Assistance"
 msgstr ""
 
@@ -359,7 +359,7 @@ msgid ""
 " planning and risk assessment."
 msgstr ""
 
-#: frontend/templates/index.html:96 frontend/templates/index.html:161
+#: frontend/templates/index.html:96 frontend/templates/index.html:181
 msgid "Podcast & Business Podcast Role"
 msgstr ""
 
@@ -369,7 +369,7 @@ msgid ""
 " specializing in business."
 msgstr ""
 
-#: frontend/templates/index.html:100 frontend/templates/index.html:112
+#: frontend/templates/index.html:100 frontend/templates/index.html:132
 msgid "Supply Chain Consultant"
 msgstr ""
 
@@ -379,7 +379,7 @@ msgid ""
 "management, and sourcing."
 msgstr ""
 
-#: frontend/templates/index.html:104 frontend/templates/index.html:128
+#: frontend/templates/index.html:104 frontend/templates/index.html:148
 msgid "Logistics & Transportation Specialist"
 msgstr ""
 
@@ -389,241 +389,267 @@ msgid ""
 "and international logistics."
 msgstr ""
 
-#: frontend/templates/index.html:115
+#: frontend/templates/index.html:108 frontend/templates/index.html:116
+msgid "Digital Twins Specialist"
+msgstr ""
+
+#: frontend/templates/index.html:109
+msgid ""
+"Expert specialist for creating, managing, and optimizing digital twins of"
+" physical assets and systems."
+msgstr ""
+
+#: frontend/templates/index.html:119
+msgid "Create & Manage Digital Twins"
+msgstr ""
+
+#: frontend/templates/index.html:120
+#, fuzzy
+msgid ""
+"Enter your digital twin modeling, simulation, or predictive maintenance "
+"request below."
+msgstr "Enter your musical request below."
+
+#: frontend/templates/index.html:121
+#, fuzzy
+msgid "Your digital twin request"
+msgstr "Your musical request"
+
+#: frontend/templates/index.html:122 frontend/templates/index.html:138
+#: frontend/templates/index.html:154 frontend/templates/index.html:187
+#: frontend/templates/index.html:203 frontend/templates/index.html:219
+#: frontend/templates/index.html:235 frontend/templates/index.html:251
+#: frontend/templates/index.html:267 frontend/templates/index.html:283
+#: frontend/templates/index.html:299 frontend/templates/index.html:315
+msgid "Submit"
+msgstr ""
+
+#: frontend/templates/index.html:135
 msgid "Optimize Your Supply Chain"
 msgstr ""
 
-#: frontend/templates/index.html:116
+#: frontend/templates/index.html:136
 #, fuzzy
 msgid "Enter your supply chain strategy, inventory, or sourcing request below."
 msgstr "Enter your musical request below."
 
-#: frontend/templates/index.html:117
+#: frontend/templates/index.html:137
 #, fuzzy
 msgid "Your supply chain request"
 msgstr "Your musical request"
 
-#: frontend/templates/index.html:118 frontend/templates/index.html:134
-#: frontend/templates/index.html:167 frontend/templates/index.html:183
-#: frontend/templates/index.html:199 frontend/templates/index.html:215
-#: frontend/templates/index.html:231 frontend/templates/index.html:247
-#: frontend/templates/index.html:263 frontend/templates/index.html:279
-#: frontend/templates/index.html:295
-msgid "Submit"
-msgstr ""
-
-#: frontend/templates/index.html:131
+#: frontend/templates/index.html:151
 msgid "Manage Logistics & Transportation"
 msgstr ""
 
-#: frontend/templates/index.html:132
+#: frontend/templates/index.html:152
 #, fuzzy
 msgid "Enter your logistics, route optimization, or shipping request below."
 msgstr "Enter your musical request below."
 
-#: frontend/templates/index.html:133
+#: frontend/templates/index.html:153
 #, fuzzy
 msgid "Your logistics request"
 msgstr "Your musical request"
 
-#: frontend/templates/index.html:144
+#: frontend/templates/index.html:164
 msgid "Global Translator"
 msgstr ""
 
-#: frontend/templates/index.html:147
+#: frontend/templates/index.html:167
 msgid "Translate Text to Any Language"
 msgstr ""
 
-#: frontend/templates/index.html:148
+#: frontend/templates/index.html:168
 msgid "Enter the text you want to translate and the target language."
 msgstr ""
 
-#: frontend/templates/index.html:149
+#: frontend/templates/index.html:169
 msgid "Text to translate"
 msgstr ""
 
-#: frontend/templates/index.html:150
+#: frontend/templates/index.html:170
 msgid "Target Language (e.g., Spanish, French, Japanese)"
 msgstr ""
 
-#: frontend/templates/index.html:151
+#: frontend/templates/index.html:171
 msgid "Translate"
 msgstr ""
 
-#: frontend/templates/index.html:164
+#: frontend/templates/index.html:184
 msgid "Create, Perfect & Design Your Podcast"
 msgstr ""
 
-#: frontend/templates/index.html:165
+#: frontend/templates/index.html:185
 msgid "Enter your podcast creation, perfection, or design request below."
 msgstr ""
 
-#: frontend/templates/index.html:166
+#: frontend/templates/index.html:186
 #, fuzzy
 msgid "Your podcast request"
 msgstr "Your musical request"
 
-#: frontend/templates/index.html:180
+#: frontend/templates/index.html:200
 msgid "Tactical Planning & Security Strategy"
 msgstr ""
 
-#: frontend/templates/index.html:181
+#: frontend/templates/index.html:201
 msgid "Enter your request for military or security services assistance below."
 msgstr ""
 
-#: frontend/templates/index.html:182
+#: frontend/templates/index.html:202
 #, fuzzy
 msgid "Your military assistance request"
 msgstr "Your musical request"
 
-#: frontend/templates/index.html:196
+#: frontend/templates/index.html:216
 msgid "Cybersecurity & Global Security Investigation"
 msgstr ""
 
-#: frontend/templates/index.html:197
+#: frontend/templates/index.html:217
 #, fuzzy
 msgid "Enter your security investigation or data protection request below."
 msgstr "Enter your musical request below."
 
-#: frontend/templates/index.html:198
+#: frontend/templates/index.html:218
 #, fuzzy
 msgid "Your investigation request"
 msgstr "Your musical request"
 
-#: frontend/templates/index.html:209
+#: frontend/templates/index.html:229
 msgid "Business Plan Creator"
 msgstr ""
 
-#: frontend/templates/index.html:212
+#: frontend/templates/index.html:232
 msgid "Create, perfect, and develop your business plan"
 msgstr ""
 
-#: frontend/templates/index.html:213
+#: frontend/templates/index.html:233
 msgid "Enter your request for business plan assistance below."
 msgstr ""
 
-#: frontend/templates/index.html:214
+#: frontend/templates/index.html:234
 #, fuzzy
 msgid "Your business plan request"
 msgstr "Your musical request"
 
-#: frontend/templates/index.html:225
+#: frontend/templates/index.html:245
 msgid "Document Specialist"
 msgstr ""
 
-#: frontend/templates/index.html:228
+#: frontend/templates/index.html:248
 msgid "Write, scan, and build documents"
 msgstr ""
 
-#: frontend/templates/index.html:229
+#: frontend/templates/index.html:249
 msgid "Enter your request for ebooks, articles, PDFs, or DOCs below."
 msgstr ""
 
-#: frontend/templates/index.html:230
+#: frontend/templates/index.html:250
 #, fuzzy
 msgid "Your document request"
 msgstr "Your musical request"
 
-#: frontend/templates/index.html:241
+#: frontend/templates/index.html:261
 msgid "Geometry Assistant"
 msgstr ""
 
-#: frontend/templates/index.html:244
+#: frontend/templates/index.html:264
 msgid "Get help with geometry problems"
 msgstr ""
 
-#: frontend/templates/index.html:245
+#: frontend/templates/index.html:265
 #, fuzzy
 msgid "Enter your geometry question or problem below."
 msgstr "Enter your musical request below."
 
-#: frontend/templates/index.html:246
+#: frontend/templates/index.html:266
 msgid "Your geometry question"
 msgstr ""
 
-#: frontend/templates/index.html:257
+#: frontend/templates/index.html:277
 msgid "Cartography Assistant"
 msgstr ""
 
-#: frontend/templates/index.html:260
+#: frontend/templates/index.html:280
 msgid "Get help with maps and cartography"
 msgstr ""
 
-#: frontend/templates/index.html:261
+#: frontend/templates/index.html:281
 #, fuzzy
 msgid "Enter your cartography or GIS question below."
 msgstr "Enter your musical request below."
 
-#: frontend/templates/index.html:262
+#: frontend/templates/index.html:282
 msgid "Your cartography question"
 msgstr ""
 
-#: frontend/templates/index.html:276
+#: frontend/templates/index.html:296
 msgid "Get musical assistance or compositions"
 msgstr "Get musical assistance or compositions"
 
-#: frontend/templates/index.html:277
+#: frontend/templates/index.html:297
 msgid "Enter your musical request below."
 msgstr "Enter your musical request below."
 
-#: frontend/templates/index.html:278
+#: frontend/templates/index.html:298
 msgid "Your musical request"
 msgstr "Your musical request"
 
-#: frontend/templates/index.html:292
+#: frontend/templates/index.html:312
 msgid "Ask a question or submit an exercise"
 msgstr ""
 
-#: frontend/templates/index.html:293
+#: frontend/templates/index.html:313
 #, fuzzy
 msgid "Enter your question or exercise below."
 msgstr "Enter your musical request below."
 
-#: frontend/templates/index.html:294
+#: frontend/templates/index.html:314
 msgid "Your question or exercise"
 msgstr ""
 
-#: frontend/templates/index.html:321
+#: frontend/templates/index.html:341
 msgid "Create a New Project"
 msgstr ""
 
-#: frontend/templates/index.html:324
+#: frontend/templates/index.html:344
 msgid "Project Details"
 msgstr ""
 
-#: frontend/templates/index.html:325
+#: frontend/templates/index.html:345
 msgid "Enter the title and description for your new project."
 msgstr ""
 
-#: frontend/templates/index.html:326
+#: frontend/templates/index.html:346
 msgid "Project Title"
 msgstr ""
 
-#: frontend/templates/index.html:327
+#: frontend/templates/index.html:347
 msgid "Project Description"
 msgstr ""
 
-#: frontend/templates/index.html:328
+#: frontend/templates/index.html:348
 msgid "Create Project"
 msgstr ""
 
-#: frontend/templates/index.html:338
+#: frontend/templates/index.html:358
 msgid "Promote Your Startup"
 msgstr ""
 
-#: frontend/templates/index.html:341
+#: frontend/templates/index.html:361
 msgid "Startup Details"
 msgstr ""
 
-#: frontend/templates/index.html:342
+#: frontend/templates/index.html:362
 msgid "Enter a description of your startup to generate a promotion."
 msgstr ""
 
-#: frontend/templates/index.html:343
+#: frontend/templates/index.html:363
 msgid "Startup Description"
 msgstr ""
 
-#: frontend/templates/index.html:344
+#: frontend/templates/index.html:364
 msgid "Generate Promotion"
 msgstr ""
 

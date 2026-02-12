@@ -753,6 +753,38 @@ def provide_logistics_assistance(prompt: str) -> str:
         return f"Error: {e}"
 
 
+def provide_digital_twins_assistance(prompt: str) -> str:
+    """
+    Provides assistance with creating, managing, and optimizing digital twins using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert Digital Twins specialist. Your task is to provide assistance with creating, managing, and optimizing digital twins of physical assets, processes, or systems.
+    Your expertise includes:
+    - Virtual Modeling: Designing accurate digital representations of physical objects.
+    - Real-time Data Integration: Connecting IoT sensors and data streams to digital twins.
+    - Simulation and Analysis: Running 'what-if' scenarios and predictive simulations.
+    - Predictive Maintenance: Identifying potential failures before they occur.
+    - Lifecycle Management: Managing the digital twin throughout the entire lifecycle of the physical asset.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, detailed, and technical response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing digital twins assistance with Vertex AI: {e}")
+        return f"Error: {e}"
+
+
 def translate_text(text: str, target_language: str) -> str:
     """
     Translates text to a target language using Vertex AI.

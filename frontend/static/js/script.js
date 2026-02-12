@@ -717,6 +717,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Digital Twins Assistance ---
+    const digitalTwinsAssistanceBtn = document.getElementById('digital-twins-assistance-btn');
+    if (digitalTwinsAssistanceBtn) {
+        digitalTwinsAssistanceBtn.addEventListener('click', async () => {
+            const input = document.getElementById('digital-twins-assistance-input');
+            const responseContainer = document.getElementById('digital-twins-assistance-response');
+            const apiKey = getApiKey("Please enter your API key to use the Digital Twins Specialist:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/digital-twins/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the digital twins specialist');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- Global Translator ---
     const translatorBtn = document.getElementById('translator-btn');
     if (translatorBtn) {
