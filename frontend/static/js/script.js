@@ -1,6 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
     fetchProjects();
 
+    // Global API Key storage for the session
+    let globalApiKey = null;
+
+    function getApiKey(message) {
+        if (globalApiKey) return globalApiKey;
+        const apiKey = prompt(message || "Please enter your API key:");
+        if (apiKey) {
+            globalApiKey = apiKey;
+        }
+        return apiKey;
+    }
+
     // --- Meta Pay and Stripe Integration ---
 
     let stripe;
@@ -31,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchPaymentIntent() {
         try {
-            const apiKey = prompt("Please enter your API key to make a purchase:");
+            const apiKey = getApiKey("Please enter your API key to make a purchase:");
             if (!apiKey) {
                 if(paymentStatus) paymentStatus.textContent = 'API key is required to make a purchase.';
                 return null;
@@ -213,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const titleInput = document.getElementById('project-title-input');
             const descriptionInput = document.getElementById('project-description-input');
             const responseContainer = document.getElementById('create-project-response');
-            const apiKey = prompt("Please enter your API key to create a project:");
+            const apiKey = getApiKey("Please enter your API key to create a project:");
 
             if (!apiKey) {
                 responseContainer.textContent = 'API key is required to create a project.';
@@ -255,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
         documentSpecialistBtn.addEventListener('click', async () => {
             const input = document.getElementById('document-specialist-input');
             const responseContainer = document.getElementById('document-specialist-response');
-            const apiKey = prompt("Please enter your API key to use the Document Specialist:");
+            const apiKey = getApiKey("Please enter your API key to use the Document Specialist:");
 
             if (!apiKey) {
                 responseContainer.textContent = 'API key is required.';
@@ -293,7 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
         promoteStartupBtn.addEventListener('click', async () => {
             const descriptionInput = document.getElementById('startup-description-input');
             const responseContainer = document.getElementById('promote-startup-response');
-            const apiKey = prompt("Please enter your API key to generate a promotion:");
+            const apiKey = getApiKey("Please enter your API key to generate a promotion:");
 
             if (!apiKey) {
                 responseContainer.textContent = 'API key is required to generate a promotion.';
@@ -331,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sciencesEducatorBtn.addEventListener('click', async () => {
             const input = document.getElementById('sciences-educator-input');
             const responseContainer = document.getElementById('sciences-educator-response');
-            const apiKey = prompt("Please enter your API key to use the Sciences Educator:");
+            const apiKey = getApiKey("Please enter your API key to use the Sciences Educator:");
 
             if (!apiKey) {
                 responseContainer.textContent = 'API key is required.';
@@ -369,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
         musicInstrumentalistBtn.addEventListener('click', async () => {
             const input = document.getElementById('music-instrumentalist-input');
             const responseContainer = document.getElementById('music-instrumentalist-response');
-            const apiKey = prompt("Please enter your API key to use the Music Instrumentalist:");
+            const apiKey = getApiKey("Please enter your API key to use the Music Instrumentalist:");
 
             if (!apiKey) {
                 responseContainer.textContent = 'API key is required.';
@@ -407,7 +419,7 @@ document.addEventListener('DOMContentLoaded', () => {
         geometryAssistantBtn.addEventListener('click', async () => {
             const input = document.getElementById('geometry-assistant-input');
             const responseContainer = document.getElementById('geometry-assistant-response');
-            const apiKey = prompt("Please enter your API key to use the Geometry Assistant:");
+            const apiKey = getApiKey("Please enter your API key to use the Geometry Assistant:");
 
             if (!apiKey) {
                 responseContainer.textContent = 'API key is required.';
@@ -445,7 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cartographyAssistantBtn.addEventListener('click', async () => {
             const input = document.getElementById('cartography-assistant-input');
             const responseContainer = document.getElementById('cartography-assistant-response');
-            const apiKey = prompt("Please enter your API key to use the Cartography Assistant:");
+            const apiKey = getApiKey("Please enter your API key to use the Cartography Assistant:");
 
             if (!apiKey) {
                 responseContainer.textContent = 'API key is required.';
@@ -483,7 +495,7 @@ document.addEventListener('DOMContentLoaded', () => {
         businessPlanBtn.addEventListener('click', async () => {
             const input = document.getElementById('business-plan-input');
             const responseContainer = document.getElementById('business-plan-response');
-            const apiKey = prompt("Please enter your API key to use the Business Plan Creator:");
+            const apiKey = getApiKey("Please enter your API key to use the Business Plan Creator:");
 
             if (!apiKey) {
                 responseContainer.textContent = 'API key is required.';
@@ -521,7 +533,7 @@ document.addEventListener('DOMContentLoaded', () => {
         investigationRoleBtn.addEventListener('click', async () => {
             const input = document.getElementById('investigation-role-input');
             const responseContainer = document.getElementById('investigation-role-response');
-            const apiKey = prompt("Please enter your API key to use the Investigation Role:");
+            const apiKey = getApiKey("Please enter your API key to use the Investigation Role:");
 
             if (!apiKey) {
                 responseContainer.textContent = 'API key is required.';
@@ -559,7 +571,7 @@ document.addEventListener('DOMContentLoaded', () => {
         militaryAssistanceBtn.addEventListener('click', async () => {
             const input = document.getElementById('military-assistance-input');
             const responseContainer = document.getElementById('military-assistance-response');
-            const apiKey = prompt("Please enter your API key to use the Military Services Assistance:");
+            const apiKey = getApiKey("Please enter your API key to use the Military Services Assistance:");
 
             if (!apiKey) {
                 responseContainer.textContent = 'API key is required.';
@@ -597,7 +609,7 @@ document.addEventListener('DOMContentLoaded', () => {
         podcastAssistanceBtn.addEventListener('click', async () => {
             const input = document.getElementById('podcast-assistance-input');
             const responseContainer = document.getElementById('podcast-assistance-response');
-            const apiKey = prompt("Please enter your API key to use the Podcast & Business Podcast Role:");
+            const apiKey = getApiKey("Please enter your API key to use the Podcast & Business Podcast Role:");
 
             if (!apiKey) {
                 responseContainer.textContent = 'API key is required.';
@@ -619,6 +631,46 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!response.ok) {
                     const error = await response.json();
                     throw new Error(error.error || 'Failed to get a response from the podcast assistance role');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
+    // --- Global Translator ---
+    const translatorBtn = document.getElementById('translator-btn');
+    if (translatorBtn) {
+        translatorBtn.addEventListener('click', async () => {
+            const textInput = document.getElementById('translator-text-input');
+            const languageInput = document.getElementById('translator-language-input');
+            const responseContainer = document.getElementById('translator-response');
+            const apiKey = getApiKey("Please enter your API key to use the Global Translator:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/translate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        text: textInput.value,
+                        target_language: languageInput.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the translator');
                 }
 
                 const result = await response.json();

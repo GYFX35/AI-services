@@ -91,7 +91,7 @@ with app.app_context():
 def get_locale():
     if 'language' in session:
         return session['language']
-    return request.accept_languages.best_match(app.config['LANGUAGES'].keys())
+    return request.accept_languages.best_match(app.config['LANGUAGES'].keys()) or app.config['BABEL_DEFAULT_LOCALE']
 
 babel.init_app(app, locale_selector=get_locale)
 
@@ -974,6 +974,18 @@ def podcast_assistance_endpoint():
     if not prompt:
         return jsonify({"error": _("Prompt is required")}), 400
     message = google_ai.provide_podcast_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
+@app.route('/api/v1/translate', methods=['POST'])
+@require_api_key
+def translate_endpoint():
+    data = request.get_json()
+    text = data.get('text')
+    target_language = data.get('target_language', 'English')
+    if not text:
+        return jsonify({"error": _("Text is required")}), 400
+    message = google_ai.translate_text(text, target_language)
     return jsonify({"status": "success", "message": message})
 
 
