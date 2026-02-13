@@ -880,6 +880,38 @@ def provide_government_assistance(prompt: str) -> str:
         return f"Error: {e}"
 
 
+def provide_biotech_assistance(prompt: str) -> str:
+    """
+    Provides assistance with biotech development and research using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert biotech development specialist and researcher. Your task is to provide assistance with biotechnology projects, research, and development.
+    Your expertise includes:
+    - Molecular Biology & Genetics: Providing insights into DNA technology, gene editing (CRISPR), and genetic engineering.
+    - Bioprocess Engineering: Advising on fermentation, cell culture, and downstream processing for biopharmaceutical production.
+    - Bioinformatics: Assisting with biological data analysis, sequence alignment, and structural biology.
+    - Regulatory Affairs: Guiding through FDA/EMA regulations, clinical trials, and bioethics.
+    - Drug Discovery & Development: Strategizing on target identification, lead optimization, and pharmacology.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, technical, and detailed response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing biotech assistance with Vertex AI: {e}")
+        return f"Error: {e}"
+
+
 def translate_text(text: str, target_language: str) -> str:
     """
     Translates text to a target language using Vertex AI.

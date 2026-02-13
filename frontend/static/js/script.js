@@ -869,6 +869,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Biotech Assistance ---
+    const biotechAssistanceBtn = document.getElementById('biotech-assistance-btn');
+    if (biotechAssistanceBtn) {
+        biotechAssistanceBtn.addEventListener('click', async () => {
+            const input = document.getElementById('biotech-assistance-input');
+            const responseContainer = document.getElementById('biotech-assistance-response');
+            const apiKey = getApiKey("Please enter your API key to use the Biotech Development Role:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/biotech/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the biotech development role');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- Global Translator ---
     const translatorBtn = document.getElementById('translator-btn');
     if (translatorBtn) {

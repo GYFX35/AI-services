@@ -120,6 +120,26 @@
                     <h3>{{ _('Government Public Administrator') }}</h3>
                     <p>{{ _('Assistance with government services, document providing, and navigating public administration.') }}</p>
                 </div>
+                <div class="card">
+                    <h3>{{ _('Biotech Development Role') }}</h3>
+                    <p>{{ _('Expert specialist for biotech development, molecular biology research, and regulatory guidance.') }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Biotech Development Role Section -->
+        <section id="biotech-assistance" class="services">
+            <h2>{{ _('Biotech Development Role') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Biotech Research & Development') }}</h3>
+                    <p>{{ _('Enter your biotechnology project, research, or regulatory request below.') }}</p>
+                    <textarea id="biotech-assistance-input" placeholder="{{ _('Your biotech request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="biotech-assistance-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="biotech-assistance-response-container">
+                        <pre id="biotech-assistance-response"></pre>
+                    </div>
+                </div>
             </div>
         </section>
 
