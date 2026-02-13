@@ -816,6 +816,70 @@ def provide_incoterms_assistance(prompt: str) -> str:
         return f"Error: {e}"
 
 
+def provide_ecommerce_assistance(prompt: str) -> str:
+    """
+    Provides assistance with e-commerce platforms and website management using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert e-commerce assistant and website manager. Your task is to provide assistance with managing e-commerce platforms and websites.
+    Your expertise includes:
+    - E-commerce Platforms: Advising on platforms like Shopify, WooCommerce, Magento, and BigCommerce.
+    - Website Management: Handling website maintenance, updates, performance optimization, and security.
+    - Product Management: Assisting with product listings, descriptions, and inventory management.
+    - E-commerce Strategy: Providing guidance on SEO for e-commerce, conversion rate optimization (CRO), and digital marketing.
+    - Technical Support: Troubleshooting common issues related to e-commerce sites and platform integrations.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, practical, and detailed response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing e-commerce assistance with Vertex AI: {e}")
+        return f"Error: {e}"
+
+
+def provide_government_assistance(prompt: str) -> str:
+    """
+    Provides assistance with government services and public administration using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert government public administrator assistant. Your task is to provide assistance with government services and document providing.
+    Your expertise includes:
+    - Government Services: Guiding users through various public services, requirements, and application processes.
+    - Document Provider: Assisting with identifying, preparing, and managing necessary government documents and forms.
+    - Public Administration: Providing insights into administrative procedures, regulations, and public policy.
+    - Citizen Support: Helping citizens navigate the complexities of government bureaucracy and finding appropriate resources.
+    - Compliance and Legal Requirements: Advising on the legal and regulatory frameworks governing public services.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, authoritative, and helpful response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing government assistance with Vertex AI: {e}")
+        return f"Error: {e}"
+
+
 def translate_text(text: str, target_language: str) -> str:
     """
     Translates text to a target language using Vertex AI.
