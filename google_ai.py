@@ -912,6 +912,38 @@ def provide_biotech_assistance(prompt: str) -> str:
         return f"Error: {e}"
 
 
+def provide_legal_assistance(prompt: str) -> str:
+    """
+    Provides legal assistance for lawyers, courts, parliaments, and legal students using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert legal consultant, human rights advocate, and legal educator. Your task is to provide assistance to lawyers, government courts, parliaments, and legal students.
+    Your expertise includes:
+    - Legal Research & Advice: Providing insights into laws, regulations, and judicial procedures.
+    - Parliamentary & Court Assistance: Advising on legislative drafting, court protocols, and legal documentation.
+    - Legal Education: Helping students with legal exercises, explaining complex legal concepts, and providing study materials.
+    - Human Rights Advocacy: Offering guidance on human rights law, international treaties, and strategies for promoting and protecting human rights.
+    - Legal Studies Promotion: Suggesting ways to advance legal scholarship and the importance of the rule of law globally.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, authoritative, and helpful response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing legal assistance with Vertex AI: {e}")
+        return f"Error: {e}"
+
+
 def translate_text(text: str, target_language: str) -> str:
     """
     Translates text to a target language using Vertex AI.
