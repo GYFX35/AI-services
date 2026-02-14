@@ -907,6 +907,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Legal Assistance ---
+    const legalAssistanceBtn = document.getElementById('legal-assistance-btn');
+    if (legalAssistanceBtn) {
+        legalAssistanceBtn.addEventListener('click', async () => {
+            const input = document.getElementById('legal-assistance-input');
+            const responseContainer = document.getElementById('legal-assistance-response');
+            const apiKey = getApiKey("Please enter your API key to use the Legal & Human Rights Assistant:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/legal/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the legal assistant');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- Global Translator ---
     const translatorBtn = document.getElementById('translator-btn');
     if (translatorBtn) {
