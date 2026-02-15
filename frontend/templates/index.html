@@ -128,6 +128,26 @@
                     <h3>{{ _('Legal & Human Rights Assistant') }}</h3>
                     <p>{{ _('Professional assistance for lawyers, courts, parliaments, and legal students, promoting human rights.') }}</p>
                 </div>
+                <div class="card">
+                    <h3>{{ _('Fintech & Banking Strategist') }}</h3>
+                    <p>{{ _('Expert assistance for banks, fintechs, and VC firms, focusing on data development, scale, and security.') }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fintech & Banking Strategist Section -->
+        <section id="fintech-assistance" class="services">
+            <h2>{{ _('Fintech & Banking Strategist') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Fintech, VC & Data Security Support') }}</h3>
+                    <p>{{ _('Enter your request for fintech consulting, VC strategy, data scaling, or security guidance.') }}</p>
+                    <textarea id="fintech-assistance-input" placeholder="{{ _('Your fintech request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="fintech-assistance-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="fintech-assistance-response-container">
+                        <pre id="fintech-assistance-response"></pre>
+                    </div>
+                </div>
             </div>
         </section>
 
