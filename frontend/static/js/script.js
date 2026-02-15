@@ -983,6 +983,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Music Production ---
+    const musicProductionBtn = document.getElementById('music-production-btn');
+    if (musicProductionBtn) {
+        musicProductionBtn.addEventListener('click', async () => {
+            const input = document.getElementById('music-production-input');
+            const responseContainer = document.getElementById('music-production-response');
+            const apiKey = getApiKey("Please enter your API key to use the Music Production & Promotion role:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/music/production', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the music production role');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- Global Translator ---
     const translatorBtn = document.getElementById('translator-btn');
     if (translatorBtn) {

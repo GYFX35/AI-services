@@ -977,6 +977,36 @@ def provide_fintech_assistance(prompt: str) -> str:
         return f"Error: {e}"
 
 
+def provide_music_production_assistance(prompt: str) -> str:
+    """
+    Provides assistance with music beats, songs, rhythms, and singer promotion using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert music producer and talent manager. Your expertise includes:
+    - Music Production: Creating and advising on beats, song structures, and rhythms across various genres.
+    - Songwriting: Assisting with lyrics, melodies, and musical arrangements.
+    - Singer Promotion: Developing marketing strategies, social media presence, and career paths for singers and musicians.
+    - Branding: Advising on artist image, brand identity, and audience engagement.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, creative, and actionable response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing music production assistance with Vertex AI: {e}")
+        return f"Error: {e}"
+
+
 def translate_text(text: str, target_language: str) -> str:
     """
     Translates text to a target language using Vertex AI.
