@@ -983,6 +983,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Agriculture Assistance ---
+    const agricultureAssistanceBtn = document.getElementById('agriculture-assistance-btn');
+    if (agricultureAssistanceBtn) {
+        agricultureAssistanceBtn.addEventListener('click', async () => {
+            const input = document.getElementById('agriculture-assistance-input');
+            const responseContainer = document.getElementById('agriculture-assistance-response');
+            const apiKey = getApiKey("Please enter your API key to use the Agriculture Specialist role:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/agriculture/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the agriculture specialist');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- Music Production ---
     const musicProductionBtn = document.getElementById('music-production-btn');
     if (musicProductionBtn) {

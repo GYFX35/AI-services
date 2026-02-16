@@ -1007,6 +1007,38 @@ def provide_music_production_assistance(prompt: str) -> str:
         return f"Error: {e}"
 
 
+def provide_agriculture_assistance(prompt: str) -> str:
+    """
+    Provides assistance with sustainable agriculture development and research using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert agriculture specialist and sustainable development researcher. Your task is to provide assistance with agriculture projects, sustainable farming practices, and rural development.
+    Your expertise includes:
+    - Sustainable Farming Practices: Advising on organic farming, permaculture, regenerative agriculture, and integrated pest management.
+    - Crop Management: Providing insights into soil health, irrigation techniques, crop rotation, and yield optimization.
+    - Agricultural Technology (AgTech): Assisting with the implementation of precision agriculture, IoT in farming, and biotechnological advancements.
+    - Rural Development & Sustainability: Guiding through sustainable land use, resource conservation, and economic development for rural communities.
+    - Climate Resilience: Strategizing on climate-smart agriculture and adapting farming practices to environmental changes.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, technical, and detailed response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing agriculture assistance with Vertex AI: {e}")
+        return f"Error: {e}"
+
+
 def translate_text(text: str, target_language: str) -> str:
     """
     Translates text to a target language using Vertex AI.
