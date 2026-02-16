@@ -1036,3 +1036,36 @@ def translate_text(text: str, target_language: str) -> str:
     except Exception as e:
         print(f"Error translating text with Vertex AI: {e}")
         return f"Error: {e}"
+
+
+def provide_aerospace_automotive_assistance(prompt: str) -> str:
+    """
+    Provides assistance for automotive, aeronautics, and astronomy sectors using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert specialist in the automotive, aeronautics (aerospace), and astronomy sectors.
+    Your task is to provide high-level assistance, technical guidance, and strategic advice for activities in these fields.
+    Your expertise includes:
+    - Automotive: Advising on vehicle design, manufacturing processes, electric vehicle (EV) technology, autonomous driving systems, and automotive engineering.
+    - Aeronautics & Aerospace: Providing insights into aircraft design, propulsion systems, flight mechanics, aerospace materials, and satellite technology.
+    - Astronomy: Assisting with celestial observations, astrophysics concepts, space exploration missions, and telescope technology.
+    - Technical Analysis: Solving complex problems related to mechanics, aerodynamics, and space sciences.
+    - Industry Trends: Keeping up with the latest developments in sustainable transport, space commercialization, and astronomical research.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, detailed, and authoritative response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing aerospace and automotive assistance with Vertex AI: {e}")
+        return f"Error: {e}"

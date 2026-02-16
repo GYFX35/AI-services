@@ -1021,6 +1021,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Aerospace & Automotive Assistance ---
+    const aerospaceAutomotiveBtn = document.getElementById('aerospace-automotive-btn');
+    if (aerospaceAutomotiveBtn) {
+        aerospaceAutomotiveBtn.addEventListener('click', async () => {
+            const input = document.getElementById('aerospace-automotive-input');
+            const responseContainer = document.getElementById('aerospace-automotive-response');
+            const apiKey = getApiKey("Please enter your API key to use the Aerospace & Automotive Specialist:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/aerospace-automotive/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the aerospace & automotive specialist');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- Global Translator ---
     const translatorBtn = document.getElementById('translator-btn');
     if (translatorBtn) {
