@@ -261,6 +261,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Data Science & Stewardship Assistance ---
+    const dataScienceStewardshipBtn = document.getElementById('data-science-stewardship-btn');
+    if (dataScienceStewardshipBtn) {
+        dataScienceStewardshipBtn.addEventListener('click', async () => {
+            const input = document.getElementById('data-science-stewardship-input');
+            const responseContainer = document.getElementById('data-science-stewardship-response');
+            const apiKey = getApiKey("Please enter your API key to use the Data Science, Steward & DPO Assistant:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/data-science-stewardship/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the data science & stewardship assistant');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- Document Specialist ---
     const documentSpecialistBtn = document.getElementById('document-specialist-btn');
     if (documentSpecialistBtn) {
