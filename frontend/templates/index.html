@@ -144,6 +144,26 @@
                     <h3>{{ _('Data Science, Steward & DPO Assistant') }}</h3>
                     <p>{{ _('Expert assistant for data science projects, data stewardship/governance, and data protection (DPO) compliance.') }}</p>
                 </div>
+                <div class="card">
+                    <h3>{{ _('Logo & Thumbnail Creator') }}</h3>
+                    <p>{{ _('Expert graphic designer for creating professional logos and eye-catching thumbnails for your brand.') }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Logo & Thumbnail Creator Section -->
+        <section id="logo-thumbnail-assistance" class="services">
+            <h2>{{ _('Logo & Thumbnail Creator') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Design Your Logo or Thumbnail') }}</h3>
+                    <p>{{ _('Enter your request for logo concepts, color palettes, or thumbnail design ideas below.') }}</p>
+                    <textarea id="logo-thumbnail-input" placeholder="{{ _('Your logo or thumbnail request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="logo-thumbnail-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="logo-thumbnail-response-container">
+                        <pre id="logo-thumbnail-response"></pre>
+                    </div>
+                </div>
             </div>
         </section>
 
