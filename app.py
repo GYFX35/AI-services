@@ -1109,6 +1109,17 @@ def data_science_stewardship_assistance_endpoint():
     return jsonify({"status": "success", "message": message})
 
 
+@app.route('/api/v1/logo-thumbnail/assistance', methods=['POST'])
+@require_api_key
+def logo_thumbnail_assistance_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_logo_thumbnail_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
 @app.route('/api/v1/translate', methods=['POST'])
 @require_api_key
 def translate_endpoint():

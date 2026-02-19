@@ -1097,6 +1097,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Logo & Thumbnail Creator ---
+    const logoThumbnailBtn = document.getElementById('logo-thumbnail-btn');
+    if (logoThumbnailBtn) {
+        logoThumbnailBtn.addEventListener('click', async () => {
+            const input = document.getElementById('logo-thumbnail-input');
+            const responseContainer = document.getElementById('logo-thumbnail-response');
+            const apiKey = getApiKey("Please enter your API key to use the Logo & Thumbnail Creator:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/logo-thumbnail/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the logo & thumbnail creator');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- Global Translator ---
     const translatorBtn = document.getElementById('translator-btn');
     if (translatorBtn) {

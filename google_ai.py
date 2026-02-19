@@ -1101,3 +1101,34 @@ def provide_data_science_stewardship_assistance(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing data science and stewardship assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+
+def provide_logo_thumbnail_assistance(prompt: str) -> str:
+    """
+    Provides assistance with logo and thumbnail creation and design using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert graphic designer and branding specialist. Your task is to provide assistance with creating and designing logos and thumbnails.
+    Your expertise includes:
+    - Logo Design: Suggesting concepts, color palettes, typography, and styles for logos.
+    - Thumbnail Creation: Advising on visual hierarchy, catchy text, imagery, and layout for YouTube or social media thumbnails.
+    - Branding Strategy: Helping to align logos and thumbnails with a brand's identity and target audience.
+    - Visual Communication: Ensuring that designs effectively communicate the intended message or content.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, creative, and detailed response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing logo and thumbnail assistance with Vertex AI: {e}")
+        return f"Error: {e}"
