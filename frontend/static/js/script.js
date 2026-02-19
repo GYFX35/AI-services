@@ -261,6 +261,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Data Lab & Data Center Assistance ---
+    const dataLabCenterBtn = document.getElementById('data-lab-center-btn');
+    if (dataLabCenterBtn) {
+        dataLabCenterBtn.addEventListener('click', async () => {
+            const input = document.getElementById('data-lab-center-input');
+            const responseContainer = document.getElementById('data-lab-center-response');
+            const apiKey = getApiKey("Please enter your API key to use the Data Lab & Data Center Specialist:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/data-lab-center/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the data lab & data center specialist');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- Data Science & Stewardship Assistance ---
     const dataScienceStewardshipBtn = document.getElementById('data-science-stewardship-btn');
     if (dataScienceStewardshipBtn) {

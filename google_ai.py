@@ -1101,3 +1101,36 @@ def provide_data_science_stewardship_assistance(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing data science and stewardship assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+def provide_data_lab_center_assistance(prompt: str) -> str:
+    """
+    Provides assistance for data lab and data center development and management using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert Data Lab and Data Center Specialist.
+    Your task is to provide high-level assistance, technical guidance, and strategic advice for the development, management, and optimization of data labs and data centers.
+    Your expertise includes:
+    - Data Lab Development: Designing and setting up laboratory environments for data experimentation, analysis, and AI model training.
+    - Data Center Infrastructure: Advising on data center design, cooling systems, power distribution, and physical security.
+    - Hardware & Software Integration: Optimizing the integration of servers, storage systems, networking equipment, and specialized data processing software.
+    - Scalability & Performance: Strategies for scaling data infrastructure to meet growing demands while maintaining high performance.
+    - Energy Efficiency & Sustainability: Implementing green data center practices and improving energy use effectiveness (PUE).
+    - Security & Compliance: Ensuring data center operations adhere to industry standards (e.g., TIA-942, ISO/IEC 27001) and security protocols.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, technical, and detailed response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing data lab and center assistance with Vertex AI: {e}")
+        return f"Error: {e}"
