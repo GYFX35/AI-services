@@ -15,6 +15,7 @@
             <div class="logo">UsingAI</div>
             <ul>
                 <li><a href="#services">Services</a></li>
+                <li><a href="#fake-content-verification">Verification</a></li>
                 <li><a href="#military-assistance">Military</a></li>
                 <li><a href="#purchase">Purchase</a></li>
                 <li><a href="#portfolio">Portfolio</a></li>
@@ -147,6 +148,26 @@
                 <div class="card">
                     <h3>{{ _('Logo & Thumbnail Creator') }}</h3>
                     <p>{{ _('Expert graphic designer for creating professional logos and eye-catching thumbnails for your brand.') }}</p>
+                </div>
+                <div class="card">
+                    <h3>{{ _('AI Content & Fake News Verifier') }}</h3>
+                    <p>{{ _('Expert in digital forensics for AI content detection, fact-checking, and identifying fake news or misinformation.') }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Content & Fake News Verifier Section -->
+        <section id="fake-content-verification" class="services">
+            <h2>{{ _('AI Content & Fake News Verifier') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Verify Your Content') }}</h3>
+                    <p>{{ _('Enter the text or content you want to verify for AI generation or fake information below.') }}</p>
+                    <textarea id="fake-content-input" placeholder="{{ _('Your content to verify') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="fake-content-btn" class="btn">{{ _('Verify Content') }}</button>
+                    <div class="response-container" id="fake-content-response-container">
+                        <pre id="fake-content-response"></pre>
+                    </div>
                 </div>
             </div>
         </section>
