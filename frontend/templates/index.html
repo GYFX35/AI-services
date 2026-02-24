@@ -165,6 +165,14 @@
                     <h3>{{ _('Automatic Learning Role') }}</h3>
                     <p>{{ _('Expert in machine learning and AI development, providing guidance on algorithm selection, model optimization, and deployment.') }}</p>
                 </div>
+                <div class="card">
+                    <h3>{{ _('Computer Vision Specialist') }}</h3>
+                    <p>{{ _('Expert in image and video analysis, deep learning for vision, and real-world vision applications.') }}</p>
+                </div>
+                <div class="card">
+                    <h3>{{ _('IA Researcher') }}</h3>
+                    <p>{{ _('Expert AI researcher providing insights into state-of-the-art research, methodology, and future directions.') }}</p>
+                </div>
             </div>
         </section>
 
@@ -179,6 +187,38 @@
                     <button id="automatic-learning-btn" class="btn">{{ _('Submit') }}</button>
                     <div class="response-container" id="automatic-learning-response-container">
                         <pre id="automatic-learning-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Computer Vision Specialist Section -->
+        <section id="computer-vision-assistance" class="services">
+            <h2>{{ _('Computer Vision Specialist') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Computer Vision Guidance') }}</h3>
+                    <p>{{ _('Enter your request for image analysis, object detection, or vision model deployment below.') }}</p>
+                    <textarea id="computer-vision-input" placeholder="{{ _('Your computer vision request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="computer-vision-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="computer-vision-response-container">
+                        <pre id="computer-vision-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- IA Researcher Section -->
+        <section id="ia-researcher-assistance" class="services">
+            <h2>{{ _('IA Researcher') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('AI Research Support') }}</h3>
+                    <p>{{ _('Enter your request for AI research insights, methodology, or ethical impact discussion below.') }}</p>
+                    <textarea id="ia-researcher-input" placeholder="{{ _('Your AI research request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="ia-researcher-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="ia-researcher-response-container">
+                        <pre id="ia-researcher-response"></pre>
                     </div>
                 </div>
             </div>

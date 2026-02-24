@@ -1164,6 +1164,28 @@ def data_lab_center_assistance_endpoint():
     return jsonify({"status": "success", "message": message})
 
 
+@app.route('/api/v1/computer-vision/assistance', methods=['POST'])
+@require_api_key
+def computer_vision_assistance_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_computer_vision_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
+@app.route('/api/v1/ia-researcher/assistance', methods=['POST'])
+@require_api_key
+def ia_researcher_assistance_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_ia_researcher_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
 @app.route('/api/v1/translate', methods=['POST'])
 @require_api_key
 def translate_endpoint():

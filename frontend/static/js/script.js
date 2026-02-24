@@ -1287,6 +1287,82 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Computer Vision Assistance ---
+    const computerVisionBtn = document.getElementById('computer-vision-btn');
+    if (computerVisionBtn) {
+        computerVisionBtn.addEventListener('click', async () => {
+            const input = document.getElementById('computer-vision-input');
+            const responseContainer = document.getElementById('computer-vision-response');
+            const apiKey = getApiKey("Please enter your API key to use the Computer Vision Specialist:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/computer-vision/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the computer vision specialist');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
+    // --- IA Researcher Assistance ---
+    const iaResearcherBtn = document.getElementById('ia-researcher-btn');
+    if (iaResearcherBtn) {
+        iaResearcherBtn.addEventListener('click', async () => {
+            const input = document.getElementById('ia-researcher-input');
+            const responseContainer = document.getElementById('ia-researcher-response');
+            const apiKey = getApiKey("Please enter your API key to use the IA Researcher:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/ia-researcher/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the IA researcher');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- Global Translator ---
     const translatorBtn = document.getElementById('translator-btn');
     if (translatorBtn) {
