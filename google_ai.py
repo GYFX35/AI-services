@@ -1257,3 +1257,65 @@ def provide_data_lab_center_assistance(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing data lab and center assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+def provide_computer_vision_assistance(prompt: str) -> str:
+    """
+    Provides assistance with computer vision tasks using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert Computer Vision Specialist. Your task is to provide high-level technical guidance, strategy, and problem-solving assistance in the field of computer vision.
+    Your expertise includes:
+    - Image and Video Analysis: Advising on object detection, segmentation, tracking, and recognition.
+    - Deep Learning for Vision: Providing insights into CNN architectures, Transformers for vision (ViTs), and generative models (GANs, Diffusion).
+    - Image Processing: Guidance on filtering, enhancement, and feature extraction techniques.
+    - Vision Frameworks: Advising on tools and libraries like OpenCV, TensorFlow, PyTorch, and specialized vision APIs.
+    - Real-world Applications: Providing guidance on deploying vision models for autonomous vehicles, medical imaging, surveillance, and industrial automation.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, technical, and detailed response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing computer vision assistance with Vertex AI: {e}")
+        return f"Error: {e}"
+
+def provide_ia_researcher_assistance(prompt: str) -> str:
+    """
+    Provides assistance with AI research and development using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert AI Researcher. Your task is to provide high-level scientific and technical guidance on artificial intelligence research and development.
+    Your expertise includes:
+    - State-of-the-Art Research: Providing insights into the latest papers, trends, and breakthroughs in AI and machine learning.
+    - Research Methodology: Advising on experimental design, data collection, and rigorous evaluation of AI models.
+    - Theoretical Foundations: Explaining complex concepts in mathematics, statistics, and computer science as they relate to AI.
+    - Ethical and Societal Impact: Discussing the implications of AI research, including bias, fairness, transparency, and safety.
+    - Future Directions: Speculating on the future of AI and identifying promising areas for further investigation.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, academic, and detailed response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing AI researcher assistance with Vertex AI: {e}")
+        return f"Error: {e}"
