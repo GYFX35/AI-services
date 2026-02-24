@@ -1135,6 +1135,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Automatic Learning Assistance ---
+    const automaticLearningBtn = document.getElementById('automatic-learning-btn');
+    if (automaticLearningBtn) {
+        automaticLearningBtn.addEventListener('click', async () => {
+            const input = document.getElementById('automatic-learning-input');
+            const responseContainer = document.getElementById('automatic-learning-response');
+            const apiKey = getApiKey("Please enter your API key to use the Automatic Learning Role:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/automatic-learning/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the automatic learning assistant');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- Fake Content Verification ---
     const fakeContentBtn = document.getElementById('fake-content-btn');
     if (fakeContentBtn) {

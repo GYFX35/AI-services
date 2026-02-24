@@ -153,6 +153,26 @@
                     <h3>{{ _('AI Content & Fake News Verifier') }}</h3>
                     <p>{{ _('Expert in digital forensics for AI content detection, fact-checking, and identifying fake news or misinformation.') }}</p>
                 </div>
+                <div class="card">
+                    <h3>{{ _('Automatic Learning Role') }}</h3>
+                    <p>{{ _('Expert in machine learning and AI development, providing guidance on algorithm selection, model optimization, and deployment.') }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Automatic Learning Role Section -->
+        <section id="automatic-learning-assistance" class="services">
+            <h2>{{ _('Automatic Learning Role') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Machine Learning & AI Guidance') }}</h3>
+                    <p>{{ _('Enter your request for machine learning algorithm selection, model optimization, or AI development strategy below.') }}</p>
+                    <textarea id="automatic-learning-input" placeholder="{{ _('Your machine learning request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="automatic-learning-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="automatic-learning-response-container">
+                        <pre id="automatic-learning-response"></pre>
+                    </div>
+                </div>
             </div>
         </section>
 
