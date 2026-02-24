@@ -1163,3 +1163,35 @@ def provide_fake_content_verification_assistance(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing fake content verification assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+def provide_automatic_learning_assistance(prompt: str) -> str:
+    """
+    Provides assistance with automatic learning, machine learning, and AI model development using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert in Automatic Learning, Machine Learning (ML), and Artificial Intelligence (AI) development.
+    Your task is to provide high-level technical guidance, strategy, and problem-solving assistance in these fields.
+    Your expertise includes:
+    - Supervised, Unsupervised, and Reinforcement Learning: Advising on algorithm selection, training processes, and evaluation metrics.
+    - Neural Networks & Deep Learning: Providing insights into architectures like CNNs, RNNs, Transformers, and LLMs.
+    - Model Optimization: Guidance on hyperparameter tuning, regularization techniques, and improving model performance.
+    - AI Infrastructure: Advising on tools, frameworks (e.g., TensorFlow, PyTorch, Scikit-learn), and deployment strategies.
+    - Ethical AI: Providing guidance on bias detection, fairness, and responsible AI practices.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, technical, and detailed response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing automatic learning assistance with Vertex AI: {e}")
+        return f"Error: {e}"
