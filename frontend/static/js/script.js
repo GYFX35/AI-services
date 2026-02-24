@@ -793,6 +793,82 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- IA & Data Engineering Assistance ---
+    const iaDataEngineeringAssistanceBtn = document.getElementById('ia-data-engineering-assistance-btn');
+    if (iaDataEngineeringAssistanceBtn) {
+        iaDataEngineeringAssistanceBtn.addEventListener('click', async () => {
+            const input = document.getElementById('ia-data-engineering-assistance-input');
+            const responseContainer = document.getElementById('ia-data-engineering-assistance-response');
+            const apiKey = getApiKey("Please enter your API key to use the IA & Data Engineering Expert:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/ia-data-engineering/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the IA & data engineering expert');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
+    // --- Data Lab & Data Center Assistance ---
+    const dataLabCenterAssistanceBtn = document.getElementById('data-lab-center-assistance-btn');
+    if (dataLabCenterAssistanceBtn) {
+        dataLabCenterAssistanceBtn.addEventListener('click', async () => {
+            const input = document.getElementById('data-lab-center-assistance-input');
+            const responseContainer = document.getElementById('data-lab-center-assistance-response');
+            const apiKey = getApiKey("Please enter your API key to use the Data Lab & Data Center Specialist:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/data-lab-center/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the data lab & data center specialist');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- Incoterms Assistance ---
     const incotermsAssistanceBtn = document.getElementById('incoterms-assistance-btn');
     if (incotermsAssistanceBtn) {
