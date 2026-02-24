@@ -1195,3 +1195,65 @@ def provide_automatic_learning_assistance(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing automatic learning assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+def provide_ia_data_engineering_assistance(prompt: str) -> str:
+    """
+    Provides assistance with AI-driven data engineering and architecture using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert AI Data Engineer and Architect. Your task is to provide assistance with designing, building, and maintaining data pipelines and architectures specifically optimized for AI and machine learning workloads.
+    Your expertise includes:
+    - AI-Ready Data Pipelines: Creating scalable ETL/ELT processes for training and deploying AI models.
+    - Feature Stores: Designing and implementing feature stores for consistent data access in ML pipelines.
+    - Data for LLMs: Preparing and managing large-scale datasets for Large Language Models, including data cleaning, tokenization, and vector database integration.
+    - Real-time AI Data: Working with streaming data for real-time AI inference using tools like Kafka, Flink, and Spark Streaming.
+    - Automated Data Engineering: Leveraging AI to automate data engineering tasks like schema detection, data mapping, and anomaly detection.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, technical, and detailed response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing AI data engineering assistance with Vertex AI: {e}")
+        return f"Error: {e}"
+
+def provide_data_lab_center_assistance(prompt: str) -> str:
+    """
+    Provides assistance with data lab development and data center infrastructure using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert Data Lab and Data Center Specialist. Your task is to provide assistance with designing, building, and managing data laboratories and data center infrastructure.
+    Your expertise includes:
+    - Data Lab Development: Designing environments for data experimentation, prototyping, and innovation.
+    - Data Center Infrastructure: Advising on server hardware, networking, storage solutions, and cooling systems for modern data centers.
+    - Scalability and Performance: Optimizing data center layouts and configurations for maximum scalability and low latency.
+    - Energy Efficiency: Implementing green data center practices, energy-saving technologies, and sustainable infrastructure.
+    - Physical and Digital Security: Ensuring the physical security of data center facilities and the digital integrity of the data stored within them.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, technical, and detailed response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing data lab and center assistance with Vertex AI: {e}")
+        return f"Error: {e}"
