@@ -14,12 +14,13 @@
         <nav>
             <div class="logo">UsingAI</div>
             <ul>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#fake-content-verification">Verification</a></li>
-                <li><a href="#military-assistance">Military</a></li>
-                <li><a href="#purchase">Purchase</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#services">{{ _('Services') }}</a></li>
+                <li><a href="#esports-assistance">{{ _('eSports') }}</a></li>
+                <li><a href="#fake-content-verification">{{ _('Verification') }}</a></li>
+                <li><a href="#military-assistance">{{ _('Military') }}</a></li>
+                <li><a href="#purchase">{{ _('Purchase') }}</a></li>
+                <li><a href="#portfolio">{{ _('Portfolio') }}</a></li>
+                <li><a href="#contact">{{ _('Contact') }}</a></li>
                 <li class="nav-item dropdown language-switcher">
                     <a href="#" class="dropdown-toggle">{{ LANGUAGES[get_locale()] }}</a>
                     <ul class="dropdown-menu">
@@ -172,6 +173,26 @@
                 <div class="card">
                     <h3>{{ _('IA Researcher') }}</h3>
                     <p>{{ _('Expert AI researcher providing insights into state-of-the-art research, methodology, and future directions.') }}</p>
+                </div>
+                <div class="card">
+                    <h3>{{ _('eSports Development & Assistance') }}</h3>
+                    <p>{{ _('Expert assistance for eSports development, team management, tournament organization, and performance optimization.') }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- eSports Development Section -->
+        <section id="esports-assistance" class="services">
+            <h2>{{ _('eSports Development & Assistance') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('eSports Strategic Support') }}</h3>
+                    <p>{{ _('Enter your request for eSports team management, tournament planning, or performance analysis below.') }}</p>
+                    <textarea id="esports-input" placeholder="{{ _('Your eSports request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="esports-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="esports-response-container">
+                        <pre id="esports-response"></pre>
+                    </div>
                 </div>
             </div>
         </section>

@@ -1319,3 +1319,34 @@ def provide_ia_researcher_assistance(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing AI researcher assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+def provide_esports_assistance(prompt: str) -> str:
+    """
+    Provides assistance with eSports development, team management, and tournament organization using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert eSports Development and Assistance Specialist. Your task is to provide high-level technical guidance, strategic advice, and problem-solving assistance in the field of eSports.
+    Your expertise includes:
+    - eSports Team Management: Advising on player recruitment, coaching, training schedules, and team dynamics.
+    - Tournament Organization: Providing guidance on event planning, bracket structures, rulesets, and production logistics.
+    - Performance Optimization: Analyzing gameplay data to improve player performance, strategy, and decision-making.
+    - Ecosystem Development: Advising on sponsorship deals, fan engagement, and building sustainable eSports communities.
+    - Technical Setup: Guidance on hardware, software, and networking requirements for competitive gaming environments.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, detailed, and actionable response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing eSports assistance with Vertex AI: {e}")
+        return f"Error: {e}"
