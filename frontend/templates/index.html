@@ -15,6 +15,7 @@
             <div class="logo">UsingAI</div>
             <ul>
                 <li><a href="#services">Services</a></li>
+                <li><a href="#nlp-assistance">NLP</a></li>
                 <li><a href="#fake-content-verification">Verification</a></li>
                 <li><a href="#military-assistance">Military</a></li>
                 <li><a href="#purchase">Purchase</a></li>
@@ -219,6 +220,22 @@
                     <button id="ia-researcher-btn" class="btn">{{ _('Submit') }}</button>
                     <div class="response-container" id="ia-researcher-response-container">
                         <pre id="ia-researcher-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NLP Specialist Section -->
+        <section id="nlp-assistance" class="services">
+            <h2>{{ _('NLP Specialist') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Natural Language Processing Support') }}</h3>
+                    <p>{{ _('Enter your request for NLP tasks, text analysis, or language modeling guidance below.') }}</p>
+                    <textarea id="nlp-input" placeholder="{{ _('Your NLP request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="nlp-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="nlp-response-container">
+                        <pre id="nlp-response"></pre>
                     </div>
                 </div>
             </div>

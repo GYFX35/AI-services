@@ -1325,6 +1325,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- NLP Specialist Assistance ---
+    const nlpBtn = document.getElementById('nlp-btn');
+    if (nlpBtn) {
+        nlpBtn.addEventListener('click', async () => {
+            const input = document.getElementById('nlp-input');
+            const responseContainer = document.getElementById('nlp-response');
+            const apiKey = getApiKey("Please enter your API key to use the NLP Specialist:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/nlp/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the NLP specialist');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- IA Researcher Assistance ---
     const iaResearcherBtn = document.getElementById('ia-researcher-btn');
     if (iaResearcherBtn) {
