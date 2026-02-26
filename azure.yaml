@@ -1,0 +1,7 @@
+# This file is used by the Azure Developer CLI (azd)
+name: ai-services-agent
+services:
+  app:
+    project: .
+    language: python
+    host: appservice
