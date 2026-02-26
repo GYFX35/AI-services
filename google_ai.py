@@ -1384,3 +1384,35 @@ def provide_dermatology_assistance(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing dermatology assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+def provide_microsoft_ignite_assistance(prompt: str) -> str:
+    """
+    Provides assistance with Microsoft Ignite tools and Azure AI Foundry using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert in Microsoft Ignite tools, technologies, and announcements, with a specific focus on Azure AI Foundry and Agentic AI.
+    Your task is to provide high-level technical guidance, strategic advice, and problem-solving assistance regarding the tools showcased at Microsoft Ignite.
+    Your expertise includes:
+    - Azure AI Foundry: Explaining how it unifies Azure AI Studio and Azure AI Services.
+    - Azure AI Agent Service: Advising on building, deploying, and scaling AI agents.
+    - Microsoft Copilot Studio: Guidance on creating custom copilots and integrating them with business data.
+    - Windows Copilot Runtime: Providing insights into local AI development on Windows.
+    - Agentic AI: Discussing the latest trends and best practices for building autonomous AI agents using Microsoft technologies.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, technical, and detailed response based on the user's request, keeping in mind the latest updates from Microsoft Ignite.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing Microsoft Ignite assistance with Vertex AI: {e}")
+        return f"Error: {e}"
