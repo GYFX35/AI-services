@@ -9,6 +9,13 @@ This project is a submission for the **[Name of Devpost Challenge]**.
 *   **Live Demo:** [Link to Live Demo](http://ai-services.devpost.com)
 *   **Video Walkthrough:** [Link to Video Walkthrough]
 
+## Sponsorship
+
+If you find this project useful, please consider sponsoring us!
+
+[![Sponsor](https://img.shields.io/badge/Sponsor-GitHub-ea4aaa?style=for-the-badge&logo=github-sponsors)](https://github.com/sponsors/GYFX35)
+[![Sponsor](https://img.shields.io/badge/Sponsor-Stripe-626cd9?style=for-the-badge&logo=stripe)](https://buy.stripe.com/example)
+
 ### How It Works
 
 Our platform connects to multiple AI services to provide a suite of tools for developers and entrepreneurs. The core of the application is a Flask-based backend that serves a user-friendly frontend. The AI functionalities are powered by Google's Vertex AI, enabling features like code generation, debugging, and content creation. The platform is designed to be easily extensible, allowing for the integration of new AI-powered tools in the future.
