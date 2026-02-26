@@ -1401,6 +1401,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Dermatology Assistance ---
+    const dermatologyBtn = document.getElementById('dermatology-btn');
+    if (dermatologyBtn) {
+        dermatologyBtn.addEventListener('click', async () => {
+            const input = document.getElementById('dermatology-input');
+            const responseContainer = document.getElementById('dermatology-response');
+            const apiKey = getApiKey("Please enter your API key to use the AI Dermatology Specialist:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/dermatology/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the dermatology specialist');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- Global Translator ---
     const translatorBtn = document.getElementById('translator-btn');
     if (translatorBtn) {
