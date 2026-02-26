@@ -1350,3 +1350,37 @@ def provide_esports_assistance(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing eSports assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+def provide_dermatology_assistance(prompt: str) -> str:
+    """
+    Provides assistance as a dermatology specialist and assistant using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert AI Dermatology Specialist and Assistant to a Dermatologist.
+    Your task is to provide professional, accurate, and detailed information related to dermatology.
+    Your expertise includes:
+    - Skin Condition Analysis: Providing information about common skin conditions like acne, eczema, psoriasis, and dermatitis.
+    - Treatment Guidance: Advising on standard treatments, skincare routines, and preventive measures.
+    - Dermatological Procedures: Explaining common procedures such as biopsies, laser treatments, and surgical interventions.
+    - Assistant Support: Assisting dermatologists with patient education materials, research on rare skin diseases, and staying updated with latest dermatological clinical trials and technologies.
+    - Skincare Product Analysis: Analyzing ingredients in skincare products and their suitability for different skin types.
+
+    DISCLAIMER: You are an AI, not a doctor. Always advise the user to consult with a qualified medical professional for diagnosis and treatment.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, empathetic, and detailed response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing dermatology assistance with Vertex AI: {e}")
+        return f"Error: {e}"

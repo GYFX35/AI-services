@@ -178,6 +178,26 @@
                     <h3>{{ _('eSports Development & Assistance') }}</h3>
                     <p>{{ _('Expert assistance for eSports development, team management, tournament organization, and performance optimization.') }}</p>
                 </div>
+                <div class="card">
+                    <h3>{{ _('AI Dermatology Specialist') }}</h3>
+                    <p>{{ _('Expert assistance for skin conditions, treatments, and dermatological procedures, providing professional guidance.') }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dermatology Specialist Section -->
+        <section id="dermatology-assistance" class="services">
+            <h2>{{ _('AI Dermatology Specialist') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Dermatology & Skincare Support') }}</h3>
+                    <p>{{ _('Enter your request for skin condition information, treatment guidance, or skincare product analysis below.') }}</p>
+                    <textarea id="dermatology-input" placeholder="{{ _('Your dermatology request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="dermatology-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="dermatology-response-container">
+                        <pre id="dermatology-response"></pre>
+                    </div>
+                </div>
             </div>
         </section>
 
