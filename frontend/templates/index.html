@@ -182,6 +182,26 @@
                     <h3>{{ _('AI Dermatology Specialist') }}</h3>
                     <p>{{ _('Expert assistance for skin conditions, treatments, and dermatological procedures, providing professional guidance.') }}</p>
                 </div>
+                <div class="card">
+                    <h3>{{ _('Microsoft Ignite & Azure AI Expert') }}</h3>
+                    <p>{{ _('Expert guidance on Microsoft Ignite announcements, Azure AI Foundry, and building Agentic AI solutions.') }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Microsoft Ignite Assistance Section -->
+        <section id="microsoft-ignite-assistance" class="services">
+            <h2>{{ _('Microsoft Ignite & Azure AI Expert') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Microsoft Ignite & Azure Support') }}</h3>
+                    <p>{{ _('Enter your request for information on Microsoft Ignite tools, Azure AI Foundry, or building AI agents below.') }}</p>
+                    <textarea id="microsoft-ignite-input" placeholder="{{ _('Your Microsoft Ignite or Azure request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="microsoft-ignite-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="microsoft-ignite-response-container">
+                        <pre id="microsoft-ignite-response"></pre>
+                    </div>
+                </div>
             </div>
         </section>
 
