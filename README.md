@@ -33,7 +33,7 @@ section: About Me
   text: I am a professional photographer specializing in landscapes.
 section: Gallery
   images: 4
-footer: Copyright © 2024 Jane Doe
+footer: Copyright © 2026 Jane Doe
 ```
 
 ### Debugger
