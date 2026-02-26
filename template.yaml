@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  AI Agent - AWS SAM Template for Lambda Image deployment
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 30
+
+Resources:
+  AIAgentFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      PackageType: Image
+      Events:
+        AIAgentApi:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+      Environment:
+        Variables:
+          FLASK_APP: app.py
+          STRIPE_PUBLIC_KEY: your_stripe_public_key
+          STRIPE_SECRET_KEY: your_stripe_secret_key
+          META_APP_ID: your_meta_app_id
+          GOOGLE_CLOUD_PROJECT: your_google_cloud_project_id
+    Metadata:
+      Dockerfile: Dockerfile
+      DockerContext: .
+      DockerTag: v1
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference at
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  AIAgentApi:
+    Description: "API Gateway endpoint URL for Prod stage for AI Agent function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+  AIAgentFunction:
+    Description: "AI Agent Lambda Function ARN"
+    Value: !GetAtt AIAgentFunction.Arn
+  AIAgentFunctionIamRole:
+    Description: "Implicit IAM Role created for AI Agent function"
+    Value: !GetAtt AIAgentFunctionRole.Arn

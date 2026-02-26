@@ -1,0 +1,43 @@
+image: python:3.11
+
+stages:
+  - build
+  - test
+  - lint
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  DATABASE_URL: "sqlite:///project.db"
+
+cache:
+  paths:
+    - .cache/pip
+    - venv/
+
+before_script:
+  - python --version
+  - pip install virtualenv
+  - virtualenv venv
+  - source venv/bin/activate
+  - pip install -r requirements.txt
+  - pip install -r requirements-dev.txt
+
+build_job:
+  stage: build
+  script:
+    - flask init-db
+  artifacts:
+    paths:
+      - project.db
+
+test_job:
+  stage: test
+  script:
+    - pytest tests/
+
+lint_job:
+  stage: lint
+  script:
+    - flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+    - flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    - black --check .

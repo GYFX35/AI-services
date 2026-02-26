@@ -91,3 +91,48 @@ Enter a full website URL (e.g., `https://example.com`) to scan the page for brok
 
 3. **Open your web browser:**
    Navigate to `http://127.0.0.1:5000` to access the application.
+
+## Developer Deployment and Integration
+
+This project is configured for easy use across multiple platforms.
+
+### Git and GitLab
+- **Git Attributes:** Consistent line endings are managed via `.gitattributes`.
+- **GitLab CI/CD:** A `.gitlab-ci.yml` is provided for automated builds, testing with `pytest`, and linting.
+  - Simply push to GitLab to trigger the pipeline.
+  - Ensure you set your environment variables (from `.env.example`) in GitLab CI/CD settings.
+
+### Firebase and Firebase Studio
+- **Hosting and Functions:** Use `firebase.json` and `.firebaserc` for deployment.
+- **Firebase Studio:** Compatible with Firebase tools for project management.
+- **Deploy command:**
+  ```bash
+  firebase deploy
+  ```
+
+### AWS (Amazon Web Services)
+- **Containerized Deployment:** A `Dockerfile` and `docker-compose.yml` are included.
+- **AWS SAM (Serverless Application Model):** A `template.yaml` is provided for deploying as an AWS Lambda function with API Gateway.
+- **Deploy via SAM:**
+  ```bash
+  sam build
+  sam deploy --guided
+  ```
+
+### Google Cloud Platform (GCP)
+- **App Engine:** Deploy using `app.yaml`.
+  ```bash
+  gcloud app deploy
+  ```
+- **Cloud Run via Cloud Build:** Use `cloudbuild.yaml` for automated container builds and deployment.
+  ```bash
+  gcloud builds submit --config cloudbuild.yaml
+  ```
+
+### Lablab.ai and Devpost
+- **Hackathon Ready:** This repository includes all necessary configuration for quick cloning and deployment during hackathons.
+- **Project Story:** (Add your project's inspiration and goals here for your submission).
+- **One-Click Setup:** Use the provided Docker and Cloud configurations to get your demo live in minutes.
+
+---
+*Developed for [Hackathon Name]*
