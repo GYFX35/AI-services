@@ -6,7 +6,7 @@ This project is a web-based AI agent that can perform several roles to assist wi
 
 This project is a submission for the **[Name of Devpost Challenge]**.
 
-*   **Live Demo:** [Link to Live Demo](http://ai-services.devpost.com)
+*   **Live Demo:** [https://gyfx35.github.io/AI-services/](https://gyfx35.github.io/AI-services/)
 *   **Video Walkthrough:** [Link to Video Walkthrough]
 
 ## Sponsorship

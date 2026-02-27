@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UsingAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/style.css">
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://static.xx.fbcdn.net/payments_sdk/v1/metapay_sdk.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">UsingAI</div>
+            <ul>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#esports-assistance">eSports</a></li>
+                <li><a href="#fake-content-verification">Verification</a></li>
+                <li><a href="#military-assistance">Military</a></li>
+                <li><a href="#purchase">Purchase</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="https://github.com/sponsors/GYFX35" target="_blank">Sponsor</a></li>
+                <li class="nav-item dropdown language-switcher">
+                    <a href="#" class="dropdown-toggle">English</a>
+                    <ul class="dropdown-menu">
+
+                            <li><a href="#">English</a></li>
+
+                            <li><a href="#">Español</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="google_translate_element" style="text-align: right; padding: 10px 20px;"></div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Welcome to UsingAI</h1>
+                <p>We build custom AI solutions to help your business grow.</p>
+                <a href="#contact" class="btn">Get in Touch</a>
+            </div>
+        </section>
+
+        <section id="services" class="services">
+            <h2>Our Services</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>AI-Powered Development</h3>
+                    <p>We build custom websites, applications, and games using the latest AI technologies.</p>
+                </div>
+                <div class="card">
+                    <h3>AI-Powered Backend</h3>
+                    <p>We can generate a custom backend for your application using Python and Flask.</p>
+                </div>
+                <div class="card">
+                    <h3>Code Debugging & Analysis</h3>
+                    <p>Our AI tools can analyze your code, find bugs, and suggest improvements.</p>
+                </div>
+                <div class="card">
+                    <h3>Marketing & Content Creation</h3>
+                    <p>We generate creative social media posts and marketing copy to promote your brand.</p>
+                </div>
+                <div class="card">
+                    <h3>Ads Optimization</h3>
+                    <p>Our AI can optimize your ad campaigns to improve performance and ROI.</p>
+                </div>
+                <div class="card">
+                    <h3>Banking and Financial Assistant</h3>
+                    <p>Our AI can provide financial advice and help you manage your finances.</p>
+                </div>
+                <div class="card">
+                    <h3>Arts Assistant</h3>
+                    <p>Our AI can provide art critiques, generate artistic ideas, and more.</p>
+                </div>
+                <div class="card">
+                    <h3>Automation Capacity</h3>
+                    <p>We can generate automation scripts to handle your repetitive tasks.</p>
+                </div>
+                <div class="card">
+                    <h3>Sciences Educator</h3>
+                    <p>Our AI can provide science education and resolve exercises in mathematics, physics-chemistry, biology, geography, and astronomy.</p>
+                </div>
+                <div class="card">
+                    <h3>Music Instrumentalist Player</h3>
+                    <p>Our AI can provide musical suggestions, help with learning an instrument, and compose short musical pieces.</p>
+                </div>
+                <div class="card">
+                    <h3>Investigation Role</h3>
+                    <p>Expert cybersecurity and global security investigator for FBI, CIA, and IA, focusing on data protection.</p>
+                </div>
+                <div class="card">
+                    <h3>Military Services Assistance</h3>
+                    <p>Strategic assistance for armies and security services, including tactical planning and risk assessment.</p>
+                </div>
+                <div class="card">
+                    <h3>Podcast & Business Podcast Role</h3>
+                    <p>Expert podcast producer, creator, and designer for high-quality podcasts, specializing in business.</p>
+                </div>
+                <div class="card">
+                    <h3>Supply Chain Consultant</h3>
+                    <p>Expert consultant for optimizing supply chain strategy, inventory management, and sourcing.</p>
+                </div>
+                <div class="card">
+                    <h3>Logistics & Transportation Specialist</h3>
+                    <p>Professional specialist for managing goods movement, route optimization, and international logistics.</p>
+                </div>
+                <div class="card">
+                    <h3>Data Engineering Expert</h3>
+                    <p>Expert data engineer for designing, building, and maintaining robust data pipelines and architectures.</p>
+                </div>
+                <div class="card">
+                    <h3>IA & Data Engineering Expert</h3>
+                    <p>Specialized assistant for AI-driven data engineering, automated pipelines, and data architectures for ML.</p>
+                </div>
+                <div class="card">
+                    <h3>Data Lab & Data Center Specialist</h3>
+                    <p>Expert assistance for data lab development, data center infrastructure, scalability, and energy efficiency.</p>
+                </div>
+                <div class="card">
+                    <h3>Incoterms Expert</h3>
+                    <p>Professional expert for guidance and clarification on international commercial terms (Incoterms).</p>
+                </div>
+                <div class="card">
+                    <h3>E-commerce & Website Manager</h3>
+                    <p>Expert e-commerce assistant for platform management, product listings, and website maintenance.</p>
+                </div>
+                <div class="card">
+                    <h3>Government Public Administrator</h3>
+                    <p>Assistance with government services, document providing, and navigating public administration.</p>
+                </div>
+                <div class="card">
+                    <h3>Biotech Development Role</h3>
+                    <p>Expert specialist for biotech development, molecular biology research, and regulatory guidance.</p>
+                </div>
+                <div class="card">
+                    <h3>Legal & Human Rights Assistant</h3>
+                    <p>Professional assistance for lawyers, courts, parliaments, and legal students, promoting human rights.</p>
+                </div>
+                <div class="card">
+                    <h3>Fintech & Banking Strategist</h3>
+                    <p>Expert assistance for banks, fintechs, and VC firms, focusing on data development, scale, and security.</p>
+                </div>
+                <div class="card">
+                    <h3>Music Production & Promotion</h3>
+                    <p>Expert assistance with beats, song structures, rhythms, and singer promotion/marketing strategies.</p>
+                </div>
+                <div class="card">
+                    <h3>Aerospace & Automotive Specialist</h3>
+                    <p>Expert specialist for automotive, aeronautics, and astronomy sectors, providing technical and strategic guidance.</p>
+                </div>
+                <div class="card">
+                    <h3>Data Science, Steward & DPO Assistant</h3>
+                    <p>Expert assistant for data science projects, data stewardship/governance, and data protection (DPO) compliance.</p>
+                </div>
+                <div class="card">
+                    <h3>Logo & Thumbnail Creator</h3>
+                    <p>Expert graphic designer for creating professional logos and eye-catching thumbnails for your brand.</p>
+                </div>
+                <div class="card">
+                    <h3>AI Content & Fake News Verifier</h3>
+                    <p>Expert in digital forensics for AI content detection, fact-checking, and identifying fake news or misinformation.</p>
+                </div>
+                <div class="card">
+                    <h3>Automatic Learning Role</h3>
+                    <p>Expert in machine learning and AI development, providing guidance on algorithm selection, model optimization, and deployment.</p>
+                </div>
+                <div class="card">
+                    <h3>Computer Vision Specialist</h3>
+                    <p>Expert in image and video analysis, deep learning for vision, and real-world vision applications.</p>
+                </div>
+                <div class="card">
+                    <h3>IA Researcher</h3>
+                    <p>Expert AI researcher providing insights into state-of-the-art research, methodology, and future directions.</p>
+                </div>
+                <div class="card">
+                    <h3>eSports Development & Assistance</h3>
+                    <p>Expert assistance for eSports development, team management, tournament organization, and performance optimization.</p>
+                </div>
+                <div class="card">
+                    <h3>AI Dermatology Specialist</h3>
+                    <p>Expert assistance for skin conditions, treatments, and dermatological procedures, providing professional guidance.</p>
+                </div>
+                <div class="card">
+                    <h3>Microsoft Ignite & Azure AI Expert</h3>
+                    <p>Expert guidance on Microsoft Ignite announcements, Azure AI Foundry, and building Agentic AI solutions.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Microsoft Ignite Assistance Section -->
+        <section id="microsoft-ignite-assistance" class="services">
+            <h2>Microsoft Ignite & Azure AI Expert</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Microsoft Ignite & Azure Support</h3>
+                    <p>Enter your request for information on Microsoft Ignite tools, Azure AI Foundry, or building AI agents below.</p>
+                    <textarea id="microsoft-ignite-input" placeholder="Your Microsoft Ignite or Azure request" class="styled-textarea" rows="4"></textarea>
+                    <button id="microsoft-ignite-btn" class="btn">Submit</button>
+                    <div class="response-container" id="microsoft-ignite-response-container">
+                        <pre id="microsoft-ignite-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dermatology Specialist Section -->
+        <section id="dermatology-assistance" class="services">
+            <h2>AI Dermatology Specialist</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Dermatology & Skincare Support</h3>
+                    <p>Enter your request for skin condition information, treatment guidance, or skincare product analysis below.</p>
+                    <textarea id="dermatology-input" placeholder="Your dermatology request" class="styled-textarea" rows="4"></textarea>
+                    <button id="dermatology-btn" class="btn">Submit</button>
+                    <div class="response-container" id="dermatology-response-container">
+                        <pre id="dermatology-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- eSports Development Section -->
+        <section id="esports-assistance" class="services">
+            <h2>eSports Development & Assistance</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>eSports Strategic Support</h3>
+                    <p>Enter your request for eSports team management, tournament planning, or performance analysis below.</p>
+                    <textarea id="esports-input" placeholder="Your eSports request" class="styled-textarea" rows="4"></textarea>
+                    <button id="esports-btn" class="btn">Submit</button>
+                    <div class="response-container" id="esports-response-container">
+                        <pre id="esports-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Automatic Learning Role Section -->
+        <section id="automatic-learning-assistance" class="services">
+            <h2>Automatic Learning Role</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Machine Learning & AI Guidance</h3>
+                    <p>Enter your request for machine learning algorithm selection, model optimization, or AI development strategy below.</p>
+                    <textarea id="automatic-learning-input" placeholder="Your machine learning request" class="styled-textarea" rows="4"></textarea>
+                    <button id="automatic-learning-btn" class="btn">Submit</button>
+                    <div class="response-container" id="automatic-learning-response-container">
+                        <pre id="automatic-learning-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Computer Vision Specialist Section -->
+        <section id="computer-vision-assistance" class="services">
+            <h2>Computer Vision Specialist</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Computer Vision Guidance</h3>
+                    <p>Enter your request for image analysis, object detection, or vision model deployment below.</p>
+                    <textarea id="computer-vision-input" placeholder="Your computer vision request" class="styled-textarea" rows="4"></textarea>
+                    <button id="computer-vision-btn" class="btn">Submit</button>
+                    <div class="response-container" id="computer-vision-response-container">
+                        <pre id="computer-vision-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- IA Researcher Section -->
+        <section id="ia-researcher-assistance" class="services">
+            <h2>IA Researcher</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>AI Research Support</h3>
+                    <p>Enter your request for AI research insights, methodology, or ethical impact discussion below.</p>
+                    <textarea id="ia-researcher-input" placeholder="Your AI research request" class="styled-textarea" rows="4"></textarea>
+                    <button id="ia-researcher-btn" class="btn">Submit</button>
+                    <div class="response-container" id="ia-researcher-response-container">
+                        <pre id="ia-researcher-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Content & Fake News Verifier Section -->
+        <section id="fake-content-verification" class="services">
+            <h2>AI Content & Fake News Verifier</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Verify Your Content</h3>
+                    <p>Enter the text or content you want to verify for AI generation or fake information below.</p>
+                    <textarea id="fake-content-input" placeholder="Your content to verify" class="styled-textarea" rows="4"></textarea>
+                    <button id="fake-content-btn" class="btn">Verify Content</button>
+                    <div class="response-container" id="fake-content-response-container">
+                        <pre id="fake-content-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Logo & Thumbnail Creator Section -->
+        <section id="logo-thumbnail-assistance" class="services">
+            <h2>Logo & Thumbnail Creator</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Design Your Logo or Thumbnail</h3>
+                    <p>Enter your request for logo concepts, color palettes, or thumbnail design ideas below.</p>
+                    <textarea id="logo-thumbnail-input" placeholder="Your logo or thumbnail request" class="styled-textarea" rows="4"></textarea>
+                    <button id="logo-thumbnail-btn" class="btn">Submit</button>
+                    <div class="response-container" id="logo-thumbnail-response-container">
+                        <pre id="logo-thumbnail-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Science, Steward & DPO Assistant Section -->
+        <section id="data-science-stewardship" class="services">
+            <h2>Data Science, Steward & DPO Assistant</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Data Insights, Governance & Privacy</h3>
+                    <p>Enter your request for data science analysis, data stewardship guidance, or DPO/privacy compliance assistance.</p>
+                    <textarea id="data-science-stewardship-input" placeholder="Your data science or protection request" class="styled-textarea" rows="4"></textarea>
+                    <button id="data-science-stewardship-btn" class="btn">Submit</button>
+                    <div class="response-container" id="data-science-stewardship-response-container">
+                        <pre id="data-science-stewardship-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Aerospace & Automotive Specialist Section -->
+        <section id="aerospace-automotive-assistance" class="services">
+            <h2>Aerospace & Automotive Specialist</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Aerospace, Automotive & Astronomy Support</h3>
+                    <p>Enter your request for automotive engineering, aerospace technology, or astronomy assistance below.</p>
+                    <textarea id="aerospace-automotive-input" placeholder="Your aerospace or automotive request" class="styled-textarea" rows="4"></textarea>
+                    <button id="aerospace-automotive-btn" class="btn">Submit</button>
+                    <div class="response-container" id="aerospace-automotive-response-container">
+                        <pre id="aerospace-automotive-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Music Production & Promotion Section -->
+        <section id="music-production" class="services">
+            <h2>Music Production & Promotion</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Beats, Songs & Artist Promotion</h3>
+                    <p>Enter your request for music production, beats, rhythms, or singer promotion strategies.</p>
+                    <textarea id="music-production-input" placeholder="Your music request" class="styled-textarea" rows="4"></textarea>
+                    <button id="music-production-btn" class="btn">Submit</button>
+                    <div class="response-container" id="music-production-response-container">
+                        <pre id="music-production-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fintech & Banking Strategist Section -->
+        <section id="fintech-assistance" class="services">
+            <h2>Fintech & Banking Strategist</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Fintech, VC & Data Security Support</h3>
+                    <p>Enter your request for fintech consulting, VC strategy, data scaling, or security guidance.</p>
+                    <textarea id="fintech-assistance-input" placeholder="Your fintech request" class="styled-textarea" rows="4"></textarea>
+                    <button id="fintech-assistance-btn" class="btn">Submit</button>
+                    <div class="response-container" id="fintech-assistance-response-container">
+                        <pre id="fintech-assistance-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Legal & Human Rights Assistant Section -->
+        <section id="legal-assistance" class="services">
+            <h2>Legal & Human Rights Assistant</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Legal & Human Rights Support</h3>
+                    <p>Enter your request for legal advice, court/parliament assistance, student exercises, or human rights advocacy.</p>
+                    <textarea id="legal-assistance-input" placeholder="Your legal request" class="styled-textarea" rows="4"></textarea>
+                    <button id="legal-assistance-btn" class="btn">Submit</button>
+                    <div class="response-container" id="legal-assistance-response-container">
+                        <pre id="legal-assistance-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Biotech Development Role Section -->
+        <section id="biotech-assistance" class="services">
+            <h2>Biotech Development Role</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Biotech Research & Development</h3>
+                    <p>Enter your biotechnology project, research, or regulatory request below.</p>
+                    <textarea id="biotech-assistance-input" placeholder="Your biotech request" class="styled-textarea" rows="4"></textarea>
+                    <button id="biotech-assistance-btn" class="btn">Submit</button>
+                    <div class="response-container" id="biotech-assistance-response-container">
+                        <pre id="biotech-assistance-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- E-commerce & Website Manager Section -->
+        <section id="ecommerce-assistance" class="services">
+            <h2>E-commerce & Website Manager</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Manage Your E-commerce Site</h3>
+                    <p>Enter your e-commerce platform, product listing, or website management request below.</p>
+                    <textarea id="ecommerce-assistance-input" placeholder="Your e-commerce request" class="styled-textarea" rows="4"></textarea>
+                    <button id="ecommerce-assistance-btn" class="btn">Submit</button>
+                    <div class="response-container" id="ecommerce-assistance-response-container">
+                        <pre id="ecommerce-assistance-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Government Public Administrator Section -->
+        <section id="government-assistance" class="services">
+            <h2>Government Public Administrator</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Navigate Government Services</h3>
+                    <p>Enter your request for government services, document assistance, or public administration guidance.</p>
+                    <textarea id="government-assistance-input" placeholder="Your government services request" class="styled-textarea" rows="4"></textarea>
+                    <button id="government-assistance-btn" class="btn">Submit</button>
+                    <div class="response-container" id="government-assistance-response-container">
+                        <pre id="government-assistance-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Supply Chain Consultant Section -->
+        <section id="supply-chain-assistance" class="services">
+            <h2>Supply Chain Consultant</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Optimize Your Supply Chain</h3>
+                    <p>Enter your supply chain strategy, inventory, or sourcing request below.</p>
+                    <textarea id="supply-chain-assistance-input" placeholder="Your supply chain request" class="styled-textarea" rows="4"></textarea>
+                    <button id="supply-chain-assistance-btn" class="btn">Submit</button>
+                    <div class="response-container" id="supply-chain-assistance-response-container">
+                        <pre id="supply-chain-assistance-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Logistics & Transportation Specialist Section -->
+        <section id="logistics-assistance" class="services">
+            <h2>Logistics & Transportation Specialist</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Manage Logistics & Transportation</h3>
+                    <p>Enter your logistics, route optimization, or shipping request below.</p>
+                    <textarea id="logistics-assistance-input" placeholder="Your logistics request" class="styled-textarea" rows="4"></textarea>
+                    <button id="logistics-assistance-btn" class="btn">Submit</button>
+                    <div class="response-container" id="logistics-assistance-response-container">
+                        <pre id="logistics-assistance-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Engineering Expert Section -->
+        <section id="data-engineering-assistance" class="services">
+            <h2>Data Engineering Expert</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Design & Build Data Pipelines</h3>
+                    <p>Enter your data engineering, pipeline design, or architecture request below.</p>
+                    <textarea id="data-engineering-assistance-input" placeholder="Your data engineering request" class="styled-textarea" rows="4"></textarea>
+                    <button id="data-engineering-assistance-btn" class="btn">Submit</button>
+                    <div class="response-container" id="data-engineering-assistance-response-container">
+                        <pre id="data-engineering-assistance-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- IA & Data Engineering Expert Section -->
+        <section id="ia-data-engineering-assistance" class="services">
+            <h2>IA & Data Engineering Expert</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>AI-Driven Data Pipelines</h3>
+                    <p>Enter your request for AI-optimized data pipelines, feature stores, or data preparation for LLMs.</p>
+                    <textarea id="ia-data-engineering-assistance-input" placeholder="Your AI data engineering request" class="styled-textarea" rows="4"></textarea>
+                    <button id="ia-data-engineering-assistance-btn" class="btn">Submit</button>
+                    <div class="response-container" id="ia-data-engineering-assistance-response-container">
+                        <pre id="ia-data-engineering-assistance-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Lab & Data Center Specialist Section -->
+        <section id="data-lab-center-assistance" class="services">
+            <h2>Data Lab & Data Center Specialist</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Data Lab & Infrastructure Support</h3>
+                    <p>Enter your request for data lab development, data center infrastructure, or energy efficiency strategies.</p>
+                    <textarea id="data-lab-center-assistance-input" placeholder="Your data lab or data center request" class="styled-textarea" rows="4"></textarea>
+                    <button id="data-lab-center-assistance-btn" class="btn">Submit</button>
+                    <div class="response-container" id="data-lab-center-assistance-response-container">
+                        <pre id="data-lab-center-assistance-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Incoterms Expert Section -->
+        <section id="incoterms-assistance" class="services">
+            <h2>Incoterms Expert</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Get Guidance on Incoterms</h3>
+                    <p>Enter your Incoterms or international trade request below.</p>
+                    <textarea id="incoterms-assistance-input" placeholder="Your Incoterms request" class="styled-textarea" rows="4"></textarea>
+                    <button id="incoterms-assistance-btn" class="btn">Submit</button>
+                    <div class="response-container" id="incoterms-assistance-response-container">
+                        <pre id="incoterms-assistance-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Global Translator Section -->
+        <section id="global-translator" class="services">
+            <h2>Global Translator</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Translate Text to Any Language</h3>
+                    <p>Enter the text you want to translate and the target language.</p>
+                    <textarea id="translator-text-input" placeholder="Text to translate" class="styled-textarea" rows="4"></textarea>
+                    <input type="text" id="translator-language-input" placeholder="Target Language (e.g., Spanish, French, Japanese)" class="styled-input">
+                    <button id="translator-btn" class="btn">Translate</button>
+                    <div class="response-container" id="translator-response-container">
+                        <pre id="translator-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Podcast & Business Podcast Section -->
+        <section id="podcast-assistance" class="services">
+            <h2>Podcast & Business Podcast Role</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Create, Perfect & Design Your Podcast</h3>
+                    <p>Enter your podcast creation, perfection, or design request below.</p>
+                    <textarea id="podcast-assistance-input" placeholder="Your podcast request" class="styled-textarea" rows="4"></textarea>
+                    <button id="podcast-assistance-btn" class="btn">Submit</button>
+                    <div class="response-container" id="podcast-assistance-response-container">
+                        <pre id="podcast-assistance-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Military Services Assistance Section -->
+        <section id="military-assistance" class="services">
+            <h2>Military Services Assistance</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Tactical Planning & Security Strategy</h3>
+                    <p>Enter your request for military or security services assistance below.</p>
+                    <textarea id="military-assistance-input" placeholder="Your military assistance request" class="styled-textarea" rows="4"></textarea>
+                    <button id="military-assistance-btn" class="btn">Submit</button>
+                    <div class="response-container" id="military-assistance-response-container">
+                        <pre id="military-assistance-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Investigation Role Section -->
+        <section id="investigation-role" class="services">
+            <h2>Investigation Role</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Cybersecurity & Global Security Investigation</h3>
+                    <p>Enter your security investigation or data protection request below.</p>
+                    <textarea id="investigation-role-input" placeholder="Your investigation request" class="styled-textarea" rows="4"></textarea>
+                    <button id="investigation-role-btn" class="btn">Submit</button>
+                    <div class="response-container" id="investigation-role-response-container">
+                        <pre id="investigation-role-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Business Plan Creator Section -->
+        <section id="business-plan-creator" class="services">
+            <h2>Business Plan Creator</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Create, perfect, and develop your business plan</h3>
+                    <p>Enter your request for business plan assistance below.</p>
+                    <textarea id="business-plan-input" placeholder="Your business plan request" class="styled-textarea" rows="4"></textarea>
+                    <button id="business-plan-btn" class="btn">Submit</button>
+                    <div class="response-container" id="business-plan-response-container">
+                        <pre id="business-plan-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Document Specialist Section -->
+        <section id="document-specialist" class="services">
+            <h2>Document Specialist</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Write, scan, and build documents</h3>
+                    <p>Enter your request for ebooks, articles, PDFs, or DOCs below.</p>
+                    <textarea id="document-specialist-input" placeholder="Your document request" class="styled-textarea" rows="4"></textarea>
+                    <button id="document-specialist-btn" class="btn">Submit</button>
+                    <div class="response-container" id="document-specialist-response-container">
+                        <pre id="document-specialist-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Geometry Assistant Section -->
+        <section id="geometry-assistant" class="services">
+            <h2>Geometry Assistant</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Get help with geometry problems</h3>
+                    <p>Enter your geometry question or problem below.</p>
+                    <textarea id="geometry-assistant-input" placeholder="Your geometry question" class="styled-textarea" rows="4"></textarea>
+                    <button id="geometry-assistant-btn" class="btn">Submit</button>
+                    <div class="response-container" id="geometry-assistant-response-container">
+                        <pre id="geometry-assistant-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cartography Assistant Section -->
+        <section id="cartography-assistant" class="services">
+            <h2>Cartography Assistant</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Get help with maps and cartography</h3>
+                    <p>Enter your cartography or GIS question below.</p>
+                    <textarea id="cartography-assistant-input" placeholder="Your cartography question" class="styled-textarea" rows="4"></textarea>
+                    <button id="cartography-assistant-btn" class="btn">Submit</button>
+                    <div class="response-container" id="cartography-assistant-response-container">
+                        <pre id="cartography-assistant-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Music Instrumentalist Section -->
+        <section id="music-instrumentalist" class="services">
+            <h2>Music Instrumentalist Player</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Get musical assistance or compositions</h3>
+                    <p>Enter your musical request below.</p>
+                    <textarea id="music-instrumentalist-input" placeholder="Your musical request" class="styled-textarea" rows="4"></textarea>
+                    <button id="music-instrumentalist-btn" class="btn">Submit</button>
+                    <div class="response-container" id="music-instrumentalist-response-container">
+                        <pre id="music-instrumentalist-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sciences Educator Section -->
+        <section id="sciences-educator" class="services">
+            <h2>Sciences Educator</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Ask a question or submit an exercise</h3>
+                    <p>Enter your question or exercise below.</p>
+                    <textarea id="sciences-educator-input" placeholder="Your question or exercise" class="styled-textarea" rows="4"></textarea>
+                    <button id="sciences-educator-btn" class="btn">Submit</button>
+                    <div class="response-container" id="sciences-educator-response-container">
+                        <pre id="sciences-educator-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="purchase" class="purchase">
+            <h2>Purchase AI Credits</h2>
+            <div class="purchase-card">
+                <h3>1000 AI Credits</h3>
+                <p>$10.00</p>
+                <div id="meta-pay-button-container"></div>
+                <p id="payment-status"></p>
+            </div>
+        </section>
+
+        <section id="portfolio" class="portfolio">
+            <h2>Our Work</h2>
+            <div class="portfolio-gallery">
+            </div>
+        </section>
+
+        <!-- Create Project Section -->
+        <section id="create-project" class="services">
+            <h2>Create a New Project</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Project Details</h3>
+                    <p>Enter the title and description for your new project.</p>
+                    <input type="text" id="project-title-input" placeholder="Project Title" class="styled-input">
+                    <textarea id="project-description-input" placeholder="Project Description" class="styled-textarea" rows="4"></textarea>
+                    <button id="create-project-btn" class="btn">Create Project</button>
+                    <div class="response-container" id="create-project-response-container">
+                        <pre id="create-project-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Promote Startup Section -->
+        <section id="promote-startup" class="services">
+            <h2>Promote Your Startup</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Startup Details</h3>
+                    <p>Enter a description of your startup to generate a promotion.</p>
+                    <textarea id="startup-description-input" placeholder="Startup Description" class="styled-textarea" rows="4"></textarea>
+                    <button id="promote-startup-btn" class="btn">Generate Promotion</button>
+                    <div class="response-container" id="promote-startup-response-container">
+                        <pre id="promote-startup-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <p>&copy; 2024 UsingAI. All rights reserved.</p>
+        <p><a href="https://github.com/sponsors/GYFX35" target="_blank">Sponsor us on GitHub</a> | <a href="https://buy.stripe.com/example" target="_blank">Sponsor us via Stripe</a></p>
+    </footer>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="static/js/script.js"></script>
+</body>
+</html>
