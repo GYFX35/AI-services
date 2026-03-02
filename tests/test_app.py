@@ -51,3 +51,14 @@ def test_weather_no_key(client, auth_headers):
     assert response.status_code == 200
     data = json.loads(response.data)
     assert 'Error' in data['message'] or 'Weather in' in data['message']
+
+@patch('google_ai.provide_diagnostic_assistance')
+def test_diagnostic_assistance(mock_gen, client, auth_headers):
+    mock_gen.return_value = 'Mock diagnostic response'
+    response = client.post('/api/v1/diagnostic/assistance',
+                           data=json.dumps({'prompt': 'test symptom'}),
+                           content_type='application/json',
+                           headers=auth_headers)
+    assert response.status_code == 200
+    data = json.loads(response.data)
+    assert data['message'] == 'Mock diagnostic response'

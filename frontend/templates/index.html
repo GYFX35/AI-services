@@ -187,6 +187,26 @@
                     <h3>{{ _('Microsoft Ignite & Azure AI Expert') }}</h3>
                     <p>{{ _('Expert guidance on Microsoft Ignite announcements, Azure AI Foundry, and building Agentic AI solutions.') }}</p>
                 </div>
+                <div class="card">
+                    <h3>{{ _('AI Diagnostic Specialist') }}</h3>
+                    <p>{{ _('Professional assistant for medical diagnostics, symptom analysis, and healthcare information.') }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Diagnostic Specialist Section -->
+        <section id="diagnostic-assistance" class="services">
+            <h2>{{ _('AI Diagnostic Specialist') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Diagnostic & Healthcare Support') }}</h3>
+                    <p>{{ _('Enter your request for symptom analysis, diagnostic procedure information, or healthcare guidance below.') }}</p>
+                    <textarea id="diagnostic-input" placeholder="{{ _('Your diagnostic request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="diagnostic-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="diagnostic-response-container">
+                        <pre id="diagnostic-response"></pre>
+                    </div>
+                </div>
             </div>
         </section>
 

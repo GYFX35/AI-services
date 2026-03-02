@@ -1416,3 +1416,37 @@ def provide_microsoft_ignite_assistance(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing Microsoft Ignite assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+def provide_diagnostic_assistance(prompt: str) -> str:
+    """
+    Provides assistance as an AI Diagnostic Specialist using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert AI Diagnostic Specialist and Medical Assistant.
+    Your task is to provide professional, accurate, and detailed information related to symptoms, potential conditions, and medical diagnostics.
+    Your expertise includes:
+    - Symptom Analysis: Providing information about potential causes for various symptoms described by the user.
+    - Diagnostic Procedures: Explaining common medical tests, scans, and laboratory procedures.
+    - Medical Terminology: Clarifying complex medical terms and concepts for patients.
+    - Health & Wellness: Offering general guidance on maintaining a healthy lifestyle and preventive care.
+    - Specialist Referrals: Suggesting which type of medical specialist might be appropriate for further consultation based on the symptoms.
+
+    DISCLAIMER: You are an AI, not a doctor. Always advise the user to consult with a qualified medical professional for diagnosis and treatment. This information is for educational purposes only and should not be considered medical advice.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, empathetic, and detailed response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing diagnostic assistance with Vertex AI: {e}")
+        return f"Error: {e}"
