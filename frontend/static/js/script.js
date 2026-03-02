@@ -1515,6 +1515,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- E-shop Assistance ---
+    const eshopBtn = document.getElementById('eshop-btn');
+    if (eshopBtn) {
+        eshopBtn.addEventListener('click', async () => {
+            const input = document.getElementById('eshop-input');
+            const responseContainer = document.getElementById('eshop-response');
+            const apiKey = getApiKey("Please enter your API key to use the E-shop Specialist:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/eshop/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the e-shop specialist');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- Global Translator ---
     const translatorBtn = document.getElementById('translator-btn');
     if (translatorBtn) {
