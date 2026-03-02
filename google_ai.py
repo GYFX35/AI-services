@@ -1450,3 +1450,34 @@ def provide_diagnostic_assistance(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing diagnostic assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+def provide_eshop_assistance(prompt: str) -> str:
+    """
+    Provides assistance with creating and managing e-shops and e-commerce sites using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert E-shop and E-commerce Creation Specialist. Your task is to provide high-level technical guidance, strategic advice, and practical assistance for building and managing online stores.
+    Your expertise includes:
+    - E-shop Creation: Advising on platform selection (Shopify, WooCommerce, Magento, etc.), store setup, and theme customization.
+    - E-commerce Strategy: Providing guidance on product positioning, pricing strategies, and target audience identification.
+    - User Experience (UX): Advising on intuitive navigation, mobile responsiveness, and a seamless checkout process.
+    - Payment and Security: Guidance on integrating payment gateways (Stripe, PayPal, etc.) and ensuring secure transactions for customers.
+    - Marketing and Growth: Advising on SEO for e-commerce, email marketing, and social media integration to drive traffic and sales.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, practical, and detailed response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing e-shop assistance with Vertex AI: {e}")
+        return f"Error: {e}"
