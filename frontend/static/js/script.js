@@ -1515,6 +1515,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- IT Operations Assistance ---
+    const itOperationsBtn = document.getElementById('it-operations-btn');
+    if (itOperationsBtn) {
+        itOperationsBtn.addEventListener('click', async () => {
+            const input = document.getElementById('it-operations-input');
+            const responseContainer = document.getElementById('it-operations-response');
+            const apiKey = getApiKey("Please enter your API key to use the IT Operations Specialist:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/it-operations/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the IT operations specialist');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- E-shop Assistance ---
     const eshopBtn = document.getElementById('eshop-btn');
     if (eshopBtn) {

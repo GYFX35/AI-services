@@ -73,3 +73,14 @@ def test_eshop_assistance(mock_gen, client, auth_headers):
     assert response.status_code == 200
     data = json.loads(response.data)
     assert data['message'] == 'Mock e-shop response'
+
+@patch('google_ai.provide_it_operations_assistance')
+def test_it_operations_assistance(mock_gen, client, auth_headers):
+    mock_gen.return_value = 'Mock IT operations response'
+    response = client.post('/api/v1/it-operations/assistance',
+                           data=json.dumps({'prompt': 'test IT operations'}),
+                           content_type='application/json',
+                           headers=auth_headers)
+    assert response.status_code == 200
+    data = json.loads(response.data)
+    assert data['message'] == 'Mock IT operations response'
