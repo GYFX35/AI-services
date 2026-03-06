@@ -15,6 +15,7 @@
             <div class="logo">UsingAI</div>
             <ul>
                 <li><a href="#services">{{ _('Services') }}</a></li>
+                <li><a href="#it-operations-assistance">{{ _('IT Ops') }}</a></li>
                 <li><a href="#esports-assistance">{{ _('eSports') }}</a></li>
                 <li><a href="#fake-content-verification">{{ _('Verification') }}</a></li>
                 <li><a href="#military-assistance">{{ _('Military') }}</a></li>
@@ -194,6 +195,26 @@
                 <div class="card">
                     <h3>{{ _('E-shop Specialist') }}</h3>
                     <p>{{ _('Expert assistance for creating and managing e-shops and e-commerce sites, providing strategic and technical guidance.') }}</p>
+                </div>
+                <div class="card">
+                    <h3>{{ _('IT Operations Specialist') }}</h3>
+                    <p>{{ _('Expert assistance for server management, network administration, infrastructure as code, and monitoring strategies.') }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- IT Operations Specialist Section -->
+        <section id="it-operations-assistance" class="services">
+            <h2>{{ _('IT Operations Specialist') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('IT Ops & Infrastructure Support') }}</h3>
+                    <p>{{ _('Enter your request for server management, network administration, or infrastructure automation below.') }}</p>
+                    <textarea id="it-operations-input" placeholder="{{ _('Your IT operations request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="it-operations-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="it-operations-response-container">
+                        <pre id="it-operations-response"></pre>
+                    </div>
                 </div>
             </div>
         </section>

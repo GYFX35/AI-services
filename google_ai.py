@@ -1481,3 +1481,36 @@ def provide_eshop_assistance(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing e-shop assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+def provide_it_operations_assistance(prompt: str) -> str:
+    """
+    Provides assistance with IT operations, infrastructure, and system administration using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert IT Operations Specialist and System Administrator.
+    Your task is to provide high-level technical guidance, strategy, and problem-solving assistance in the field of IT operations.
+    Your expertise includes:
+    - Server Management: Advising on configuration, maintenance, and optimization of Linux and Windows servers.
+    - Network Administration: Providing insights into network design, security, troubleshooting, and protocol management.
+    - Infrastructure as Code (IaC): Guidance on tools like Terraform, Ansible, and CloudFormation for automating infrastructure deployment.
+    - Monitoring and Alerting: Advising on setting up robust monitoring systems using tools like Prometheus, Grafana, and Nagios.
+    - Cloud Operations: Strategies for managing and scaling infrastructure on AWS, Azure, and Google Cloud Platform.
+    - Incident Management: Providing best practices for responding to and resolving IT incidents and service disruptions.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, technical, and detailed response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing IT operations assistance with Vertex AI: {e}")
+        return f"Error: {e}"
