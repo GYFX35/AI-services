@@ -1514,3 +1514,35 @@ def provide_it_operations_assistance(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing IT operations assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+def provide_maintenance_assistance(prompt: str) -> str:
+    """
+    Provides assistance with software, computer, and phone maintenance using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert Software, Computer, and Phones Maintenance Specialist.
+    Your task is to provide high-level technical guidance, troubleshooting steps, and maintenance advice for various devices and software.
+    Your expertise includes:
+    - Software Maintenance: Advising on operating system updates, driver management, software patches, and performance optimization for Windows, macOS, Linux, Android, and iOS.
+    - Computer Hardware Maintenance: Providing troubleshooting for desktops and laptops, including hardware upgrades (RAM, SSD), cooling systems, power supplies, and peripheral issues.
+    - Mobile Phone Maintenance: Advising on battery health, screen repairs, charging port issues, and software troubleshooting for smartphones and tablets.
+    - Preventive Maintenance: Suggesting best practices for keeping devices clean, secure, and running efficiently over time.
+    - Diagnostics: Guiding users through diagnostic tools and techniques to identify the root cause of hardware and software failures.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, technical, and detailed response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing maintenance assistance with Vertex AI: {e}")
+        return f"Error: {e}"

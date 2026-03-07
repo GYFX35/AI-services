@@ -1553,6 +1553,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Maintenance Assistance ---
+    const maintenanceBtn = document.getElementById('maintenance-btn');
+    if (maintenanceBtn) {
+        maintenanceBtn.addEventListener('click', async () => {
+            const input = document.getElementById('maintenance-input');
+            const responseContainer = document.getElementById('maintenance-response');
+            const apiKey = getApiKey("Please enter your API key to use the Software & Hardware Maintenance Specialist:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/maintenance/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the maintenance specialist');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- E-shop Assistance ---
     const eshopBtn = document.getElementById('eshop-btn');
     if (eshopBtn) {

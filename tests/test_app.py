@@ -84,3 +84,14 @@ def test_it_operations_assistance(mock_gen, client, auth_headers):
     assert response.status_code == 200
     data = json.loads(response.data)
     assert data['message'] == 'Mock IT operations response'
+
+@patch('google_ai.provide_maintenance_assistance')
+def test_maintenance_assistance(mock_gen, client, auth_headers):
+    mock_gen.return_value = 'Mock maintenance response'
+    response = client.post('/api/v1/maintenance/assistance',
+                           data=json.dumps({'prompt': 'test maintenance'}),
+                           content_type='application/json',
+                           headers=auth_headers)
+    assert response.status_code == 200
+    data = json.loads(response.data)
+    assert data['message'] == 'Mock maintenance response'

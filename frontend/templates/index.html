@@ -15,6 +15,7 @@
             <div class="logo">UsingAI</div>
             <ul>
                 <li><a href="#services">{{ _('Services') }}</a></li>
+                <li><a href="#maintenance-assistance">{{ _('Maintenance') }}</a></li>
                 <li><a href="#it-operations-assistance">{{ _('IT Ops') }}</a></li>
                 <li><a href="#esports-assistance">{{ _('eSports') }}</a></li>
                 <li><a href="#fake-content-verification">{{ _('Verification') }}</a></li>
@@ -199,6 +200,26 @@
                 <div class="card">
                     <h3>{{ _('IT Operations Specialist') }}</h3>
                     <p>{{ _('Expert assistance for server management, network administration, infrastructure as code, and monitoring strategies.') }}</p>
+                </div>
+                <div class="card">
+                    <h3>{{ _('Software & Hardware Maintenance') }}</h3>
+                    <p>{{ _('Expert assistance for software updates, computer hardware troubleshooting, and mobile phone maintenance.') }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Software & Hardware Maintenance Section -->
+        <section id="maintenance-assistance" class="services">
+            <h2>{{ _('Software & Hardware Maintenance Specialist') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Software, Computer & Phone Support') }}</h3>
+                    <p>{{ _('Enter your request for software updates, hardware repairs, or device maintenance below.') }}</p>
+                    <textarea id="maintenance-input" placeholder="{{ _('Your maintenance request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="maintenance-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="maintenance-response-container">
+                        <pre id="maintenance-response"></pre>
+                    </div>
                 </div>
             </div>
         </section>
