@@ -59,6 +59,14 @@ class Payment(db.Model):
     def __repr__(self):
         return f'<Payment {self.id}>'
 
+class UsageTrack(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    metric_name = db.Column(db.String(50), unique=True, nullable=False)
+    count = db.Column(db.Integer, default=0)
+
+    def __repr__(self):
+        return f'<UsageTrack {self.metric_name}: {self.count}>'
+
 # --- Flask App Setup ---
 app = Flask(__name__, template_folder='frontend/templates', static_folder='frontend/static')
 app.config['SECRET_KEY'] = secrets.token_hex(16)
@@ -1300,6 +1308,33 @@ def me():
         "id": g.user.id,
         "username": g.user.username
     })
+
+@app.route('/api/v1/track/view', methods=['POST'])
+def track_view():
+    view_metric = UsageTrack.query.filter_by(metric_name='page_views').first()
+    if not view_metric:
+        view_metric = UsageTrack(metric_name='page_views', count=0)
+        db.session.add(view_metric)
+    view_metric.count += 1
+    db.session.commit()
+    return jsonify({"status": "success", "count": view_metric.count})
+
+@app.route('/api/v1/track/usage', methods=['POST'])
+def track_usage():
+    data = request.get_json()
+    tool = data.get('tool', 'unknown')
+    usage_metric = UsageTrack.query.filter_by(metric_name=f'usage_{tool}').first()
+    if not usage_metric:
+        usage_metric = UsageTrack(metric_name=f'usage_{tool}', count=0)
+        db.session.add(usage_metric)
+    usage_metric.count += 1
+    db.session.commit()
+    return jsonify({"status": "success", "tool": tool, "count": usage_metric.count})
+
+@app.route('/api/v1/stats', methods=['GET'])
+def get_stats():
+    stats = UsageTrack.query.all()
+    return jsonify({stat.metric_name: stat.count for stat in stats})
 
 @app.route('/api/v1/portfolio/projects', methods=['GET'])
 def get_projects():
