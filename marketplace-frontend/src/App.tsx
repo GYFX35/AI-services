@@ -1,19 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import {
   Search,
-  ShoppingCart,
   User as UserIcon,
-  Briefcase,
   Wrench,
   ShieldCheck,
   Cpu,
   Globe,
-  TrendingUp,
   CreditCard,
   Menu,
   X,
   AlertCircle,
-  Key
+  Key,
+  Gamepad2,
+  Database,
+  Code2,
+  Scale,
+  Stethoscope,
+  Plane,
+  Music,
+  ShoppingBag,
+  ShieldAlert,
+  Binary,
+  FlaskConical,
+  Truck,
+  Building2,
+  BookOpen,
+  Microscope
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { userService, setAuthToken, type User } from './api';
@@ -28,11 +40,25 @@ interface AIService {
 
 const AI_SERVICES: AIService[] = [
   { id: 'website', name: 'Website Developer', category: 'Development', icon: Globe, description: 'Generate multi-section HTML/CSS websites.' },
-  { id: 'maintenance', name: 'Maintenance Expert', category: 'Support', icon: Wrench, description: 'Software & hardware troubleshooting.' },
-  { id: 'it-ops', name: 'IT Ops Specialist', category: 'Infrastructure', icon: Cpu, description: 'Server and network administration.' },
+  { id: 'game', name: 'Game Developer', category: 'Development', icon: Gamepad2, description: 'Create custom games using AI technologies.' },
+  { id: 'backend', name: 'Backend Architect', category: 'Infrastructure', icon: Database, description: 'Generate robust Python/Flask backends.' },
+  { id: 'blockchain', name: 'Blockchain Expert', category: 'Development', icon: Code2, description: 'Smart contract and blockchain solutions.' },
+  { id: 'fintech', name: 'Fintech Strategist', category: 'Business', icon: CreditCard, description: 'Banking and financial technology consulting.' },
+  { id: 'legal', name: 'Legal & Human Rights', category: 'Professional', icon: Scale, description: 'Expert legal research and advocacy support.' },
+  { id: 'diagnostic', name: 'Medical Diagnostic', category: 'Health', icon: Stethoscope, description: 'Symptom analysis and healthcare information.' },
+  { id: 'aerospace', name: 'Aerospace & Auto', category: 'Engineering', icon: Plane, description: 'Aeronautics and automotive technical guidance.' },
+  { id: 'music', name: 'Music Producer', category: 'Arts', icon: Music, description: 'Beat production and artist marketing.' },
+  { id: 'eshop', name: 'E-commerce Guru', category: 'Business', icon: ShoppingBag, description: 'Create and manage high-performing e-shops.' },
+  { id: 'investigation', name: 'Cyber Investigator', category: 'Security', icon: ShieldAlert, description: 'Digital forensics and security investigation.' },
+  { id: 'ml-expert', name: 'Machine Learning', category: 'Development', icon: Binary, description: 'Algorithm selection and model optimization.' },
+  { id: 'biotech', name: 'Biotech Specialist', category: 'Science', icon: FlaskConical, description: 'Molecular biology and regulatory research.' },
+  { id: 'logistics', name: 'Logistics Manager', category: 'Business', icon: Truck, description: 'Route optimization and movement management.' },
+  { id: 'it-ops', name: 'IT Operations', category: 'Infrastructure', icon: Cpu, description: 'Server and network administration.' },
+  { id: 'gov-admin', name: 'Gov Administrator', category: 'Public', icon: Building2, description: 'Navigating government services and documents.' },
+  { id: 'education', name: 'Science Educator', category: 'Academic', icon: BookOpen, description: 'Mathematics, physics, and biology education.' },
   { id: 'verification', name: 'Content Verifier', category: 'Security', icon: ShieldCheck, description: 'AI content and fake news detection.' },
-  { id: 'legal', name: 'Legal Assistant', category: 'Professional', icon: Briefcase, description: 'Legal research and human rights support.' },
-  { id: 'marketing', name: 'Marketer', category: 'Business', icon: TrendingUp, description: 'Social media and promotion generator.' }
+  { id: 'maintenance', name: 'Hardware Expert', category: 'Support', icon: Wrench, description: 'Software & hardware troubleshooting.' },
+  { id: 'researcher', name: 'AI Researcher', category: 'Science', icon: Microscope, description: 'State-of-the-art AI methodology research.' }
 ];
 
 const App: React.FC = () => {
@@ -116,7 +142,7 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <span className="text-2xl font-bold text-blue-600">UsingAI</span>
+              <span className="text-2xl font-bold text-blue-600">Yendoukoa AI</span>
               <div className="hidden md:ml-6 md:flex md:space-x-8">
                 <button
                   onClick={() => setActiveTab('marketplace')}
@@ -194,7 +220,7 @@ const App: React.FC = () => {
                   </div>
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                     <h3 className="text-lg leading-6 font-medium text-gray-900">
-                      {modalMode === 'register' ? 'Join UsingAI' : 'Login with API Key'}
+                      {modalMode === 'register' ? 'Join Yendoukoa AI' : 'Login with API Key'}
                     </h3>
                     <div className="mt-4">
                       <form onSubmit={handleSubmit}>
@@ -419,7 +445,7 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="md:col-span-2">
-              <span className="text-2xl font-bold text-blue-600">UsingAI</span>
+              <span className="text-2xl font-bold text-blue-600">Yendoukoa AI</span>
               <p className="mt-4 text-gray-500 max-w-xs">
                 Empowering businesses with professional-grade AI services and custom solutions.
               </p>
@@ -444,7 +470,7 @@ const App: React.FC = () => {
             </div>
           </div>
           <div className="mt-12 pt-8 border-t text-center text-sm text-gray-400">
-            &copy; 2026 UsingAI. All rights reserved.
+            &copy; 2026 Yendoukoa AI. All rights reserved.
           </div>
         </div>
       </footer>

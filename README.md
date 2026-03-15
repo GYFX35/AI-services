@@ -6,7 +6,7 @@ This project is a web-based AI agent that can perform several roles to assist wi
 
 This project is a submission for the **[Name of Devpost Challenge]**.
 
-*   **Live Demo:** [https://using.ai](https://using.ai)
+*   **Live Demo:** [https://yendoukoa.ai](https://yendoukoa.ai)
 *   **Video Walkthrough:** [Link to Video Walkthrough]
 
 ## Sponsorship
