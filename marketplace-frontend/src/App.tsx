@@ -12,11 +12,21 @@ import {
   CreditCard,
   Menu,
   X,
-  AlertCircle
+  AlertCircle,
+  Key
 } from 'lucide-react';
-import { userService, setAuthToken } from './api';
+import type { LucideIcon } from 'lucide-react';
+import { userService, setAuthToken, type User } from './api';
 
-const AI_SERVICES = [
+interface AIService {
+  id: string;
+  name: string;
+  category: string;
+  icon: LucideIcon;
+  description: string;
+}
+
+const AI_SERVICES: AIService[] = [
   { id: 'website', name: 'Website Developer', category: 'Development', icon: Globe, description: 'Generate multi-section HTML/CSS websites.' },
   { id: 'maintenance', name: 'Maintenance Expert', category: 'Support', icon: Wrench, description: 'Software & hardware troubleshooting.' },
   { id: 'it-ops', name: 'IT Ops Specialist', category: 'Infrastructure', icon: Cpu, description: 'Server and network administration.' },
@@ -25,14 +35,18 @@ const AI_SERVICES = [
   { id: 'marketing', name: 'Marketer', category: 'Business', icon: TrendingUp, description: 'Social media and promotion generator.' }
 ];
 
-const App = () => {
+const App: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('marketplace');
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [credits, setCredits] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [modalMode, setModalMode] = useState<'login' | 'register'>('register');
+  const [username, setUsername] = useState('');
+  const [apiKey, setApiKey] = useState('');
 
   useEffect(() => {
     const savedApiKey = localStorage.getItem('globalApiKey');
@@ -47,7 +61,6 @@ const App = () => {
       setLoading(true);
       const response = await userService.getMe();
       setUser(response.data);
-      // In a real app, credits would come from the user object or a separate endpoint
       setCredits(1000);
       setError(null);
     } catch (err) {
@@ -61,19 +74,31 @@ const App = () => {
     }
   };
 
-  const handleLogin = async () => {
-    const username = prompt('Enter your username:');
-    if (!username) return;
-
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     try {
       setLoading(true);
-      const response = await userService.register(username);
-      const { api_key } = response.data;
-      localStorage.setItem('globalApiKey', api_key);
-      setAuthToken(api_key);
+      setError(null);
+      if (modalMode === 'register') {
+        if (!username) return;
+        const response = await userService.register(username);
+        const { api_key } = response.data;
+        localStorage.setItem('globalApiKey', api_key);
+        setAuthToken(api_key);
+        alert(`Your API Key is: ${api_key}. Please save it to login later!`);
+      } else {
+        if (!apiKey) return;
+        const response = await userService.login(apiKey);
+        const { api_key } = response.data;
+        localStorage.setItem('globalApiKey', api_key);
+        setAuthToken(api_key);
+      }
       await fetchUserData();
-    } catch (err) {
-      setError(err.response?.data?.error || 'Registration failed');
+      setShowLoginModal(false);
+      setUsername('');
+      setApiKey('');
+    } catch (err: any) {
+      setError(err.response?.data?.error || 'Operation failed');
     } finally {
       setLoading(false);
     }
@@ -115,13 +140,17 @@ const App = () => {
                     {credits} Credits
                   </div>
                   <span className="text-sm font-medium text-gray-700">{user.username}</span>
-                  <button className="text-gray-500 hover:text-gray-700">
-                    <UserIcon size={24} />
+                  <button className="text-gray-500 hover:text-gray-700" onClick={() => {
+                    localStorage.removeItem('globalApiKey');
+                    setAuthToken(null);
+                    setUser(null);
+                  }}>
+                    <X size={20} />
                   </button>
                 </div>
               ) : (
                 <button
-                  onClick={handleLogin}
+                  onClick={() => setShowLoginModal(true)}
                   disabled={loading}
                   className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700"
                 >
@@ -144,6 +173,86 @@ const App = () => {
             </div>
             <div className="ml-3">
               <p className="text-sm text-red-700">{error}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Login Modal */}
+      {showLoginModal && (
+        <div className="fixed inset-0 z-[60] overflow-y-auto">
+          <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <div className="fixed inset-0 transition-opacity" aria-hidden="true" onClick={() => setShowLoginModal(false)}>
+              <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div className="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full z-[70]">
+              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div className="sm:flex sm:items-start">
+                  <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
+                    {modalMode === 'register' ? <UserIcon className="h-6 w-6 text-blue-600" /> : <Key className="h-6 w-6 text-blue-600" />}
+                  </div>
+                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">
+                      {modalMode === 'register' ? 'Join UsingAI' : 'Login with API Key'}
+                    </h3>
+                    <div className="mt-4">
+                      <form onSubmit={handleSubmit}>
+                        {modalMode === 'register' ? (
+                          <div className="mb-4">
+                            <label className="block text-sm font-medium text-gray-700">Username</label>
+                            <input
+                              type="text"
+                              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                              placeholder="Choose a username"
+                              value={username}
+                              onChange={(e) => setUsername(e.target.value)}
+                              required
+                            />
+                          </div>
+                        ) : (
+                          <div className="mb-4">
+                            <label className="block text-sm font-medium text-gray-700">API Key</label>
+                            <input
+                              type="password"
+                              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                              placeholder="Enter your API Key"
+                              value={apiKey}
+                              onChange={(e) => setApiKey(e.target.value)}
+                              required
+                            />
+                          </div>
+                        )}
+                        <div className="mt-4 flex justify-center text-sm">
+                           <button
+                             type="button"
+                             onClick={() => setModalMode(modalMode === 'register' ? 'login' : 'register')}
+                             className="text-blue-600 hover:underline"
+                           >
+                             {modalMode === 'register' ? 'Already have an API Key? Login' : 'Need an account? Register'}
+                           </button>
+                        </div>
+                        <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+                          <button
+                            type="submit"
+                            disabled={loading}
+                            className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                          >
+                            {loading ? 'Processing...' : modalMode === 'register' ? 'Register' : 'Login'}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setShowLoginModal(false)}
+                            className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:w-auto sm:text-sm"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -229,7 +338,7 @@ const App = () => {
                 {!user ? (
                    <div className="text-center py-10">
                       <p className="text-gray-500 mb-4">Please login to view your dashboard</p>
-                      <button onClick={handleLogin} className="text-blue-600 font-bold hover:underline">Login or Register Now</button>
+                      <button onClick={() => setShowLoginModal(true)} className="text-blue-600 font-bold hover:underline">Login or Register Now</button>
                    </div>
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -251,31 +360,55 @@ const App = () => {
              </div>
 
              {user && (
-               <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
-                  <div className="px-6 py-4 border-b">
-                    <h3 className="text-lg font-bold">Recent Activity</h3>
-                  </div>
-                  <ul className="divide-y divide-gray-200">
-                    {[
-                      { id: 1, type: 'Website Gen', date: '2 hours ago', status: 'Completed', cost: '-50' },
-                      { id: 2, type: 'Credit Top-up', date: 'Yesterday', status: 'Success', cost: '+1000' },
-                      { id: 3, type: 'Legal Review', date: '2 days ago', status: 'Completed', cost: '-50' },
-                    ].map((item) => (
-                      <li key={item.id} className="px-6 py-4 flex items-center justify-between">
-                        <div>
-                          <p className="text-sm font-bold text-gray-900">{item.type}</p>
-                          <p className="text-xs text-gray-500">{item.date}</p>
-                        </div>
-                        <div className="text-right">
-                          <p className={`text-sm font-bold ${item.cost.startsWith('+') ? 'text-green-600' : 'text-red-600'}`}>
-                            {item.cost}
-                          </p>
-                          <p className="text-xs text-gray-500">{item.status}</p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-               </div>
+               <>
+                 <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
+                    <div className="px-6 py-4 border-b">
+                      <h3 className="text-lg font-bold">Integrated Tools</h3>
+                    </div>
+                    <div className="p-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                        {AI_SERVICES.slice(0, 3).map((tool) => (
+                           <div key={tool.id} className="flex items-center p-4 border rounded-lg bg-gray-50">
+                              <tool.icon className="h-8 w-8 text-blue-600 mr-3" />
+                              <div>
+                                <p className="font-bold text-sm">{tool.name}</p>
+                                <p className="text-xs text-green-600 font-medium">Integrated</p>
+                              </div>
+                           </div>
+                        ))}
+                        <button className="flex items-center justify-center p-4 border-2 border-dashed rounded-lg text-gray-400 hover:text-blue-600 hover:border-blue-600 transition-colors">
+                           <span className="text-sm font-bold">+ Add New Tool</span>
+                        </button>
+                      </div>
+                    </div>
+                 </div>
+
+                 <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
+                    <div className="px-6 py-4 border-b">
+                      <h3 className="text-lg font-bold">Recent Activity</h3>
+                    </div>
+                    <ul className="divide-y divide-gray-200">
+                      {[
+                        { id: 1, type: 'Website Gen', date: '2 hours ago', status: 'Completed', cost: '-50' },
+                        { id: 2, type: 'Credit Top-up', date: 'Yesterday', status: 'Success', cost: '+1000' },
+                        { id: 3, type: 'Legal Review', date: '2 days ago', status: 'Completed', cost: '-50' },
+                      ].map((item) => (
+                        <li key={item.id} className="px-6 py-4 flex items-center justify-between">
+                          <div>
+                            <p className="text-sm font-bold text-gray-900">{item.type}</p>
+                            <p className="text-xs text-gray-500">{item.date}</p>
+                          </div>
+                          <div className="text-right">
+                            <p className={`text-sm font-bold ${item.cost.startsWith('+') ? 'text-green-600' : 'text-red-600'}`}>
+                              {item.cost}
+                            </p>
+                            <p className="text-xs text-gray-500">{item.status}</p>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                 </div>
+               </>
              )}
           </div>
         )}
