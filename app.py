@@ -1275,6 +1275,50 @@ def translate_endpoint():
     return jsonify({"status": "success", "message": message})
 
 
+@app.route('/api/v1/register_public', methods=['POST'])
+def register_public():
+    data = request.get_json()
+    username = data.get('username')
+    if not username:
+        return jsonify({"error": _("Username is required")}), 400
+    if User.query.filter_by(username=username).first():
+        return jsonify({"error": _("Username already exists")}), 400
+
+    api_key = secrets.token_hex(16)
+    new_user = User(username=username, api_key=api_key)
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify({
+        "id": new_user.id,
+        "username": new_user.username,
+        "api_key": new_user.api_key
+    }), 201
+
+@app.route('/api/v1/login', methods=['POST'])
+def login_api():
+    data = request.get_json()
+    api_key = data.get('api_key')
+    if not api_key:
+        return jsonify({"error": _("API key is required")}), 400
+    user = User.query.filter_by(api_key=api_key).first()
+    if not user:
+        return jsonify({"error": _("Invalid API key")}), 401
+
+    return jsonify({
+        "id": user.id,
+        "username": user.username,
+        "api_key": user.api_key
+    }), 200
+
+@app.route('/api/v1/me_api', methods=['GET'])
+@require_api_key
+def me_api():
+    return jsonify({
+        "id": g.user.id,
+        "username": g.user.username
+    })
+
 @app.route('/api/register', methods=['POST'])
 def register():
     data = request.get_json()
