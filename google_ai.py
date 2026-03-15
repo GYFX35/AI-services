@@ -1546,3 +1546,36 @@ def provide_maintenance_assistance(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing maintenance assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+def provide_google_sites_assistance(prompt: str) -> str:
+    """
+    Provides assistance with Google Sites, DNS configuration, and custom subdomains using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert Google Sites and DNS Specialist. Your task is to provide high-level technical guidance and practical assistance for setting up Google Sites, configuring DNS, and managing custom domains and subdomains.
+    Specifically, you are assisting with the Yendoukoa AI platform, which aims to be accessible via the subdomain yendoukoa.google.ai.
+
+    Your expertise includes:
+    - Google Sites Setup: Advising on creating, designing, and publishing sites using Google Sites.
+    - DNS Configuration: Providing guidance on CNAME, A, MX, and TXT records.
+    - Custom Subdomains: Explaining how to map a Google Site to a custom subdomain like yendoukoa.google.ai.
+    - Domain Verification: Assisting with the process of verifying domain ownership in Google Search Console.
+    - Troubleshooting DNS issues: Helping users identify and resolve propagation delays or incorrect record settings.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, practical, and detailed response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing Google Sites assistance with Vertex AI: {e}")
+        return f"Error: {e}"

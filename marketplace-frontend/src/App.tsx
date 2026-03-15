@@ -25,10 +25,11 @@ import {
   Truck,
   Building2,
   BookOpen,
-  Microscope
+  Microscope,
+  Layout
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { userService, setAuthToken, type User } from './api';
+import { userService, aiService, setAuthToken, type User } from './api';
 
 interface AIService {
   id: string;
@@ -58,7 +59,8 @@ const AI_SERVICES: AIService[] = [
   { id: 'education', name: 'Science Educator', category: 'Academic', icon: BookOpen, description: 'Mathematics, physics, and biology education.' },
   { id: 'verification', name: 'Content Verifier', category: 'Security', icon: ShieldCheck, description: 'AI content and fake news detection.' },
   { id: 'maintenance', name: 'Hardware Expert', category: 'Support', icon: Wrench, description: 'Software & hardware troubleshooting.' },
-  { id: 'researcher', name: 'AI Researcher', category: 'Science', icon: Microscope, description: 'State-of-the-art AI methodology research.' }
+  { id: 'researcher', name: 'AI Researcher', category: 'Science', icon: Microscope, description: 'State-of-the-art AI methodology research.' },
+  { id: 'google-sites', name: 'Google Sites Specialist', category: 'Infrastructure', icon: Layout, description: 'Google Sites & DNS configuration expert.' }
 ];
 
 const App: React.FC = () => {
@@ -73,6 +75,10 @@ const App: React.FC = () => {
   const [modalMode, setModalMode] = useState<'login' | 'register'>('register');
   const [username, setUsername] = useState('');
   const [apiKey, setApiKey] = useState('');
+  const [selectedService, setSelectedService] = useState<AIService | null>(null);
+  const [showServiceModal, setShowServiceModal] = useState(false);
+  const [servicePrompt, setServicePrompt] = useState('');
+  const [serviceResponse, setServiceResponse] = useState('');
 
   useEffect(() => {
     const savedApiKey = localStorage.getItem('globalApiKey');
@@ -95,6 +101,40 @@ const App: React.FC = () => {
       localStorage.removeItem('globalApiKey');
       setAuthToken(null);
       setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleServiceExecution = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!user) {
+      setShowLoginModal(true);
+      return;
+    }
+    if (!servicePrompt || !selectedService) return;
+
+    try {
+      setLoading(true);
+      setError(null);
+      let response;
+      switch (selectedService.id) {
+        case 'website':
+          response = await aiService.generateWebsite(servicePrompt);
+          break;
+        case 'google-sites':
+          response = await aiService.getGoogleSitesAssistance(servicePrompt);
+          break;
+        case 'fintech':
+          response = await aiService.getFinancialAdvice(servicePrompt);
+          break;
+        default:
+          // Fallback for demo purposes if specific endpoint isn't mapped in aiService yet
+          response = { data: { message: "This service is currently in demo mode. The full integration is coming soon!" } };
+      }
+      setServiceResponse(response.data.message || response.data.promotion_text || "Service executed successfully.");
+    } catch (err: any) {
+      setError(err.response?.data?.error || 'Failed to execute service');
     } finally {
       setLoading(false);
     }
@@ -199,6 +239,85 @@ const App: React.FC = () => {
             </div>
             <div className="ml-3">
               <p className="text-sm text-red-700">{error}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Service Execution Modal */}
+      {showServiceModal && selectedService && (
+        <div className="fixed inset-0 z-[60] overflow-y-auto">
+          <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <div className="fixed inset-0 transition-opacity" aria-hidden="true" onClick={() => setShowServiceModal(false)}>
+              <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div className="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full z-[70]">
+              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div className="sm:flex sm:items-start">
+                  <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
+                    <selectedService.icon className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">
+                      Use {selectedService.name}
+                    </h3>
+                    <div className="mt-4">
+                      {!serviceResponse ? (
+                        <form onSubmit={handleServiceExecution}>
+                          <div className="mb-4">
+                            <label className="block text-sm font-medium text-gray-700">Prompt / Requirements</label>
+                            <textarea
+                              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                              placeholder={`Describe what you need the ${selectedService.name} to do...`}
+                              value={servicePrompt}
+                              onChange={(e) => setServicePrompt(e.target.value)}
+                              rows={5}
+                              required
+                            />
+                          </div>
+                          <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+                            <button
+                              type="submit"
+                              disabled={loading}
+                              className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                            >
+                              {loading ? 'Processing...' : 'Run Service (50 Credits)'}
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setShowServiceModal(false)}
+                              className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:w-auto sm:text-sm"
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </form>
+                      ) : (
+                        <div className="space-y-4">
+                          <div className="bg-gray-50 p-4 rounded-lg border max-h-[400px] overflow-y-auto">
+                            <p className="text-sm text-gray-700 whitespace-pre-wrap">{serviceResponse}</p>
+                          </div>
+                          <div className="flex justify-end">
+                             <button
+                               onClick={() => setServiceResponse('')}
+                               className="mr-3 inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 text-sm"
+                             >
+                               Try Again
+                             </button>
+                             <button
+                               onClick={() => setShowServiceModal(false)}
+                               className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 text-sm"
+                             >
+                               Done
+                             </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -348,7 +467,15 @@ const App: React.FC = () => {
                     </p>
                     <div className="mt-6 flex items-center justify-between">
                       <span className="text-blue-600 font-bold">50 Credits</span>
-                      <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 z-10">
+                      <button
+                        onClick={() => {
+                          setSelectedService(service);
+                          setShowServiceModal(true);
+                          setServicePrompt('');
+                          setServiceResponse('');
+                        }}
+                        className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 z-10"
+                      >
                         Use Now
                       </button>
                     </div>
