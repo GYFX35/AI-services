@@ -36,6 +36,7 @@ export const aiService = {
   getWeather: (location: string) => apiClient.post('/weather', { location }),
   getFinancialAdvice: (prompt: string) => apiClient.post('/finance/advice', { prompt }),
   getGoogleSitesAssistance: (prompt: string) => apiClient.post('/google-sites/assistance', { prompt }),
+  getDiagnosticAssistance: (prompt: string) => apiClient.post('/diagnostic/assistance', { prompt }),
 };
 
 export const userService = {
