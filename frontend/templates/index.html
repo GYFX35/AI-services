@@ -20,6 +20,7 @@
                 <li><a href="#esports-assistance">{{ _('eSports') }}</a></li>
                 <li><a href="#fake-content-verification">{{ _('Verification') }}</a></li>
                 <li><a href="#military-assistance">{{ _('Military') }}</a></li>
+                <li><a href="#marketing-assistance">{{ _('Marketing') }}</a></li>
                 <li><a href="#purchase">{{ _('Purchase') }}</a></li>
                 <li><a href="#portfolio">{{ _('Portfolio') }}</a></li>
                 <li><a href="#contact">{{ _('Contact') }}</a></li>
@@ -204,6 +205,26 @@
                 <div class="card">
                     <h3>{{ _('Software & Hardware Maintenance') }}</h3>
                     <p>{{ _('Expert assistance for software updates, computer hardware troubleshooting, and mobile phone maintenance.') }}</p>
+                </div>
+                <div class="card">
+                    <h3>{{ _('Digital Marketing & Bot Specialist') }}</h3>
+                    <p>{{ _('Expert assistance for e-mail, SMS, and bot marketing & management, providing strategic and technical guidance.') }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Marketing Specialist Section -->
+        <section id="marketing-assistance" class="services">
+            <h2>{{ _('Digital Marketing & Bot Specialist') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Marketing & Bot Support') }}</h3>
+                    <p>{{ _('Enter your request for e-mail marketing, SMS campaigns, or bot management below.') }}</p>
+                    <textarea id="marketing-input" placeholder="{{ _('Your marketing or bot request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="marketing-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="marketing-response-container">
+                        <pre id="marketing-response"></pre>
+                    </div>
                 </div>
             </div>
         </section>

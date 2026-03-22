@@ -1591,6 +1591,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Marketing Assistance ---
+    const marketingBtn = document.getElementById('marketing-btn');
+    if (marketingBtn) {
+        marketingBtn.addEventListener('click', async () => {
+            const input = document.getElementById('marketing-input');
+            const responseContainer = document.getElementById('marketing-response');
+            const apiKey = getApiKey("Please enter your API key to use the Digital Marketing & Bot Specialist:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/marketing/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the marketing specialist');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- E-shop Assistance ---
     const eshopBtn = document.getElementById('eshop-btn');
     if (eshopBtn) {

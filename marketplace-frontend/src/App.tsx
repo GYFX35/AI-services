@@ -26,7 +26,8 @@ import {
   Building2,
   BookOpen,
   Microscope,
-  Layout
+  Layout,
+  Mail
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { userService, aiService, setAuthToken, type User } from './api';
@@ -60,7 +61,8 @@ const AI_SERVICES: AIService[] = [
   { id: 'verification', name: 'Content Verifier', category: 'Security', icon: ShieldCheck, description: 'AI content and fake news detection.' },
   { id: 'maintenance', name: 'Hardware Expert', category: 'Support', icon: Wrench, description: 'Software & hardware troubleshooting.' },
   { id: 'researcher', name: 'AI Researcher', category: 'Science', icon: Microscope, description: 'State-of-the-art AI methodology research.' },
-  { id: 'google-sites', name: 'Google Sites Specialist', category: 'Infrastructure', icon: Layout, description: 'Google Sites & DNS configuration expert.' }
+  { id: 'google-sites', name: 'Google Sites Specialist', category: 'Infrastructure', icon: Layout, description: 'Google Sites & DNS configuration expert.' },
+  { id: 'marketing', name: 'Marketing & Bot Specialist', category: 'Business', icon: Mail, description: 'Expert e-mail, SMS, and bot marketing & management.' }
 ];
 
 const App: React.FC = () => {
@@ -130,6 +132,9 @@ const App: React.FC = () => {
           break;
         case 'diagnostic':
           response = await aiService.getDiagnosticAssistance(servicePrompt);
+          break;
+        case 'marketing':
+          response = await aiService.getMarketingAssistance(servicePrompt);
           break;
         default:
           // Fallback for demo purposes if specific endpoint isn't mapped in aiService yet
