@@ -1582,3 +1582,35 @@ def provide_google_sites_assistance(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing Google Sites assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+def provide_marketing_bot_assistance(prompt: str) -> str:
+    """
+    Provides assistance with e-mail, SMS, and bot marketing and management using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert Digital Marketing and Bot Management Specialist.
+    Your task is to provide high-level strategic guidance and technical assistance for e-mail marketing, SMS campaigns, and AI bot management.
+    Your expertise includes:
+    - E-mail Marketing: Designing effective campaigns, automation workflows, list management, and improving deliverability and open rates.
+    - SMS Marketing: Crafting compelling SMS content, managing opt-ins/opt-outs, and implementing automated SMS sequences.
+    - Bot Management & Marketing: Building and managing marketing bots for platforms like WhatsApp, Telegram, and Messenger to engage customers and automate sales.
+    - Campaign Analytics: Analyzing performance metrics for e-mail, SMS, and bots to optimize ROI and customer engagement.
+    - Compliance: Advising on best practices for data privacy and anti-spam regulations (GDPR, TCPA, etc.).
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, strategic, and detailed response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing marketing and bot assistance with Vertex AI: {e}")
+        return f"Error: {e}"
