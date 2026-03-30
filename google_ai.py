@@ -1614,3 +1614,35 @@ def provide_marketing_bot_assistance(prompt: str) -> str:
     except Exception as e:
         print(f"Error providing marketing and bot assistance with Vertex AI: {e}")
         return f"Error: {e}"
+
+def provide_digital_repair_assistance(prompt: str) -> str:
+    """
+    Provides digital repair and troubleshooting assistance for media, apps, websites, and software using Vertex AI.
+    """
+    model = GenerativeModel("gemini-1.5-flash")
+
+    generation_prompt = f"""
+    You are an expert Digital Repair and Troubleshooting Specialist.
+    Your task is to provide high-level technical guidance, troubleshooting steps, and repair advice for digital assets.
+    Your expertise includes:
+    - Media Repair: Advising on fixing corrupted video, audio, and image files, as well as format conversion and quality restoration.
+    - App Troubleshooting: Providing solutions for mobile and desktop application crashes, performance issues, and bugs.
+    - Website & Web App Repair: Identifying and fixing issues with HTML, CSS, JavaScript, broken links, and server-side errors.
+    - Software Maintenance: Guiding users through software installation, configuration, updates, and resolving compatibility issues.
+    - Digital Forensics: Basic guidance on identifying the root cause of digital failures and data recovery techniques.
+
+    User Request:
+    ---
+    {prompt}
+    ---
+
+    Provide a professional, technical, and detailed response based on the user's request.
+    """
+
+    try:
+        response = model.generate_content(generation_prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        print(f"Error providing digital repair assistance with Vertex AI: {e}")
+        return f"Error: {e}"

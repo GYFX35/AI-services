@@ -15,6 +15,7 @@
             <div class="logo">Yendoukoa AI</div>
             <ul>
                 <li><a href="#services">{{ _('Services') }}</a></li>
+                <li><a href="#digital-repair-assistance">{{ _('Digital Repair') }}</a></li>
                 <li><a href="#maintenance-assistance">{{ _('Maintenance') }}</a></li>
                 <li><a href="#it-operations-assistance">{{ _('IT Ops') }}</a></li>
                 <li><a href="#esports-assistance">{{ _('eSports') }}</a></li>
@@ -209,6 +210,26 @@
                 <div class="card">
                     <h3>{{ _('Digital Marketing & Bot Specialist') }}</h3>
                     <p>{{ _('Expert assistance for e-mail, SMS, and bot marketing & management, providing strategic and technical guidance.') }}</p>
+                </div>
+                <div class="card">
+                    <h3>{{ _('Digital Repair & Troubleshooting') }}</h3>
+                    <p>{{ _('Expert assistance for digital repair and troubleshooting of media, apps, websites, and software.') }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Digital Repair Specialist Section -->
+        <section id="digital-repair-assistance" class="services">
+            <h2>{{ _('Digital Repair & Troubleshooting Specialist') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Digital Repair & Troubleshooting Support') }}</h3>
+                    <p>{{ _('Enter your request for media repair, app troubleshooting, website fixes, or software maintenance below.') }}</p>
+                    <textarea id="digital-repair-input" placeholder="{{ _('Your digital repair request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="digital-repair-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="digital-repair-response-container">
+                        <pre id="digital-repair-response"></pre>
+                    </div>
                 </div>
             </div>
         </section>
