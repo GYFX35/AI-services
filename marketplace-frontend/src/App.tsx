@@ -60,6 +60,7 @@ const AI_SERVICES: AIService[] = [
   { id: 'education', name: 'Science Educator', category: 'Academic', icon: BookOpen, description: 'Mathematics, physics, and biology education.' },
   { id: 'verification', name: 'Content Verifier', category: 'Security', icon: ShieldCheck, description: 'AI content and fake news detection.' },
   { id: 'maintenance', name: 'Hardware Expert', category: 'Support', icon: Wrench, description: 'Software & hardware troubleshooting.' },
+  { id: 'digital-repair', name: 'Digital Repair', category: 'Support', icon: Wrench, description: 'Troubleshooting media, apps, and websites.' },
   { id: 'researcher', name: 'AI Researcher', category: 'Science', icon: Microscope, description: 'State-of-the-art AI methodology research.' },
   { id: 'google-sites', name: 'Google Sites Specialist', category: 'Infrastructure', icon: Layout, description: 'Google Sites & DNS configuration expert.' },
   { id: 'marketing', name: 'Marketing & Bot Specialist', category: 'Business', icon: Mail, description: 'Expert e-mail, SMS, and bot marketing & management.' }
@@ -135,6 +136,9 @@ const App: React.FC = () => {
           break;
         case 'marketing':
           response = await aiService.getMarketingAssistance(servicePrompt);
+          break;
+        case 'digital-repair':
+          response = await aiService.getDigitalRepairAssistance(servicePrompt);
           break;
         default:
           // Fallback for demo purposes if specific endpoint isn't mapped in aiService yet

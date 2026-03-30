@@ -95,3 +95,14 @@ def test_maintenance_assistance(mock_gen, client, auth_headers):
     assert response.status_code == 200
     data = json.loads(response.data)
     assert data['message'] == 'Mock maintenance response'
+
+@patch('google_ai.provide_digital_repair_assistance')
+def test_digital_repair_assistance(mock_gen, client, auth_headers):
+    mock_gen.return_value = 'Mock digital repair response'
+    response = client.post('/api/v1/digital-repair/assistance',
+                           data=json.dumps({'prompt': 'test digital repair'}),
+                           content_type='application/json',
+                           headers=auth_headers)
+    assert response.status_code == 200
+    data = json.loads(response.data)
+    assert data['message'] == 'Mock digital repair response'
