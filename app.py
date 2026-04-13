@@ -18,6 +18,7 @@ from facebook_business.api import FacebookAdsApi
 from facebook_business.adobjects.adaccount import AdAccount
 from facebook_business.exceptions import FacebookRequestError
 import google_ai
+import json
 
 load_dotenv(dotenv_path=".env")
 
@@ -1294,6 +1295,51 @@ def digital_repair_assistance_endpoint():
         return jsonify({"error": _("Prompt is required")}), 400
     message = google_ai.provide_digital_repair_assistance(prompt)
     return jsonify({"status": "success", "message": message})
+
+
+@app.route('/api/v1/generic/assistance', methods=['POST'])
+@require_api_key
+def generic_assistance_endpoint():
+    data = request.get_json()
+    system_message = data.get('system_message')
+    prompt = data.get('prompt')
+    if not all([system_message, prompt]):
+        return jsonify({"error": _("system_message and prompt are required")}), 400
+    message = google_ai.generic_ai_service(system_message, prompt)
+    return jsonify({"status": "success", "message": message})
+
+
+@app.route('/api/v1/langflow/execute', methods=['POST'])
+@require_api_key
+def execute_langflow_endpoint():
+    data = request.get_json()
+    flow_name = data.get('flow_name', 'sample_flow')
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+
+    # In a real scenario, we would use langflow's run_flow or similar
+    # For this task, we'll simulate the execution or load the flow config
+    try:
+        flow_path = os.path.join('langflow_flows', f'{flow_name}.json')
+        if not os.path.exists(flow_path):
+            return jsonify({"error": _("Flow not found")}), 404
+
+        with open(flow_path, 'r') as f:
+            flow_config = json.load(f)
+
+        # Simulate execution using LangChain (as Langflow is built on LangChain)
+        message = google_ai.generic_ai_service(f"Executing Langflow: {flow_config.get('name')}", prompt)
+        return jsonify({
+            "status": "success",
+            "message": message,
+            "flow_info": {
+                "name": flow_config.get('name'),
+                "description": flow_config.get('description')
+            }
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 @app.route('/api/v1/translate', methods=['POST'])

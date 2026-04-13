@@ -1,0 +1,21 @@
+{
+  "name": "Sample AI Flow",
+  "description": "A sample flow for Langflow integration",
+  "nodes": [
+    {
+      "id": "node_1",
+      "type": "ChatVertexAI",
+      "data": {
+        "model_name": "gemini-1.5-flash"
+      }
+    },
+    {
+      "id": "node_2",
+      "type": "PromptTemplate",
+      "data": {
+        "template": "You are a helpful assistant. User says: {input}"
+      }
+    }
+  ],
+  "edges": []
+}
