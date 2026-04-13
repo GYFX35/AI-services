@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Search,
   User as UserIcon,
+  Zap,
   Wrench,
   ShieldCheck,
   Cpu,
@@ -31,6 +32,7 @@ import {
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { userService, aiService, setAuthToken, type User } from './api';
+import axios from 'axios';
 
 interface AIService {
   id: string;
@@ -41,6 +43,7 @@ interface AIService {
 }
 
 const AI_SERVICES: AIService[] = [
+  { id: 'langflow', name: 'Langflow Executor', category: 'Advanced', icon: Zap, description: 'Execute complex AI workflows using Langflow.' },
   { id: 'website', name: 'Website Developer', category: 'Development', icon: Globe, description: 'Generate multi-section HTML/CSS websites.' },
   { id: 'game', name: 'Game Developer', category: 'Development', icon: Gamepad2, description: 'Create custom games using AI technologies.' },
   { id: 'backend', name: 'Backend Architect', category: 'Infrastructure', icon: Database, description: 'Generate robust Python/Flask backends.' },
@@ -139,6 +142,9 @@ const App: React.FC = () => {
           break;
         case 'digital-repair':
           response = await aiService.getDigitalRepairAssistance(servicePrompt);
+          break;
+        case 'langflow':
+          response = await aiService.executeLangflow(servicePrompt);
           break;
         default:
           // Fallback for demo purposes if specific endpoint isn't mapped in aiService yet
@@ -414,6 +420,14 @@ const App: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* LangChain/Langflow Badge */}
+      <div className="bg-blue-700 text-white py-2">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center items-center space-x-4 text-xs font-semibold">
+           <span className="bg-blue-500 px-2 py-1 rounded">Powered by LangChain</span>
+           <span className="bg-green-500 px-2 py-1 rounded">Enhanced with Langflow</span>
+        </div>
+      </div>
 
       {/* Hero Section */}
       <div className="bg-blue-600 text-white py-16">

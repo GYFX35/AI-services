@@ -12,3 +12,6 @@ stripe
 facebook-business
 google-cloud-aiplatform
 google-auth
+langchain
+langchain-google-vertexai
+langflow
