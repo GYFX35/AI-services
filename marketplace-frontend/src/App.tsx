@@ -28,7 +28,8 @@ import {
   BookOpen,
   Microscope,
   Layout,
-  Mail
+  Mail,
+  TrendingUp
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { userService, aiService, setAuthToken, type User } from './api';
@@ -66,7 +67,8 @@ const AI_SERVICES: AIService[] = [
   { id: 'digital-repair', name: 'Digital Repair', category: 'Support', icon: Wrench, description: 'Troubleshooting media, apps, and websites.' },
   { id: 'researcher', name: 'AI Researcher', category: 'Science', icon: Microscope, description: 'State-of-the-art AI methodology research.' },
   { id: 'google-sites', name: 'Google Sites Specialist', category: 'Infrastructure', icon: Layout, description: 'Google Sites & DNS configuration expert.' },
-  { id: 'marketing', name: 'Marketing & Bot Specialist', category: 'Business', icon: Mail, description: 'Expert e-mail, SMS, and bot marketing & management.' }
+  { id: 'marketing', name: 'Marketing & Bot Specialist', category: 'Business', icon: Mail, description: 'Expert e-mail, SMS, and bot marketing & management.' },
+  { id: 'investment', name: 'Investment Specialist', category: 'Business', icon: TrendingUp, description: 'Investment optimization and trading assistance.' }
 ];
 
 const App: React.FC = () => {
@@ -142,6 +144,9 @@ const App: React.FC = () => {
           break;
         case 'digital-repair':
           response = await aiService.getDigitalRepairAssistance(servicePrompt);
+          break;
+        case 'investment':
+          response = await aiService.getInvestmentTradingAssistance(servicePrompt);
           break;
         case 'langflow':
           response = await aiService.executeLangflow(servicePrompt);

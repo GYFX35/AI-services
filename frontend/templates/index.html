@@ -22,6 +22,7 @@
                 <li><a href="#fake-content-verification">{{ _('Verification') }}</a></li>
                 <li><a href="#military-assistance">{{ _('Military') }}</a></li>
                 <li><a href="#marketing-assistance">{{ _('Marketing') }}</a></li>
+                <li><a href="#investment-trading-assistance">{{ _('Investment') }}</a></li>
                 <li><a href="#purchase">{{ _('Purchase') }}</a></li>
                 <li><a href="#portfolio">{{ _('Portfolio') }}</a></li>
                 <li><a href="#contact">{{ _('Contact') }}</a></li>
@@ -214,6 +215,26 @@
                 <div class="card">
                     <h3>{{ _('Digital Repair & Troubleshooting') }}</h3>
                     <p>{{ _('Expert assistance for digital repair and troubleshooting of media, apps, websites, and software.') }}</p>
+                </div>
+                <div class="card">
+                    <h3>{{ _('Investment & Trading Specialist') }}</h3>
+                    <p>{{ _('Expert assistance for investment optimization, trading strategies, and market analysis insights.') }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Investment & Trading Specialist Section -->
+        <section id="investment-trading-assistance" class="services">
+            <h2>{{ _('Investment & Trading Specialist') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Investment & Trading Support') }}</h3>
+                    <p>{{ _('Enter your request for investment optimization, trading strategies, or market analysis below.') }}</p>
+                    <textarea id="investment-trading-input" placeholder="{{ _('Your investment or trading request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="investment-trading-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="investment-trading-response-container">
+                        <pre id="investment-trading-response"></pre>
+                    </div>
                 </div>
             </div>
         </section>
