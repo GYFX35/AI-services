@@ -749,6 +749,18 @@ def provide_investment_trading_assistance(prompt: str) -> str:
     except Exception as e:
         return f"Error: {e}"
 
+def provide_autogpt_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an autonomous AI agent (AutoGPT) specialized in multi-step task planning and execution. Your goal is to break down complex requests into actionable steps and provide a comprehensive strategy to achieve the user's goal."),
+        ("user", "Develop an autonomous execution plan for: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
 def generic_ai_service(system_message: str, user_prompt: str) -> str:
     """
     A generic AI service using LangChain to allow flexible role creation.

@@ -22,6 +22,7 @@ import {
   ShoppingBag,
   ShieldAlert,
   Binary,
+  Bot,
   FlaskConical,
   Truck,
   Building2,
@@ -68,7 +69,8 @@ const AI_SERVICES: AIService[] = [
   { id: 'researcher', name: 'AI Researcher', category: 'Science', icon: Microscope, description: 'State-of-the-art AI methodology research.' },
   { id: 'google-sites', name: 'Google Sites Specialist', category: 'Infrastructure', icon: Layout, description: 'Google Sites & DNS configuration expert.' },
   { id: 'marketing', name: 'Marketing & Bot Specialist', category: 'Business', icon: Mail, description: 'Expert e-mail, SMS, and bot marketing & management.' },
-  { id: 'investment', name: 'Investment Specialist', category: 'Business', icon: TrendingUp, description: 'Investment optimization and trading assistance.' }
+  { id: 'investment', name: 'Investment Specialist', category: 'Business', icon: TrendingUp, description: 'Investment optimization and trading assistance.' },
+  { id: 'autogpt', name: 'AutoGPT Agent', category: 'Advanced', icon: Bot, description: 'Autonomous agent for multi-step task planning and strategy.' }
 ];
 
 const App: React.FC = () => {
@@ -147,6 +149,9 @@ const App: React.FC = () => {
           break;
         case 'investment':
           response = await aiService.getInvestmentTradingAssistance(servicePrompt);
+          break;
+        case 'autogpt':
+          response = await aiService.getAutoGPTAssistance(servicePrompt);
           break;
         case 'langflow':
           response = await aiService.executeLangflow(servicePrompt);

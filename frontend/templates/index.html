@@ -23,6 +23,7 @@
                 <li><a href="#military-assistance">{{ _('Military') }}</a></li>
                 <li><a href="#marketing-assistance">{{ _('Marketing') }}</a></li>
                 <li><a href="#investment-trading-assistance">{{ _('Investment') }}</a></li>
+                <li><a href="#autogpt-assistance">{{ _('AutoGPT') }}</a></li>
                 <li><a href="#purchase">{{ _('Purchase') }}</a></li>
                 <li><a href="#portfolio">{{ _('Portfolio') }}</a></li>
                 <li><a href="#contact">{{ _('Contact') }}</a></li>
@@ -220,6 +221,10 @@
                     <h3>{{ _('Investment & Trading Specialist') }}</h3>
                     <p>{{ _('Expert assistance for investment optimization, trading strategies, and market analysis insights.') }}</p>
                 </div>
+                <div class="card">
+                    <h3>{{ _('AutoGPT Agent') }}</h3>
+                    <p>{{ _('Autonomous AI agent specialized in multi-step task planning, strategy development, and goal execution.') }}</p>
+                </div>
             </div>
         </section>
 
@@ -234,6 +239,22 @@
                     <button id="investment-trading-btn" class="btn">{{ _('Submit') }}</button>
                     <div class="response-container" id="investment-trading-response-container">
                         <pre id="investment-trading-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AutoGPT Agent Section -->
+        <section id="autogpt-assistance" class="services">
+            <h2>{{ _('AutoGPT Agent') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Autonomous Planning & Strategy') }}</h3>
+                    <p>{{ _('Enter your complex task or goal below to generate an autonomous execution plan.') }}</p>
+                    <textarea id="autogpt-input" placeholder="{{ _('Describe your complex goal or task') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="autogpt-btn" class="btn">{{ _('Generate Plan') }}</button>
+                    <div class="response-container" id="autogpt-response-container">
+                        <pre id="autogpt-response"></pre>
                     </div>
                 </div>
             </div>
