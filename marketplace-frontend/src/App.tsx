@@ -28,7 +28,11 @@ import {
   BookOpen,
   Microscope,
   Layout,
-  Mail
+  Mail,
+  MessageSquare,
+  Bot,
+  Sun,
+  Moon
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { userService, aiService, setAuthToken, type User } from './api';
@@ -43,6 +47,8 @@ interface AIService {
 }
 
 const AI_SERVICES: AIService[] = [
+  { id: 'chatgpt', name: 'ChatGPT Assistant', category: 'General', icon: MessageSquare, description: 'Get high-quality responses powered by GPT-4o.' },
+  { id: 'autogpt', name: 'AutoGPT Agent', category: 'Advanced', icon: Bot, description: 'Autonomous AI agent that breaks down goals and solves them.' },
   { id: 'langflow', name: 'Langflow Executor', category: 'Advanced', icon: Zap, description: 'Execute complex AI workflows using Langflow.' },
   { id: 'website', name: 'Website Developer', category: 'Development', icon: Globe, description: 'Generate multi-section HTML/CSS websites.' },
   { id: 'game', name: 'Game Developer', category: 'Development', icon: Gamepad2, description: 'Create custom games using AI technologies.' },
@@ -72,6 +78,7 @@ const AI_SERVICES: AIService[] = [
 const App: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('marketplace');
+  const [darkMode, setDarkMode] = useState(localStorage.getItem('theme') === 'dark');
   const [user, setUser] = useState<User | null>(null);
   const [credits, setCredits] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
@@ -92,7 +99,19 @@ const App: React.FC = () => {
       setAuthToken(savedApiKey);
       fetchUserData();
     }
-  }, []);
+
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
+
+  const toggleDarkMode = () => {
+    const newMode = !darkMode;
+    setDarkMode(newMode);
+    localStorage.setItem('theme', newMode ? 'dark' : 'light');
+  };
 
   const fetchUserData = async () => {
     try {
@@ -125,6 +144,12 @@ const App: React.FC = () => {
       setError(null);
       let response;
       switch (selectedService.id) {
+        case 'chatgpt':
+          response = await aiService.getChatgptAssistance(servicePrompt);
+          break;
+        case 'autogpt':
+          response = await aiService.getAutogptAssistance(servicePrompt);
+          break;
         case 'website':
           response = await aiService.generateWebsite(servicePrompt);
           break;
@@ -194,9 +219,9 @@ const App: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300">
       {/* Navigation */}
-      <nav className="bg-white border-b sticky top-0 z-50">
+      <nav className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b dark:border-gray-800 sticky top-0 z-50 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
@@ -217,36 +242,95 @@ const App: React.FC = () => {
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              {user ? (
-                <div className="flex items-center space-x-4">
-                  <div className="flex items-center bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">
-                    <CreditCard size={16} className="mr-2" />
-                    {credits} Credits
-                  </div>
-                  <span className="text-sm font-medium text-gray-700">{user.username}</span>
-                  <button className="text-gray-500 hover:text-gray-700" onClick={() => {
-                    localStorage.removeItem('globalApiKey');
-                    setAuthToken(null);
-                    setUser(null);
-                  }}>
-                    <X size={20} />
+              <button
+                onClick={toggleDarkMode}
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              >
+                {darkMode ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} className="text-gray-600" />}
+              </button>
+              <div className="hidden md:flex items-center space-x-4">
+                {user ? (
+                  <>
+                    <div className="flex items-center bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">
+                      <CreditCard size={16} className="mr-2" />
+                      {credits} Credits
+                    </div>
+                    <span className="text-sm font-medium text-gray-700">{user.username}</span>
+                    <button className="text-gray-500 hover:text-gray-700" onClick={() => {
+                      localStorage.removeItem('globalApiKey');
+                      setAuthToken(null);
+                      setUser(null);
+                    }}>
+                      <X size={20} />
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    onClick={() => setShowLoginModal(true)}
+                    disabled={loading}
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700"
+                  >
+                    {loading ? 'Connecting...' : 'Login / Register'}
                   </button>
-                </div>
-              ) : (
-                <button
-                  onClick={() => setShowLoginModal(true)}
-                  disabled={loading}
-                  className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700"
-                >
-                  {loading ? 'Connecting...' : 'Login / Register'}
-                </button>
-              )}
+                )}
+              </div>
               <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
             </div>
           </div>
         </div>
+
+        {/* Mobile Menu Overlay */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-white dark:bg-gray-900 border-t dark:border-gray-800 py-4 px-4 space-y-2 shadow-xl animate-in slide-in-from-top duration-300">
+            <button
+              onClick={() => { setActiveTab('marketplace'); setIsMenuOpen(false); }}
+              className={`block w-full text-left px-4 py-3 rounded-xl text-base font-bold transition-all ${activeTab === 'marketplace' ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'}`}
+            >
+              Marketplace
+            </button>
+            <button
+              onClick={() => { setActiveTab('dashboard'); setIsMenuOpen(false); }}
+              className={`block w-full text-left px-4 py-3 rounded-xl text-base font-bold transition-all ${activeTab === 'dashboard' ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'}`}
+            >
+              Dashboard
+            </button>
+
+            <div className="pt-4 mt-2 border-t dark:border-gray-800 space-y-4">
+              {user ? (
+                <>
+                  <div className="flex items-center justify-between px-4">
+                    <span className="text-sm font-bold text-gray-500 dark:text-gray-400">{user.username}</span>
+                    <div className="flex items-center bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-3 py-1 rounded-full text-xs font-bold">
+                      <CreditCard size={14} className="mr-2" />
+                      {credits} Credits
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      localStorage.removeItem('globalApiKey');
+                      setAuthToken(null);
+                      setUser(null);
+                      setIsMenuOpen(false);
+                    }}
+                    className="flex items-center w-full px-4 py-3 text-base font-bold text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all"
+                  >
+                    <X size={18} className="mr-2" />
+                    Logout Account
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={() => { setShowLoginModal(true); setIsMenuOpen(false); }}
+                  className="w-full bg-blue-600 text-white px-6 py-4 rounded-xl text-base font-bold hover:bg-blue-700 shadow-lg shadow-blue-500/30 transition-all"
+                >
+                  Login / Register
+                </button>
+              )}
+            </div>
+          </div>
+        )}
       </nav>
 
       {error && (
@@ -270,64 +354,92 @@ const App: React.FC = () => {
               <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
             </div>
             <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            <div className="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full z-[70]">
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div className="relative inline-block align-bottom bg-white dark:bg-gray-900 rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full z-[70] border dark:border-gray-800">
+              <div className="bg-white dark:bg-gray-900 px-4 pt-5 pb-4 sm:p-8 sm:pb-6">
                 <div className="sm:flex sm:items-start">
-                  <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
-                    <selectedService.icon className="h-6 w-6 text-blue-600" />
+                  <div className="mx-auto flex-shrink-0 flex items-center justify-center h-14 w-14 rounded-2xl bg-blue-100 dark:bg-blue-900/30 sm:mx-0 sm:h-12 sm:w-12">
+                    <selectedService.icon className="h-8 w-8 text-blue-600 dark:text-blue-400" />
                   </div>
-                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900">
-                      Use {selectedService.name}
+                  <div className="mt-3 text-center sm:mt-0 sm:ml-6 sm:text-left w-full">
+                    <h3 className="text-2xl leading-6 font-bold text-gray-900 dark:text-white">
+                      {selectedService.name}
                     </h3>
-                    <div className="mt-4">
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{selectedService.description}</p>
+
+                    <div className="mt-8">
                       {!serviceResponse ? (
-                        <form onSubmit={handleServiceExecution}>
-                          <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-700">Prompt / Requirements</label>
+                        <form onSubmit={handleServiceExecution} className="space-y-6">
+                          <div>
+                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">How can I help you today?</label>
                             <textarea
-                              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                              placeholder={`Describe what you need the ${selectedService.name} to do...`}
+                              className="mt-1 block w-full bg-gray-50 dark:bg-gray-800 border dark:border-gray-700 rounded-xl shadow-sm py-4 px-5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:text-white transition-all"
+                              placeholder={`Enter your prompt for the ${selectedService.name}...`}
                               value={servicePrompt}
                               onChange={(e) => setServicePrompt(e.target.value)}
-                              rows={5}
+                              rows={6}
                               required
                             />
                           </div>
-                          <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+                          <div className="flex flex-col sm:flex-row-reverse gap-3">
                             <button
                               type="submit"
                               disabled={loading}
-                              className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                              className="flex-1 inline-flex justify-center items-center rounded-xl border border-transparent shadow-lg px-6 py-3 bg-blue-600 text-base font-bold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                              {loading ? 'Processing...' : 'Run Service (50 Credits)'}
+                              {loading ? (
+                                <>
+                                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                  </svg>
+                                  Processing Request...
+                                </>
+                              ) : (
+                                <>
+                                  <Zap size={18} className="mr-2" />
+                                  Execute AI Service (50 Credits)
+                                </>
+                              )}
                             </button>
                             <button
                               type="button"
                               onClick={() => setShowServiceModal(false)}
-                              className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:w-auto sm:text-sm"
+                              className="flex-1 inline-flex justify-center rounded-xl border border-gray-300 dark:border-gray-700 shadow-sm px-6 py-3 bg-white dark:bg-gray-800 text-base font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all"
                             >
                               Cancel
                             </button>
                           </div>
                         </form>
                       ) : (
-                        <div className="space-y-4">
-                          <div className="bg-gray-50 p-4 rounded-lg border max-h-[400px] overflow-y-auto">
-                            <p className="text-sm text-gray-700 whitespace-pre-wrap">{serviceResponse}</p>
+                        <div className="space-y-6">
+                          <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-2xl border dark:border-gray-700 max-h-[500px] overflow-y-auto shadow-inner">
+                            <div className="flex items-start mb-4">
+                               <div className="p-2 bg-blue-100 dark:bg-blue-900/40 rounded-lg mr-3">
+                                  <selectedService.icon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                               </div>
+                               <div className="flex-1">
+                                  <p className="text-sm font-bold text-gray-900 dark:text-white">AI Assistant Response</p>
+                                  <p className="text-xs text-gray-500 dark:text-gray-400">Generated using {selectedService.id === 'chatgpt' || selectedService.id === 'autogpt' ? 'GPT-4o' : 'Gemini 1.5'}</p>
+                               </div>
+                            </div>
+                            <div className="prose dark:prose-invert max-w-none">
+                               <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
+                                  {serviceResponse}
+                               </p>
+                            </div>
                           </div>
-                          <div className="flex justify-end">
+                          <div className="flex flex-col sm:flex-row gap-3">
                              <button
                                onClick={() => setServiceResponse('')}
-                               className="mr-3 inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 text-sm"
+                               className="flex-1 inline-flex justify-center rounded-xl border border-gray-300 dark:border-gray-700 shadow-sm px-6 py-3 bg-white dark:bg-gray-800 text-base font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all"
                              >
-                               Try Again
+                               Try Another Prompt
                              </button>
                              <button
                                onClick={() => setShowServiceModal(false)}
-                               className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 text-sm"
+                               className="flex-1 inline-flex justify-center rounded-xl border border-transparent shadow-lg px-6 py-3 bg-blue-600 text-base font-bold text-white hover:bg-blue-700 transition-all"
                              >
-                               Done
+                               Close Assistant
                              </button>
                           </div>
                         </div>
@@ -430,15 +542,16 @@ const App: React.FC = () => {
       </div>
 
       {/* Hero Section */}
-      <div className="bg-blue-600 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-center">
+      <div className="relative bg-blue-700 dark:bg-blue-900 text-white py-20 overflow-hidden">
+        <div className="absolute inset-0 bg-linear-to-r from-blue-700 to-indigo-900 dark:from-blue-900 dark:to-indigo-950 opacity-90"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl text-center drop-shadow-lg">
             AI Service Marketplace
           </h1>
-          <p className="mt-6 text-xl text-blue-100 max-w-3xl mx-auto text-center">
-            Discover and utilize professional AI services for your business, development, and personal projects.
+          <p className="mt-6 text-xl text-blue-100 max-w-3xl mx-auto text-center drop-shadow">
+            Discover and utilize professional AI services for your business, development, and personal projects. Powered by GPT-4o and Gemini 1.5.
           </p>
-          <div className="mt-10 max-w-xl mx-auto">
+          <div className="mt-12 max-w-2xl mx-auto">
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <Search className="h-5 w-5 text-gray-400" />
@@ -472,27 +585,32 @@ const App: React.FC = () => {
 
             <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
               {filteredServices.map((service) => (
-                <div key={service.id} className="group relative bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <div key={service.id} className="group relative bg-white dark:bg-gray-900 border dark:border-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-4">
-                      <div className="p-3 bg-blue-50 rounded-lg text-blue-600">
+                      <div className="p-3 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform">
                         <service.icon size={24} />
                       </div>
-                      <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                        {service.category}
-                      </span>
+                      <div className="flex flex-col items-end">
+                        <span className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
+                          {service.category}
+                        </span>
+                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 mt-1">
+                          {service.id === 'chatgpt' || service.id === 'autogpt' ? 'OpenAI' : 'Google'}
+                        </span>
+                      </div>
                     </div>
-                    <h3 className="text-lg font-bold text-gray-900">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                       <a href={`#${service.id}`}>
                         <span aria-hidden="true" className="absolute inset-0" />
                         {service.name}
                       </a>
                     </h3>
-                    <p className="mt-2 text-sm text-gray-500 line-clamp-2">
+                    <p className="mt-2 text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
                       {service.description}
                     </p>
                     <div className="mt-6 flex items-center justify-between">
-                      <span className="text-blue-600 font-bold">50 Credits</span>
+                      <span className="text-blue-600 dark:text-blue-400 font-bold">50 Credits</span>
                       <button
                         onClick={() => {
                           setSelectedService(service);

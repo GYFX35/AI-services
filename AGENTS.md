@@ -7,21 +7,23 @@ This project is an AI-powered platform providing various specialized assistants.
 
 ## Key Components
 - `app.py`: The heart of the application. Handles routing, authentication (via API keys), and orchestrates services.
-- `google_ai.py`: The AI engine. Contains specialized prompts and interaction logic with Google Vertex AI.
-- `frontend/templates/index.html`: Main UI template. Use this as a reference for the service layout.
-- `frontend/static/script.js`: Frontend logic. Handles user input and displays AI responses.
+- `google_ai.py`: The AI engine. Contains specialized prompts and interaction logic with Google Vertex AI / OpenAI.
+- `marketplace-frontend/src/App.tsx`: Modern React marketplace frontend (Primary UI).
+- `marketplace-frontend/src/api.ts`: API service definitions for the frontend.
+- `docs/`: Production build of the React frontend, hosted on GitHub Pages.
 
 ## Core Technologies
-- **Backend:** Python, Flask, SQLAlchemy, Flask-Babel (i18n), Stripe SDK, Meta Business SDK.
-- **Frontend:** HTML5, CSS3, Vanilla JavaScript.
-- **AI:** Google Vertex AI (Gemini 1.5 Flash).
+- **Backend:** Python, Flask, SQLAlchemy, Flask-Babel (i18n), LangChain, Langflow.
+- **Frontend:** React, TypeScript, Vite, Tailwind CSS v4, Lucide React.
+- **AI:** Google Vertex AI (Gemini 1.5 Flash), OpenAI (GPT-4o).
 
 ## How to Contribute as an AI
 - **Adding Roles:** When asked to add a new AI role, follow the pattern:
     1. Define the AI's persona and prompt in `google_ai.py`.
     2. Create a POST endpoint in `app.py`.
-    3. Add the UI card in `index.html`.
-    4. Link the UI to the backend in `script.js`.
+    3. Add the service definition to `AI_SERVICES` in `marketplace-frontend/src/App.tsx`.
+    4. Add the API call to `marketplace-frontend/src/api.ts`.
+    5. Ensure the service execution is handled in `handleServiceExecution` in `App.tsx`.
 - **Localization:** Use `flask_babel` (`_()`) for all user-facing strings in the backend. Update `messages.pot` if new strings are added.
 - **Security:** Ensure all new endpoints use the `@require_api_key` decorator.
 

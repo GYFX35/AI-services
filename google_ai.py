@@ -3,8 +3,10 @@ import re
 import vertexai
 from vertexai.generative_models import GenerativeModel
 from langchain_google_vertexai import ChatVertexAI
+from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
+from langchain.agents import initialize_agent, AgentType, load_tools
 
 def init_vertexai():
     """Initializes the Vertex AI SDK."""
@@ -18,8 +20,49 @@ def init_vertexai():
     vertexai.init(project=project_id, location=location)
     print("Vertex AI SDK initialized successfully.")
 
-def get_model(model_name="gemini-1.5-flash"):
+def get_model(model_name="gemini-1.5-flash", provider="google"):
+    if provider == "openai":
+        return ChatOpenAI(model_name=model_name if model_name != "gemini-1.5-flash" else "gpt-4o")
     return ChatVertexAI(model_name=model_name)
+
+def provide_chatgpt_assistance(prompt: str) -> str:
+    """
+    Provides assistance using ChatGPT (OpenAI).
+    """
+    model = get_model(provider="openai")
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are a helpful and versatile AI assistant powered by ChatGPT."),
+        ("user", "{prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error with ChatGPT: {e}"
+
+def provide_autogpt_assistance(prompt: str) -> str:
+    """
+    Simulates an AutoGPT-like autonomous agent using LangChain agents.
+    """
+    try:
+        model = get_model(provider="openai")
+        # For simulation, we'll use a standard agent with some tools
+        # In a real environment, you'd need keys for these tools (e.g. SERPAPI_API_KEY)
+        tools = load_tools(["llm-math"], llm=model)
+        agent = initialize_agent(
+            tools,
+            model,
+            agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+            verbose=True
+        )
+
+        system_msg = "You are an autonomous agent similar to AutoGPT. Your goal is to solve the user's request by breaking it down into steps and using tools if necessary."
+        full_prompt = f"{system_msg}\n\nUser Goal: {prompt}"
+
+        response = agent.run(full_prompt)
+        return response.strip()
+    except Exception as e:
+        return f"Error with AutoGPT Agent: {e}"
 
 def generate_website(prompt: str) -> tuple[str, str]:
     """

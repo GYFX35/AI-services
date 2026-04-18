@@ -18,14 +18,28 @@ If you find this project useful, please consider sponsoring us!
 
 ### How It Works
 
-Our platform connects to multiple AI services to provide a suite of tools for developers and entrepreneurs. The core of the application is a Flask-based backend that serves a user-friendly frontend. The AI functionalities are powered by Google's Vertex AI, enabling features like code generation, debugging, and content creation. The platform is designed to be easily extensible, allowing for the integration of new AI-powered tools in the future.
+Our platform connects to multiple AI providers (Google Vertex AI and OpenAI) to provide a comprehensive suite of tools for developers and entrepreneurs. The core is a Flask-based backend serving a modern React marketplace (powered by Tailwind CSS v4).
+
+**Key Technologies:**
+- **LangChain & Langflow:** Orchestrating complex AI workflows and autonomous agents.
+- **Multi-Provider Support:** Seamlessly switching between Gemini 1.5 and GPT-4o based on the task.
+- **React & Tailwind v4:** A high-performance, dark-mode-ready UI/UX for a premium user experience.
 
 ## Features
 
-- **Software Engineer:** Generates multi-section HTML and CSS for a static website based on a structured text prompt.
-- **Debugger:** Lints HTML and CSS code to find basic errors. Can analyze pasted code or fetch a file directly from a GitHub URL.
-- **Marketer:** Creates promotional social media posts from a business description.
-- **System Analyzer:** Scans a website URL for broken links and suggests search queries to find solutions.
+### AI Service Marketplace
+Our new React-based marketplace offers a variety of specialized AI services:
+- **ChatGPT Assistant:** High-quality responses powered by OpenAI's GPT-4o.
+- **AutoGPT Agent:** Autonomous AI agent using LangChain to break down and solve complex goals.
+- **Langflow Executor:** Run complex AI workflows defined in Langflow.
+- **Technical Specialists:** Expert assistance for Website Development, Backend Architecture, Blockchain, and more.
+- **Industry Experts:** Specialized AI for Fintech, Legal, Medical Diagnostic (Oncology/Cardiology), and Aerospace.
+
+### Legacy Tools (HTML/JS Frontend)
+- **Software Engineer:** Generates multi-section HTML and CSS for static websites.
+- **Debugger:** Lints HTML and CSS code for basic errors.
+- **Marketer:** Creates promotional social media posts.
+- **System Analyzer:** Scans website URLs for broken links.
 
 ## How to Use
 
