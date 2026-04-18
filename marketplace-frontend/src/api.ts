@@ -39,6 +39,7 @@ export const aiService = {
   getDiagnosticAssistance: (prompt: string) => apiClient.post('/diagnostic/assistance', { prompt }),
   getMarketingAssistance: (prompt: string) => apiClient.post('/marketing/assistance', { prompt }),
   getDigitalRepairAssistance: (prompt: string) => apiClient.post('/digital-repair/assistance', { prompt }),
+  getInvestmentTradingAssistance: (prompt: string) => apiClient.post('/investment-trading/assistance', { prompt }),
   executeLangflow: (prompt: string) => apiClient.post('/langflow/execute', { prompt }),
 };
 

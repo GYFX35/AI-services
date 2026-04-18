@@ -737,6 +737,18 @@ def provide_digital_repair_assistance(prompt: str) -> str:
     except Exception as e:
         return f"Error: {e}"
 
+def provide_investment_trading_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert Investment Optimization and Trading Specialist."),
+        ("user", "Provide high-level strategic guidance, market analysis insights, and investment optimization advice for: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
 def generic_ai_service(system_message: str, user_prompt: str) -> str:
     """
     A generic AI service using LangChain to allow flexible role creation.

@@ -1629,6 +1629,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Investment & Trading Assistance ---
+    const investmentTradingBtn = document.getElementById('investment-trading-btn');
+    if (investmentTradingBtn) {
+        investmentTradingBtn.addEventListener('click', async () => {
+            const input = document.getElementById('investment-trading-input');
+            const responseContainer = document.getElementById('investment-trading-response');
+            const apiKey = getApiKey("Please enter your API key to use the Investment & Trading Specialist:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/investment-trading/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the investment & trading specialist');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- Digital Repair Assistance ---
     const digitalRepairBtn = document.getElementById('digital-repair-btn');
     if (digitalRepairBtn) {
