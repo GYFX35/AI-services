@@ -14,4 +14,7 @@ google-cloud-aiplatform
 google-auth
 langchain
 langchain-google-vertexai
+langchain-openai
+langchain-anthropic
+langchain-nvidia-ai-endpoints
 langflow
