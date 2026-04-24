@@ -30,7 +30,8 @@ import {
   Microscope,
   Layout,
   Mail,
-  TrendingUp
+  TrendingUp,
+  Cloud
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { userService, aiService, setAuthToken, type User } from './api';
@@ -71,6 +72,10 @@ const AI_SERVICES: AIService[] = [
   { id: 'marketing', name: 'Marketing & Bot Specialist', category: 'Business', icon: Mail, description: 'Expert e-mail, SMS, and bot marketing & management.' },
   { id: 'investment', name: 'Investment Specialist', category: 'Business', icon: TrendingUp, description: 'Investment optimization and trading assistance.' },
   { id: 'autogpt', name: 'AutoGPT Agent', category: 'Advanced', icon: Bot, description: 'Autonomous agent for multi-step task planning and strategy.' },
+  { id: 'iaas', name: 'IaaS Specialist', category: 'Infrastructure', icon: Cpu, description: 'Infrastructure as a Service expert for virtualized resources.' },
+  { id: 'paas', name: 'PaaS Specialist', category: 'Infrastructure', icon: Cloud, description: 'Platform as a Service expert for application development environments.' },
+  { id: 'saas', name: 'SaaS Specialist', category: 'Infrastructure', icon: Globe, description: 'Software as a Service expert for internet-delivered applications.' },
+  { id: 'itaas', name: 'ITaaS Specialist', category: 'Infrastructure', icon: Layout, description: 'IT as a Service expert for comprehensive IT service delivery.' },
   { id: 'conflict-debug', name: 'Multi-Model Debugger', category: 'Development', icon: ShieldCheck, description: 'Debug and resolve conflicts using Gemini, ChatGPT, Claude, and NVIDIA.' }
 ];
 
@@ -153,6 +158,18 @@ const App: React.FC = () => {
           break;
         case 'autogpt':
           response = await aiService.getAutoGPTAssistance(servicePrompt);
+          break;
+        case 'iaas':
+          response = await aiService.getIaaSAssistance(servicePrompt);
+          break;
+        case 'paas':
+          response = await aiService.getPaaSAssistance(servicePrompt);
+          break;
+        case 'saas':
+          response = await aiService.getSaaSAssistance(servicePrompt);
+          break;
+        case 'itaas':
+          response = await aiService.getITaaSAssistance(servicePrompt);
           break;
         case 'conflict-debug':
           response = await aiService.getConflictDebugAssistance(servicePrompt);
