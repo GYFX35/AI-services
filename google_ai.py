@@ -830,6 +830,54 @@ def provide_conflict_debug_assistance(prompt: str) -> str:
     except Exception as e:
         return f"Error in multi-model synthesis: {e}. Raw insights: {insights}"
 
+def provide_itaas_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert IT as a Service (ITaaS) Specialist. Your goal is to provide guidance on IT service management, delivery models, and operational efficiency to help businesses transform their IT operations into a service-oriented model."),
+        ("user", "Provide ITaaS strategic guidance and technical assistance for: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
+def provide_paas_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert Platform as a Service (PaaS) Architect. Your goal is to provide guidance on application development platforms, deployment workflows, and middleware services to help developers and businesses leverage PaaS effectively."),
+        ("user", "Provide PaaS architectural guidance and technical assistance for: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
+def provide_iaas_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert Infrastructure as a Service (IaaS) Engineer. Your goal is to provide guidance on virtualized computing resources, cloud storage, networking, and server management to help businesses build and manage robust cloud infrastructure."),
+        ("user", "Provide IaaS technical guidance and infrastructure advice for: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
+def provide_saas_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert Software as a Service (SaaS) Consultant. Your goal is to provide guidance on SaaS product development, subscription models, multi-tenancy, and software delivery to help businesses build and scale successful SaaS platforms."),
+        ("user", "Provide SaaS product strategy and technical guidance for: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
 def generic_ai_service(system_message: str, user_prompt: str) -> str:
     """
     A generic AI service using LangChain to allow flexible role creation.

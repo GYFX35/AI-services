@@ -71,7 +71,11 @@ const AI_SERVICES: AIService[] = [
   { id: 'marketing', name: 'Marketing & Bot Specialist', category: 'Business', icon: Mail, description: 'Expert e-mail, SMS, and bot marketing & management.' },
   { id: 'investment', name: 'Investment Specialist', category: 'Business', icon: TrendingUp, description: 'Investment optimization and trading assistance.' },
   { id: 'autogpt', name: 'AutoGPT Agent', category: 'Advanced', icon: Bot, description: 'Autonomous agent for multi-step task planning and strategy.' },
-  { id: 'conflict-debug', name: 'Multi-Model Debugger', category: 'Development', icon: ShieldCheck, description: 'Debug and resolve conflicts using Gemini, ChatGPT, Claude, and NVIDIA.' }
+  { id: 'conflict-debug', name: 'Multi-Model Debugger', category: 'Development', icon: ShieldCheck, description: 'Debug and resolve conflicts using Gemini, ChatGPT, Claude, and NVIDIA.' },
+  { id: 'itaas', name: 'ITaaS Specialist', category: 'Infrastructure', icon: Cpu, description: 'IT as a Service guidance and operational efficiency.' },
+  { id: 'paas', name: 'PaaS Architect', category: 'Infrastructure', icon: Layout, description: 'Platform as a Service design and deployment.' },
+  { id: 'iaas', name: 'IaaS Engineer', category: 'Infrastructure', icon: Database, description: 'Infrastructure as a Service and cloud resources.' },
+  { id: 'saas', name: 'SaaS Consultant', category: 'Business', icon: ShoppingBag, description: 'Software as a Service product strategy.' }
 ];
 
 const App: React.FC = () => {
@@ -156,6 +160,18 @@ const App: React.FC = () => {
           break;
         case 'conflict-debug':
           response = await aiService.getConflictDebugAssistance(servicePrompt);
+          break;
+        case 'itaas':
+          response = await aiService.getITaaSAssistance(servicePrompt);
+          break;
+        case 'paas':
+          response = await aiService.getPaaSAssistance(servicePrompt);
+          break;
+        case 'iaas':
+          response = await aiService.getIaaSAssistance(servicePrompt);
+          break;
+        case 'saas':
+          response = await aiService.getSaaSAssistance(servicePrompt);
           break;
         case 'langflow':
           response = await aiService.executeLangflow(servicePrompt);

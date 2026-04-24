@@ -1330,6 +1330,50 @@ def conflict_debug_assistance_endpoint():
     return jsonify({"status": "success", "message": message})
 
 
+@app.route('/api/v1/itaas/assistance', methods=['POST'])
+@require_api_key
+def itaas_assistance_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_itaas_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
+@app.route('/api/v1/paas/assistance', methods=['POST'])
+@require_api_key
+def paas_assistance_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_paas_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
+@app.route('/api/v1/iaas/assistance', methods=['POST'])
+@require_api_key
+def iaas_assistance_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_iaas_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
+@app.route('/api/v1/saas/assistance', methods=['POST'])
+@require_api_key
+def saas_assistance_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_saas_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
 @app.route('/api/v1/generic/assistance', methods=['POST'])
 @require_api_key
 def generic_assistance_endpoint():
