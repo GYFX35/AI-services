@@ -76,7 +76,11 @@ const AI_SERVICES: AIService[] = [
   { id: 'paas', name: 'PaaS Specialist', category: 'Infrastructure', icon: Cloud, description: 'Platform as a Service expert for application development environments.' },
   { id: 'saas', name: 'SaaS Specialist', category: 'Infrastructure', icon: Globe, description: 'Software as a Service expert for internet-delivered applications.' },
   { id: 'itaas', name: 'ITaaS Specialist', category: 'Infrastructure', icon: Layout, description: 'IT as a Service expert for comprehensive IT service delivery.' },
-  { id: 'conflict-debug', name: 'Multi-Model Debugger', category: 'Development', icon: ShieldCheck, description: 'Debug and resolve conflicts using Gemini, ChatGPT, Claude, and NVIDIA.' }
+  { id: 'conflict-debug', name: 'Multi-Model Debugger', category: 'Development', icon: ShieldCheck, description: 'Debug and resolve conflicts using Gemini, ChatGPT, Claude, and NVIDIA.' },
+  { id: 'automl-feat', name: 'AutoML Feature Eng', category: 'Development', icon: Binary, description: 'Automated feature engineering and data preparation.' },
+  { id: 'automl-tune', name: 'AutoML Tuner', category: 'Development', icon: TrendingUp, description: 'Automated hyperparameter optimization and tuning.' },
+  { id: 'automl-select', name: 'AutoML Selector', category: 'Development', icon: Microscope, description: 'Automated model selection and evaluation.' },
+  { id: 'automl-mlops', name: 'AutoML MLOps', category: 'Development', icon: Zap, description: 'Automated ML pipelines and MLOps strategy.' }
 ];
 
 const App: React.FC = () => {
@@ -176,6 +180,18 @@ const App: React.FC = () => {
           break;
         case 'langflow':
           response = await aiService.executeLangflow(servicePrompt);
+          break;
+        case 'automl-feat':
+          response = await aiService.getAutoMLFeatureEngineering(servicePrompt);
+          break;
+        case 'automl-tune':
+          response = await aiService.getAutoMLHyperparameterTuning(servicePrompt);
+          break;
+        case 'automl-select':
+          response = await aiService.getAutoMLModelSelection(servicePrompt);
+          break;
+        case 'automl-mlops':
+          response = await aiService.getAutoMLMLOps(servicePrompt);
           break;
         default:
           // Fallback for demo purposes if specific endpoint isn't mapped in aiService yet
