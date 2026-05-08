@@ -161,6 +161,42 @@ def generate_business_strategy(prompt: str) -> str:
     except Exception as e:
         return f"Error: {e}"
 
+def provide_monetization_advice(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert Monetization Strategist. Your goal is to help projects generate revenue through various models like subscriptions, ads, and premium features."),
+        ("user", "Provide a detailed monetization strategy for: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
+def provide_partnership_advice(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert Partnership and Business Development Specialist. Your goal is to identify and nurture strategic alliances that drive mutual growth."),
+        ("user", "Provide a partnership and alliance strategy for: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
+def provide_fundraising_advice(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert Fundraising Strategist and Venture Capital Consultant. Your goal is to help startups and projects secure funding through various stages and sources."),
+        ("user", "Provide a comprehensive fundraising plan and strategy for: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
 def provide_it_support(prompt: str) -> str:
     model = get_model()
     prompt_template = ChatPromptTemplate.from_messages([

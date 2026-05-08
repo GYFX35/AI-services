@@ -20,6 +20,8 @@ export const setAuthToken = (token: string | null) => {
 export interface User {
   id: number;
   username: string;
+  subscription_status?: string;
+  subscription_plan?: string;
 }
 
 export interface Project {
@@ -51,6 +53,9 @@ export const aiService = {
   getAutoMLHyperparameterTuning: (prompt: string) => apiClient.post('/automl/hyperparameter-tuning', { prompt }),
   getAutoMLModelSelection: (prompt: string) => apiClient.post('/automl/model-selection', { prompt }),
   getAutoMLMLOps: (prompt: string) => apiClient.post('/automl/mlops', { prompt }),
+  getMonetizationAdvice: (prompt: string) => apiClient.post('/business/monetization', { prompt }),
+  getPartnershipAdvice: (prompt: string) => apiClient.post('/business/partnership', { prompt }),
+  getFundraisingAdvice: (prompt: string) => apiClient.post('/business/fundraising', { prompt }),
 };
 
 export const userService = {
@@ -64,6 +69,7 @@ export const userService = {
 export const paymentService = {
   getConfig: () => apiClient.get('/config'),
   createPaymentIntent: (amount: number, currency: string) => apiClient.post('/payment/create-payment-intent', { amount, currency }),
+  createSubscriptionCheckout: (plan: string) => apiClient.post('/payment/create-subscription-checkout', { plan }),
 };
 
 export default apiClient;
