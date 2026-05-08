@@ -23,6 +23,9 @@ import {
   ShieldAlert,
   Binary,
   Bot,
+  DollarSign,
+  Handshake,
+  PiggyBank,
   FlaskConical,
   Truck,
   Building2,
@@ -34,7 +37,7 @@ import {
   Cloud
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { userService, aiService, setAuthToken, type User } from './api';
+import { userService, aiService, paymentService, setAuthToken, type User } from './api';
 import axios from 'axios';
 
 interface AIService {
@@ -76,7 +79,10 @@ const AI_SERVICES: AIService[] = [
   { id: 'paas', name: 'PaaS Specialist', category: 'Infrastructure', icon: Cloud, description: 'Platform as a Service expert for application development environments.' },
   { id: 'saas', name: 'SaaS Specialist', category: 'Infrastructure', icon: Globe, description: 'Software as a Service expert for internet-delivered applications.' },
   { id: 'itaas', name: 'ITaaS Specialist', category: 'Infrastructure', icon: Layout, description: 'IT as a Service expert for comprehensive IT service delivery.' },
-  { id: 'conflict-debug', name: 'Multi-Model Debugger', category: 'Development', icon: ShieldCheck, description: 'Debug and resolve conflicts using Gemini, ChatGPT, Claude, and NVIDIA.' }
+  { id: 'conflict-debug', name: 'Multi-Model Debugger', category: 'Development', icon: ShieldCheck, description: 'Debug and resolve conflicts using Gemini, ChatGPT, Claude, and NVIDIA.' },
+  { id: 'monetization', name: 'Monetization Expert', category: 'Business', icon: DollarSign, description: 'Identify revenue streams and pricing strategies.' },
+  { id: 'partnership', name: 'Partnership Strategist', category: 'Business', icon: Handshake, description: 'Develop strategic alliances and joint ventures.' },
+  { id: 'fundraising', name: 'Fundraising Advisor', category: 'Business', icon: PiggyBank, description: 'Startup fundraising and investor relations.' }
 ];
 
 const App: React.FC = () => {
@@ -173,6 +179,15 @@ const App: React.FC = () => {
           break;
         case 'conflict-debug':
           response = await aiService.getConflictDebugAssistance(servicePrompt);
+          break;
+        case 'monetization':
+          response = await aiService.getMonetizationAssistance(servicePrompt);
+          break;
+        case 'partnership':
+          response = await aiService.getPartnershipAssistance(servicePrompt);
+          break;
+        case 'fundraising':
+          response = await aiService.getFundraisingAssistance(servicePrompt);
           break;
         case 'langflow':
           response = await aiService.executeLangflow(servicePrompt);
@@ -571,6 +586,47 @@ const App: React.FC = () => {
 
              {user && (
                <>
+                 <div className="bg-white p-8 rounded-xl shadow-sm border">
+                    <div className="flex justify-between items-center mb-6">
+                       <h3 className="text-xl font-bold">Subscription Plan</h3>
+                       <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${user.subscription_status === 'active' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700'}`}>
+                          {user.subscription_status}
+                       </span>
+                    </div>
+                    {user.subscription_status !== 'active' ? (
+                       <div className="bg-blue-50 p-6 rounded-lg border border-blue-100 flex flex-col md:flex-row justify-between items-center">
+                          <div className="mb-4 md:mb-0">
+                             <p className="text-lg font-bold text-blue-900">Upgrade to Pro</p>
+                             <p className="text-sm text-blue-700">Get unlimited access to all AI specialized services and business tools.</p>
+                          </div>
+                          <button
+                             onClick={async () => {
+                                try {
+                                   setLoading(true);
+                                   const response = await paymentService.createSubscriptionCheckoutSession();
+                                   if (response.data.url) {
+                                      window.location.href = response.data.url;
+                                   }
+                                } catch (err: any) {
+                                   setError(err.response?.data?.error || 'Failed to initiate subscription');
+                                } finally {
+                                   setLoading(false);
+                                }
+                             }}
+                             disabled={loading}
+                             className="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-700 transition-colors"
+                          >
+                             Subscribe Now - $29/mo
+                          </button>
+                       </div>
+                    ) : (
+                       <div className="bg-green-50 p-6 rounded-lg border border-green-100">
+                          <p className="text-lg font-bold text-green-900">You are on the Pro Plan</p>
+                          <p className="text-sm text-green-700">Enjoy full access to all features and priority support.</p>
+                       </div>
+                    )}
+                 </div>
+
                  <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
                     <div className="px-6 py-4 border-b">
                       <h3 className="text-lg font-bold">Integrated Tools</h3>

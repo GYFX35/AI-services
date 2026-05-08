@@ -830,6 +830,42 @@ def provide_conflict_debug_assistance(prompt: str) -> str:
     except Exception as e:
         return f"Error in multi-model synthesis: {e}. Raw insights: {insights}"
 
+def provide_monetization_strategy_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert Monetization Strategy Specialist. Your goal is to help businesses identify and implement effective revenue streams, pricing models, and value capture strategies."),
+        ("user", "Provide a comprehensive monetization strategy for: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
+def provide_partnership_strategy_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert Business Partnership Specialist. Your goal is to help businesses identify, evaluate, and negotiate strategic partnerships, joint ventures, and alliance opportunities."),
+        ("user", "Develop a partnership strategy and identify potential types of partners for: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
+def provide_fundraising_strategy_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert Fundraising Specialist. Your goal is to help startups and businesses prepare for and execute successful fundraising campaigns across various stages (Seed, Series A+, etc.) and types (VC, Angel, Crowdfunding)."),
+        ("user", "Provide a detailed fundraising strategy, including pitch deck advice and investor targeting for: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
 def generic_ai_service(system_message: str, user_prompt: str) -> str:
     """
     A generic AI service using LangChain to allow flexible role creation.

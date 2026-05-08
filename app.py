@@ -35,6 +35,8 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     api_key = db.Column(db.String(120), unique=True, nullable=False)
+    subscription_status = db.Column(db.String(20), default='inactive')
+    stripe_customer_id = db.Column(db.String(120), unique=True, nullable=True)
 
     def __repr__(self):
         return f'<User {self.username}>'
@@ -780,6 +782,39 @@ def business_strategy_endpoint():
     return jsonify({"status": "success", "message": message})
 
 
+@app.route('/api/v1/business/monetization', methods=['POST'])
+@require_api_key
+def business_monetization_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_monetization_strategy_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
+@app.route('/api/v1/business/partnership', methods=['POST'])
+@require_api_key
+def business_partnership_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_partnership_strategy_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
+@app.route('/api/v1/business/fundraising', methods=['POST'])
+@require_api_key
+def business_fundraising_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_fundraising_strategy_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
 @app.route('/api/v1/support/it', methods=['POST'])
 @require_api_key
 def it_support_endpoint():
@@ -1420,7 +1455,8 @@ def login_api():
     return jsonify({
         "id": user.id,
         "username": user.username,
-        "api_key": user.api_key
+        "api_key": user.api_key,
+        "subscription_status": user.subscription_status
     }), 200
 
 @app.route('/api/v1/me_api', methods=['GET'])
@@ -1428,7 +1464,8 @@ def login_api():
 def me_api():
     return jsonify({
         "id": g.user.id,
-        "username": g.user.username
+        "username": g.user.username,
+        "subscription_status": g.user.subscription_status
     })
 
 @app.route('/api/register', methods=['POST'])
@@ -1446,7 +1483,8 @@ def register():
     return jsonify({
         "id": new_user.id,
         "username": new_user.username,
-        "api_key": new_user.api_key
+        "api_key": new_user.api_key,
+        "subscription_status": new_user.subscription_status
     }), 201
 
 @app.route('/api/me', methods=['GET'])
@@ -1531,6 +1569,42 @@ def create_promotion_from_url():
     except Exception as e:
         return jsonify({"error": _("An unexpected error occurred: %(error)s", error=str(e))}), 500
 
+@app.route('/api/v1/subscription/create-checkout-session', methods=['POST'])
+@require_api_key
+def create_subscription_checkout_session():
+    # Use a dummy price ID if not set in environment
+    price_id = os.environ.get('STRIPE_SUBSCRIPTION_PRICE_ID', 'price_dummy_123')
+    domain_url = request.host_url.rstrip('/')
+
+    try:
+        # Create or retrieve customer
+        if not g.user.stripe_customer_id:
+            customer = stripe.Customer.create(
+                email=f"{g.user.username}@example.com", # Placeholder
+                metadata={'user_id': g.user.id}
+            )
+            g.user.stripe_customer_id = customer.id
+            db.session.commit()
+
+        checkout_session = stripe.checkout.Session.create(
+            customer=g.user.stripe_customer_id,
+            success_url=domain_url + '/#dashboard?session_id={CHECKOUT_SESSION_ID}',
+            cancel_url=domain_url + '/#dashboard',
+            payment_method_types=['card'],
+            mode='subscription',
+            line_items=[{
+                'price': price_id,
+                'quantity': 1,
+            }],
+            metadata={
+                'user_id': g.user.id
+            }
+        )
+        return jsonify({'sessionId': checkout_session.id, 'url': checkout_session.url})
+    except Exception as e:
+        return jsonify(error=str(e)), 403
+
+
 @app.route('/api/v1/payment/create-payment-intent', methods=['POST'])
 @require_api_key
 def create_payment_intent():
@@ -1596,7 +1670,26 @@ def payment_webhook():
         return jsonify(error=str(e)), 400
 
     # Handle the event
-    if event['type'] == 'payment_intent.succeeded':
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+        if session['mode'] == 'subscription':
+            customer_id = session.get('customer')
+            user_id = session.get('metadata', {}).get('user_id')
+            if user_id:
+                user = User.query.get(int(user_id))
+                if user:
+                    user.subscription_status = 'active'
+                    user.stripe_customer_id = customer_id
+                    db.session.commit()
+    elif event['type'] == 'customer.subscription.deleted':
+        subscription = event['data']['object']
+        customer_id = subscription.get('customer')
+        if customer_id:
+            user = User.query.filter_by(stripe_customer_id=customer_id).first()
+            if user:
+                user.subscription_status = 'inactive'
+                db.session.commit()
+    elif event['type'] == 'payment_intent.succeeded':
         payment_intent = event['data']['object']
         payment_id = payment_intent['metadata'].get('payment_id')
         if payment_id:

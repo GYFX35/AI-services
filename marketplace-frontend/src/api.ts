@@ -20,6 +20,7 @@ export const setAuthToken = (token: string | null) => {
 export interface User {
   id: number;
   username: string;
+  subscription_status: string;
 }
 
 export interface Project {
@@ -46,6 +47,9 @@ export const aiService = {
   getSaaSAssistance: (prompt: string) => apiClient.post('/saas/assistance', { prompt }),
   getITaaSAssistance: (prompt: string) => apiClient.post('/itaas/assistance', { prompt }),
   getConflictDebugAssistance: (prompt: string) => apiClient.post('/conflict-debug/assistance', { prompt }),
+  getMonetizationAssistance: (prompt: string) => apiClient.post('/business/monetization', { prompt }),
+  getPartnershipAssistance: (prompt: string) => apiClient.post('/business/partnership', { prompt }),
+  getFundraisingAssistance: (prompt: string) => apiClient.post('/business/fundraising', { prompt }),
   executeLangflow: (prompt: string) => apiClient.post('/langflow/execute', { prompt }),
 };
 
@@ -60,6 +64,7 @@ export const userService = {
 export const paymentService = {
   getConfig: () => apiClient.get('/config'),
   createPaymentIntent: (amount: number, currency: string) => apiClient.post('/payment/create-payment-intent', { amount, currency }),
+  createSubscriptionCheckoutSession: () => apiClient.post('/subscription/create-checkout-session'),
 };
 
 export default apiClient;

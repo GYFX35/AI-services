@@ -1,15 +1,18 @@
 import pytest
 from app import app, db, User
+from unittest.mock import patch
 
-def test_autogpt_assistance_endpoint(client, auth_headers):
+@patch('google_ai.provide_autogpt_assistance')
+def test_autogpt_assistance_endpoint(mock_gen, client, auth_headers):
     """Test the AutoGPT assistance endpoint."""
+    mock_gen.return_value = 'Mock AutoGPT response'
     response = client.post('/api/v1/autogpt/assistance',
                            json={'prompt': 'Plan a world tour'},
                            headers=auth_headers)
     assert response.status_code == 200
     data = response.get_json()
     assert data['status'] == 'success'
-    assert 'message' in data
+    assert data['message'] == 'Mock AutoGPT response'
 
 def test_autogpt_assistance_no_prompt(client, auth_headers):
     """Test the AutoGPT assistance endpoint without prompt."""
