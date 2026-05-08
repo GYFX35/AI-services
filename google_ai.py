@@ -844,3 +844,51 @@ def generic_ai_service(system_message: str, user_prompt: str) -> str:
         return chain.invoke({"prompt": user_prompt}).strip()
     except Exception as e:
         return f"Error: {e}"
+
+def provide_feature_engineering_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert in Automated Feature Engineering and Data Preparation."),
+        ("user", "Provide high-level technical guidance and strategy for automated feature engineering based on: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
+def provide_hyperparameter_tuning_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert in Hyperparameter Optimization and Model Tuning."),
+        ("user", "Provide high-level technical guidance and strategy for hyperparameter tuning based on: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
+def provide_model_selection_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert in AutoML Model Selection and Evaluation."),
+        ("user", "Provide high-level technical guidance and strategy for selecting and evaluating ML models based on: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
+def provide_mlops_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert in MLOps and Automated ML Pipelines."),
+        ("user", "Provide high-level technical guidance and strategy for automating ML pipelines and deployment based on: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"

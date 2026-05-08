@@ -47,6 +47,10 @@ export const aiService = {
   getITaaSAssistance: (prompt: string) => apiClient.post('/itaas/assistance', { prompt }),
   getConflictDebugAssistance: (prompt: string) => apiClient.post('/conflict-debug/assistance', { prompt }),
   executeLangflow: (prompt: string) => apiClient.post('/langflow/execute', { prompt }),
+  getAutoMLFeatureEngineering: (prompt: string) => apiClient.post('/automl/feature-engineering', { prompt }),
+  getAutoMLHyperparameterTuning: (prompt: string) => apiClient.post('/automl/hyperparameter-tuning', { prompt }),
+  getAutoMLModelSelection: (prompt: string) => apiClient.post('/automl/model-selection', { prompt }),
+  getAutoMLMLOps: (prompt: string) => apiClient.post('/automl/mlops', { prompt }),
 };
 
 export const userService = {

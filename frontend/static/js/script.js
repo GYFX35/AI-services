@@ -1743,6 +1743,158 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- AutoML Feature Engineering ---
+    const automlFeatureEngineeringBtn = document.getElementById('automl-feature-engineering-btn');
+    if (automlFeatureEngineeringBtn) {
+        automlFeatureEngineeringBtn.addEventListener('click', async () => {
+            const input = document.getElementById('automl-feature-engineering-input');
+            const responseContainer = document.getElementById('automl-feature-engineering-response');
+            const apiKey = getApiKey("Please enter your API key to use the AutoML Feature Engineering Expert:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/automl/feature-engineering', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the AutoML feature engineering expert');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
+    // --- AutoML Hyperparameter Tuning ---
+    const automlHyperparameterTuningBtn = document.getElementById('automl-hyperparameter-tuning-btn');
+    if (automlHyperparameterTuningBtn) {
+        automlHyperparameterTuningBtn.addEventListener('click', async () => {
+            const input = document.getElementById('automl-hyperparameter-tuning-input');
+            const responseContainer = document.getElementById('automl-hyperparameter-tuning-response');
+            const apiKey = getApiKey("Please enter your API key to use the AutoML Hyperparameter Tuner:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/automl/hyperparameter-tuning', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the AutoML hyperparameter tuner');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
+    // --- AutoML Model Selection ---
+    const automlModelSelectionBtn = document.getElementById('automl-model-selection-btn');
+    if (automlModelSelectionBtn) {
+        automlModelSelectionBtn.addEventListener('click', async () => {
+            const input = document.getElementById('automl-model-selection-input');
+            const responseContainer = document.getElementById('automl-model-selection-response');
+            const apiKey = getApiKey("Please enter your API key to use the AutoML Model Selector:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/automl/model-selection', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the AutoML model selector');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
+    // --- AutoML MLOps ---
+    const automlMLOpsBtn = document.getElementById('automl-mlops-btn');
+    if (automlMLOpsBtn) {
+        automlMLOpsBtn.addEventListener('click', async () => {
+            const input = document.getElementById('automl-mlops-input');
+            const responseContainer = document.getElementById('automl-mlops-response');
+            const apiKey = getApiKey("Please enter your API key to use the AutoML MLOps Expert:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/automl/mlops', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the AutoML MLOps expert');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- E-shop Assistance ---
     const eshopBtn = document.getElementById('eshop-btn');
     if (eshopBtn) {
