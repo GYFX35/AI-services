@@ -31,10 +31,13 @@ import {
   Layout,
   Mail,
   TrendingUp,
-  Cloud
+  Cloud,
+  DollarSign,
+  Handshake,
+  PiggyBank
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { userService, aiService, setAuthToken, type User } from './api';
+import { userService, aiService, paymentService, setAuthToken, type User } from './api';
 import axios from 'axios';
 
 interface AIService {
@@ -80,7 +83,10 @@ const AI_SERVICES: AIService[] = [
   { id: 'automl-feat', name: 'AutoML Feature Eng', category: 'Development', icon: Binary, description: 'Automated feature engineering and data preparation.' },
   { id: 'automl-tune', name: 'AutoML Tuner', category: 'Development', icon: TrendingUp, description: 'Automated hyperparameter optimization and tuning.' },
   { id: 'automl-select', name: 'AutoML Selector', category: 'Development', icon: Microscope, description: 'Automated model selection and evaluation.' },
-  { id: 'automl-mlops', name: 'AutoML MLOps', category: 'Development', icon: Zap, description: 'Automated ML pipelines and MLOps strategy.' }
+  { id: 'automl-mlops', name: 'AutoML MLOps', category: 'Development', icon: Zap, description: 'Automated ML pipelines and MLOps strategy.' },
+  { id: 'monetization', name: 'Monetization Expert', category: 'Business', icon: DollarSign, description: 'Strategic advice on revenue generation and subscriptions.' },
+  { id: 'partnership', name: 'Partnership Specialist', category: 'Business', icon: Handshake, description: 'Identify and nurture strategic business alliances.' },
+  { id: 'fundraising', name: 'Fundraising Strategist', category: 'Business', icon: PiggyBank, description: 'Comprehensive plans for securing project funding.' }
 ];
 
 const App: React.FC = () => {
@@ -192,6 +198,15 @@ const App: React.FC = () => {
           break;
         case 'automl-mlops':
           response = await aiService.getAutoMLMLOps(servicePrompt);
+          break;
+        case 'monetization':
+          response = await aiService.getMonetizationAdvice(servicePrompt);
+          break;
+        case 'partnership':
+          response = await aiService.getPartnershipAdvice(servicePrompt);
+          break;
+        case 'fundraising':
+          response = await aiService.getFundraisingAdvice(servicePrompt);
           break;
         default:
           // Fallback for demo purposes if specific endpoint isn't mapped in aiService yet
@@ -584,6 +599,63 @@ const App: React.FC = () => {
                   </div>
                 )}
              </div>
+
+             {user && (
+               <div className="bg-white p-8 rounded-xl shadow-sm border">
+                 <h3 className="text-xl font-bold mb-6">Subscription Plan</h3>
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                   <div className="border rounded-lg p-6 flex flex-col justify-between">
+                     <div>
+                       <h4 className="text-lg font-bold text-gray-900">Current Status</h4>
+                       <div className="mt-2 flex items-center">
+                         <span className={`px-3 py-1 rounded-full text-sm font-semibold ${user.subscription_status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
+                           {user.subscription_status === 'active' ? 'Active' : 'Inactive'}
+                         </span>
+                         <span className="ml-3 text-gray-500 capitalize">{user.subscription_plan} Plan</span>
+                       </div>
+                     </div>
+                     {user.subscription_status !== 'active' && (
+                       <p className="mt-4 text-sm text-gray-500">Upgrade to a premium plan to unlock more AI features and credits.</p>
+                     )}
+                   </div>
+
+                   <div className="space-y-4">
+                     <button
+                       onClick={async () => {
+                         try {
+                           setLoading(true);
+                           const res = await paymentService.createSubscriptionCheckout('premium');
+                           window.location.href = res.data.url;
+                         } catch (err) {
+                           setError('Failed to initiate checkout');
+                         } finally {
+                           setLoading(false);
+                         }
+                       }}
+                       className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors"
+                     >
+                       Upgrade to Premium ($19/mo)
+                     </button>
+                     <button
+                       onClick={async () => {
+                         try {
+                           setLoading(true);
+                           const res = await paymentService.createSubscriptionCheckout('pro');
+                           window.location.href = res.data.url;
+                         } catch (err) {
+                           setError('Failed to initiate checkout');
+                         } finally {
+                           setLoading(false);
+                         }
+                       }}
+                       className="w-full bg-gray-900 text-white px-6 py-3 rounded-lg font-bold hover:bg-black transition-colors"
+                     >
+                       Upgrade to Pro ($49/mo)
+                     </button>
+                   </div>
+                 </div>
+               </div>
+             )}
 
              {user && (
                <>

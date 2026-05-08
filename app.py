@@ -19,6 +19,7 @@ from facebook_business.adobjects.adaccount import AdAccount
 from facebook_business.exceptions import FacebookRequestError
 import google_ai
 import json
+import sqlite3
 
 load_dotenv(dotenv_path=".env")
 
@@ -35,6 +36,9 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     api_key = db.Column(db.String(120), unique=True, nullable=False)
+    subscription_status = db.Column(db.String(20), default='inactive')
+    subscription_plan = db.Column(db.String(20), default='free')
+    stripe_customer_id = db.Column(db.String(120), unique=True, nullable=True)
 
     def __repr__(self):
         return f'<User {self.username}>'
@@ -780,6 +784,39 @@ def business_strategy_endpoint():
     return jsonify({"status": "success", "message": message})
 
 
+@app.route('/api/v1/business/monetization', methods=['POST'])
+@require_api_key
+def business_monetization_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_monetization_advice(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
+@app.route('/api/v1/business/partnership', methods=['POST'])
+@require_api_key
+def business_partnership_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_partnership_advice(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
+@app.route('/api/v1/business/fundraising', methods=['POST'])
+@require_api_key
+def business_fundraising_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_fundraising_advice(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
 @app.route('/api/v1/support/it', methods=['POST'])
 @require_api_key
 def it_support_endpoint():
@@ -1472,7 +1509,9 @@ def login_api():
 def me_api():
     return jsonify({
         "id": g.user.id,
-        "username": g.user.username
+        "username": g.user.username,
+        "subscription_status": g.user.subscription_status,
+        "subscription_plan": g.user.subscription_plan
     })
 
 @app.route('/api/register', methods=['POST'])
@@ -1575,6 +1614,48 @@ def create_promotion_from_url():
     except Exception as e:
         return jsonify({"error": _("An unexpected error occurred: %(error)s", error=str(e))}), 500
 
+@app.route('/api/v1/payment/create-subscription-checkout', methods=['POST'])
+@require_api_key
+def create_subscription_checkout():
+    data = request.get_json()
+    plan = data.get('plan') # 'premium' or 'pro'
+
+    if plan not in ['premium', 'pro']:
+        return jsonify({"error": _("Invalid plan")}), 400
+
+    price_id = os.environ.get(f'STRIPE_{plan.upper()}_PRICE_ID')
+    if not price_id:
+        return jsonify({"error": f"Stripe Price ID for {plan} not configured"}), 500
+
+    try:
+        checkout_params = {
+            'line_items': [
+                {
+                    'price': price_id,
+                    'quantity': 1,
+                },
+            ],
+            'mode': 'subscription',
+            'success_url': request.host_url + 'dashboard?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url': request.host_url + 'dashboard',
+            'client_reference_id': str(g.user.id),
+            'metadata': {
+                'user_id': g.user.id,
+                'plan': plan
+            }
+        }
+
+        if g.user.stripe_customer_id:
+            checkout_params['customer'] = g.user.stripe_customer_id
+        else:
+            checkout_params['customer_email'] = g.user.username if '@' in g.user.username else None
+
+        checkout_session = stripe.checkout.Session.create(**checkout_params)
+        return jsonify({'url': checkout_session.url})
+    except Exception as e:
+        return jsonify(error=str(e)), 403
+
+
 @app.route('/api/v1/payment/create-payment-intent', methods=['POST'])
 @require_api_key
 def create_payment_intent():
@@ -1649,6 +1730,36 @@ def payment_webhook():
                 payment.status = 'succeeded'
                 payment.meta_payment_id = payment_intent.id # Let's store the stripe payment intent id here
                 db.session.commit()
+    elif event['type'] == 'checkout.session.completed':
+        session_obj = event['data']['object']
+        user_id = session_obj.get('client_reference_id')
+        customer_id = session_obj.get('customer')
+        if user_id:
+            user = User.query.get(int(user_id))
+            if user:
+                user.subscription_status = 'active'
+                if customer_id:
+                    user.stripe_customer_id = customer_id
+                # Plan can be retrieved from metadata if set during session creation
+                plan = session_obj.get('metadata', {}).get('plan', 'premium')
+                user.subscription_plan = plan
+                db.session.commit()
+    elif event['type'] == 'customer.subscription.deleted':
+        subscription = event['data']['object']
+        user = User.query.filter_by(stripe_customer_id=subscription.customer).first()
+        if user:
+            user.subscription_status = 'inactive'
+            user.subscription_plan = 'free'
+            db.session.commit()
+    elif event['type'] == 'customer.subscription.updated':
+        subscription = event['data']['object']
+        user = User.query.filter_by(stripe_customer_id=subscription.customer).first()
+        if user:
+            if subscription.status in ['active', 'trialing']:
+                user.subscription_status = 'active'
+            else:
+                user.subscription_status = 'inactive'
+            db.session.commit()
     elif event['type'] == 'payment_intent.payment_failed':
         payment_intent = event['data']['object']
         payment_id = payment_intent['metadata'].get('payment_id')
@@ -1688,8 +1799,30 @@ def get_meta_campaigns():
 # Use a production-ready WSGI server like Gunicorn to run the.
 # Example: gunicorn --bind 0.0.0.0:5000 app:app
 # The database initialization is also handled separately in a production environment.
+def update_db_schema():
+    """Add new columns to existing database if they don't exist."""
+    db_path = app.config['SQLALCHEMY_DATABASE_URI'].replace('sqlite:///', '')
+    if os.path.exists(db_path):
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+
+        # Check for subscription_status
+        cursor.execute("PRAGMA table_info(user)")
+        columns = [column[1] for column in cursor.fetchall()]
+
+        if 'subscription_status' not in columns:
+            cursor.execute("ALTER TABLE user ADD COLUMN subscription_status VARCHAR(20) DEFAULT 'inactive'")
+        if 'subscription_plan' not in columns:
+            cursor.execute("ALTER TABLE user ADD COLUMN subscription_plan VARCHAR(20) DEFAULT 'free'")
+        if 'stripe_customer_id' not in columns:
+            cursor.execute("ALTER TABLE user ADD COLUMN stripe_customer_id VARCHAR(120)")
+
+        conn.commit()
+        conn.close()
+
 if __name__ == '__main__':
     with app.app_context():
+        update_db_schema()
         db.create_all()
         if not Project.query.first():
             projects = [
