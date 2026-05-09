@@ -18,6 +18,7 @@
                 <li><a href="#digital-repair-assistance">{{ _('Digital Repair') }}</a></li>
                 <li><a href="#maintenance-assistance">{{ _('Maintenance') }}</a></li>
                 <li><a href="#it-operations-assistance">{{ _('IT Ops') }}</a></li>
+                <li><a href="#cloud-infrastructure-assistance">{{ _('Cloud Infra') }}</a></li>
                 <li><a href="#esports-assistance">{{ _('eSports') }}</a></li>
                 <li><a href="#fake-content-verification">{{ _('Verification') }}</a></li>
                 <li><a href="#military-assistance">{{ _('Military') }}</a></li>
@@ -240,6 +241,26 @@
                 <div class="card">
                     <h3>{{ _('AutoML MLOps Expert') }}</h3>
                     <p>{{ _('Expert assistance for automated ML pipelines and MLOps deployment strategies.') }}</p>
+                </div>
+                <div class="card">
+                    <h3>{{ _('Cloud Infrastructure Architect') }}</h3>
+                    <p>{{ _('Expert assistance for creating secure IP addresses, DNS configuration, and cloud server creation.') }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cloud Infrastructure Architect Section -->
+        <section id="cloud-infrastructure-assistance" class="services">
+            <h2>{{ _('Cloud Infrastructure Architect') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Secure IPs, DNS & Cloud Server Support') }}</h3>
+                    <p>{{ _('Enter your request for secure IP creation, DNS configuration, or cloud server setup below.') }}</p>
+                    <textarea id="cloud-infrastructure-input" placeholder="{{ _('Your cloud infrastructure request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="cloud-infrastructure-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="cloud-infrastructure-response-container">
+                        <pre id="cloud-infrastructure-response"></pre>
+                    </div>
                 </div>
             </div>
         </section>

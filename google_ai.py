@@ -928,3 +928,15 @@ def provide_mlops_assistance(prompt: str) -> str:
         return chain.invoke({"prompt": prompt}).strip()
     except Exception as e:
         return f"Error: {e}"
+
+def provide_cloud_infrastructure_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert Cloud Infrastructure Architect specializing in secure IP addresses, DNS configuration, and cloud server creation (AWS, GCP, Azure)."),
+        ("user", "Provide high-level technical guidance and secure implementation steps for: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
