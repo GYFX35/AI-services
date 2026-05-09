@@ -1423,6 +1423,17 @@ def automl_mlops_endpoint():
     return jsonify({"status": "success", "message": message})
 
 
+@app.route('/api/v1/cloud-infrastructure/assistance', methods=['POST'])
+@require_api_key
+def cloud_infrastructure_assistance_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_cloud_infrastructure_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
 @app.route('/api/v1/langflow/execute', methods=['POST'])
 @require_api_key
 def execute_langflow_endpoint():
