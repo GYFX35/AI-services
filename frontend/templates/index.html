@@ -25,6 +25,7 @@
                 <li><a href="#marketing-assistance">{{ _('Marketing') }}</a></li>
                 <li><a href="#investment-trading-assistance">{{ _('Investment') }}</a></li>
                 <li><a href="#autogpt-assistance">{{ _('AutoGPT') }}</a></li>
+                <li><a href="#llama-intelligence">{{ _('Llama Intel') }}</a></li>
                 <li><a href="#purchase">{{ _('Purchase') }}</a></li>
                 <li><a href="#portfolio">{{ _('Portfolio') }}</a></li>
                 <li><a href="#contact">{{ _('Contact') }}</a></li>
@@ -245,6 +246,46 @@
                 <div class="card">
                     <h3>{{ _('Cloud Infrastructure Architect') }}</h3>
                     <p>{{ _('Expert assistance for creating secure IP addresses, DNS configuration, and cloud server creation.') }}</p>
+                </div>
+                <div class="card">
+                    <h3>{{ _('Llama Intelligence Specialist') }}</h3>
+                    <p>{{ _('Deep reasoning and data-driven insights powered by Llama 3.1 405B for complex problem solving.') }}</p>
+                </div>
+                <div class="card">
+                    <h3>{{ _('Llama Guard Safety Specialist') }}</h3>
+                    <p>{{ _('Expert AI safety and content moderation using Llama Guard for secure AI interactions.') }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Llama Intelligence Section -->
+        <section id="llama-intelligence" class="services">
+            <h2>{{ _('Llama Intelligence Specialist') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Llama 3.1 405B Reasoning Support') }}</h3>
+                    <p>{{ _('Enter your complex problem or strategic inquiry for deep Llama-powered reasoning.') }}</p>
+                    <textarea id="llama-intelligence-input" placeholder="{{ _('Your complex reasoning request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="llama-intelligence-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="llama-intelligence-response-container">
+                        <pre id="llama-intelligence-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Llama Guard Section -->
+        <section id="llama-guard" class="services">
+            <h2>{{ _('Llama Guard Safety Specialist') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Llama Guard Safety Assessment') }}</h3>
+                    <p>{{ _('Enter a prompt or content to analyze for safety violations using Llama Guard.') }}</p>
+                    <textarea id="llama-guard-input" placeholder="{{ _('Content to assess for safety') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="llama-guard-btn" class="btn">{{ _('Assess Safety') }}</button>
+                    <div class="response-container" id="llama-guard-response-container">
+                        <pre id="llama-guard-response"></pre>
+                    </div>
                 </div>
             </div>
         </section>

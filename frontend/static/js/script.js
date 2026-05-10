@@ -2010,4 +2010,80 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- Llama Intelligence ---
+    const llamaIntelligenceBtn = document.getElementById('llama-intelligence-btn');
+    if (llamaIntelligenceBtn) {
+        llamaIntelligenceBtn.addEventListener('click', async () => {
+            const input = document.getElementById('llama-intelligence-input');
+            const responseContainer = document.getElementById('llama-intelligence-response');
+            const apiKey = getApiKey("Please enter your API key to use the Llama Intelligence Specialist:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/llama/intelligence', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from Llama Intelligence');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
+    // --- Llama Guard ---
+    const llamaGuardBtn = document.getElementById('llama-guard-btn');
+    if (llamaGuardBtn) {
+        llamaGuardBtn.addEventListener('click', async () => {
+            const input = document.getElementById('llama-guard-input');
+            const responseContainer = document.getElementById('llama-guard-response');
+            const apiKey = getApiKey("Please enter your API key to use the Llama Guard Safety Specialist:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/llama/guard', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from Llama Guard');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
 });

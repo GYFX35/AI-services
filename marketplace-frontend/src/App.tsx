@@ -35,7 +35,8 @@ import {
   Server,
   DollarSign,
   Handshake,
-  PiggyBank
+  PiggyBank,
+  Brain
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { userService, aiService, paymentService, setAuthToken, type User } from './api';
@@ -88,7 +89,9 @@ const AI_SERVICES: AIService[] = [
   { id: 'automl-mlops', name: 'AutoML MLOps', category: 'Development', icon: Zap, description: 'Automated ML pipelines and MLOps strategy.' },
   { id: 'monetization', name: 'Monetization Expert', category: 'Business', icon: DollarSign, description: 'Strategic advice on revenue generation and subscriptions.' },
   { id: 'partnership', name: 'Partnership Specialist', category: 'Business', icon: Handshake, description: 'Identify and nurture strategic business alliances.' },
-  { id: 'fundraising', name: 'Fundraising Strategist', category: 'Business', icon: PiggyBank, description: 'Comprehensive plans for securing project funding.' }
+  { id: 'fundraising', name: 'Fundraising Strategist', category: 'Business', icon: PiggyBank, description: 'Comprehensive plans for securing project funding.' },
+  { id: 'llama-intel', name: 'Llama Intelligence', category: 'Advanced', icon: Brain, description: 'Deep reasoning and data-driven insights powered by Llama 3.1.' },
+  { id: 'llama-guard', name: 'Llama Guard', category: 'Security', icon: ShieldCheck, description: 'AI safety and content moderation using Llama Guard.' }
 ];
 
 const App: React.FC = () => {
@@ -212,6 +215,12 @@ const App: React.FC = () => {
           break;
         case 'fundraising':
           response = await aiService.getFundraisingAdvice(servicePrompt);
+          break;
+        case 'llama-intel':
+          response = await aiService.getLlamaIntelligence(servicePrompt);
+          break;
+        case 'llama-guard':
+          response = await aiService.getLlamaGuard(servicePrompt);
           break;
         default:
           // Fallback for demo purposes if specific endpoint isn't mapped in aiService yet

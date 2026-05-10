@@ -1434,6 +1434,28 @@ def cloud_infrastructure_assistance_endpoint():
     return jsonify({"status": "success", "message": message})
 
 
+@app.route('/api/v1/llama/intelligence', methods=['POST'])
+@require_api_key
+def llama_intelligence_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_llama_intelligence(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
+@app.route('/api/v1/llama/guard', methods=['POST'])
+@require_api_key
+def llama_guard_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_llama_guard_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
 @app.route('/api/v1/langflow/execute', methods=['POST'])
 @require_api_key
 def execute_langflow_endpoint():
