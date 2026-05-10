@@ -8,6 +8,8 @@ from langchain_anthropic import ChatAnthropic
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
+from llama_index.llms.nvidia import NVIDIA as LlamaIndexNVIDIA
+from llama_index.core import Settings as LlamaIndexSettings
 
 def init_vertexai():
     """Initializes the Vertex AI SDK."""
@@ -160,6 +162,45 @@ def generate_business_strategy(prompt: str) -> str:
         return chain.invoke({"prompt": prompt}).strip()
     except Exception as e:
         return f"Error: {e}"
+
+def provide_llama_intelligence(prompt: str) -> str:
+    """
+    Uses Llama-powered intelligence for deep reasoning and data-driven insights.
+    Leverages Llama 3.1 via NVIDIA and LlamaIndex for advanced reasoning.
+    """
+    try:
+        # Configure LlamaIndex to use NVIDIA Llama 3.1 405B
+        nvidia_api_key = os.environ.get("NVIDIA_API_KEY")
+        if not nvidia_api_key:
+            return "Error: NVIDIA_API_KEY not found in environment."
+
+        llm = LlamaIndexNVIDIA(model="meta/llama-3.1-405b-instruct", api_key=nvidia_api_key)
+
+        # We can use the LLM directly for completion or in a more complex RAG setup
+        # For this integration, we show the power of Llama 3.1 405B
+        response = llm.complete(f"As an Elite Llama Intelligence Agent, provide deep reasoning and strategic insights for: {prompt}")
+        return str(response).strip()
+    except Exception as e:
+        return f"Llama Intelligence Error: {e}"
+
+def provide_llama_guard_assistance(prompt: str) -> str:
+    """
+    Uses Llama Guard for AI safety and content moderation.
+    """
+    try:
+        # Using Llama Guard 3 via NVIDIA
+        model = get_nvidia_model(model_name="meta/llama-guard-3-8b")
+
+        system_prompt = "You are an AI Safety Specialist using Llama Guard. Analyze the following prompt for potential safety violations, hate speech, or harmful content. Provide a safety assessment."
+        prompt_template = ChatPromptTemplate.from_messages([
+            ("system", system_prompt),
+            ("user", "{prompt}")
+        ])
+
+        chain = prompt_template | model | StrOutputParser()
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Llama Guard Error: {e}"
 
 def provide_monetization_advice(prompt: str) -> str:
     model = get_model()

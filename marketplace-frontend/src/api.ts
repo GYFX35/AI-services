@@ -57,6 +57,8 @@ export const aiService = {
   getMonetizationAdvice: (prompt: string) => apiClient.post('/business/monetization', { prompt }),
   getPartnershipAdvice: (prompt: string) => apiClient.post('/business/partnership', { prompt }),
   getFundraisingAdvice: (prompt: string) => apiClient.post('/business/fundraising', { prompt }),
+  getLlamaIntelligence: (prompt: string) => apiClient.post('/llama/intelligence', { prompt }),
+  getLlamaGuard: (prompt: string) => apiClient.post('/llama/guard', { prompt }),
 };
 
 export const userService = {
