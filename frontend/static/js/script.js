@@ -2086,4 +2086,80 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- NVIDIA Nemotron ---
+    const nemotronBtn = document.getElementById('nvidia-nemotron-btn');
+    if (nemotronBtn) {
+        nemotronBtn.addEventListener('click', async () => {
+            const input = document.getElementById('nvidia-nemotron-input');
+            const responseContainer = document.getElementById('nvidia-nemotron-response');
+            const apiKey = getApiKey("Please enter your API key to use the Nemotron Reasoning Specialist:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/nvidia/nemotron', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from Nemotron');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
+    // --- NVIDIA Mixtral ---
+    const mixtralBtn = document.getElementById('nvidia-mixtral-btn');
+    if (mixtralBtn) {
+        mixtralBtn.addEventListener('click', async () => {
+            const input = document.getElementById('nvidia-mixtral-input');
+            const responseContainer = document.getElementById('nvidia-mixtral-response');
+            const apiKey = getApiKey("Please enter your API key to use the Mixtral Multilingual Specialist:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/nvidia/mixtral', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from Mixtral');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
 });

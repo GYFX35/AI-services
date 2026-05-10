@@ -26,6 +26,8 @@
                 <li><a href="#investment-trading-assistance">{{ _('Investment') }}</a></li>
                 <li><a href="#autogpt-assistance">{{ _('AutoGPT') }}</a></li>
                 <li><a href="#llama-intelligence">{{ _('Llama Intel') }}</a></li>
+                <li><a href="#nvidia-nemotron">{{ _('Nemotron') }}</a></li>
+                <li><a href="#nvidia-mixtral">{{ _('Mixtral') }}</a></li>
                 <li><a href="#purchase">{{ _('Purchase') }}</a></li>
                 <li><a href="#portfolio">{{ _('Portfolio') }}</a></li>
                 <li><a href="#contact">{{ _('Contact') }}</a></li>
@@ -255,6 +257,14 @@
                     <h3>{{ _('Llama Guard Safety Specialist') }}</h3>
                     <p>{{ _('Expert AI safety and content moderation using Llama Guard for secure AI interactions.') }}</p>
                 </div>
+                <div class="card">
+                    <h3>{{ _('Nemotron Reasoning Specialist') }}</h3>
+                    <p>{{ _('Elite reasoning and complex problem solving powered by NVIDIA Nemotron.') }}</p>
+                </div>
+                <div class="card">
+                    <h3>{{ _('Mixtral Multilingual Specialist') }}</h3>
+                    <p>{{ _('High-quality multilingual assistance powered by Mixtral 8x7B.') }}</p>
+                </div>
             </div>
         </section>
 
@@ -285,6 +295,38 @@
                     <button id="llama-guard-btn" class="btn">{{ _('Assess Safety') }}</button>
                     <div class="response-container" id="llama-guard-response-container">
                         <pre id="llama-guard-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NVIDIA Nemotron Section -->
+        <section id="nvidia-nemotron" class="services">
+            <h2>{{ _('Nemotron Reasoning Specialist') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Advanced Reasoning Support') }}</h3>
+                    <p>{{ _('Enter your complex problem for elite NVIDIA Nemotron-powered reasoning.') }}</p>
+                    <textarea id="nvidia-nemotron-input" placeholder="{{ _('Your complex reasoning request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="nvidia-nemotron-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="nvidia-nemotron-response-container">
+                        <pre id="nvidia-nemotron-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NVIDIA Mixtral Section -->
+        <section id="nvidia-mixtral" class="services">
+            <h2>{{ _('Mixtral Multilingual Specialist') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Multilingual Assistance Support') }}</h3>
+                    <p>{{ _('Enter your request for high-quality multilingual assistance powered by Mixtral.') }}</p>
+                    <textarea id="nvidia-mixtral-input" placeholder="{{ _('Your multilingual request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="nvidia-mixtral-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="nvidia-mixtral-response-container">
+                        <pre id="nvidia-mixtral-response"></pre>
                     </div>
                 </div>
             </div>
