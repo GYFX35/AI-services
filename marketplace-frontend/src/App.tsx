@@ -91,7 +91,9 @@ const AI_SERVICES: AIService[] = [
   { id: 'partnership', name: 'Partnership Specialist', category: 'Business', icon: Handshake, description: 'Identify and nurture strategic business alliances.' },
   { id: 'fundraising', name: 'Fundraising Strategist', category: 'Business', icon: PiggyBank, description: 'Comprehensive plans for securing project funding.' },
   { id: 'llama-intel', name: 'Llama Intelligence', category: 'Advanced', icon: Brain, description: 'Deep reasoning and data-driven insights powered by Llama 3.1.' },
-  { id: 'llama-guard', name: 'Llama Guard', category: 'Security', icon: ShieldCheck, description: 'AI safety and content moderation using Llama Guard.' }
+  { id: 'llama-guard', name: 'Llama Guard', category: 'Security', icon: ShieldCheck, description: 'AI safety and content moderation using Llama Guard.' },
+  { id: 'nemotron', name: 'Nemotron Reasoner', category: 'Advanced', icon: Zap, description: 'Elite reasoning and complex problem solving powered by NVIDIA Nemotron.' },
+  { id: 'mixtral', name: 'Mixtral Multilingual', category: 'Advanced', icon: Globe, description: 'High-quality multilingual assistance powered by Mixtral 8x7B.' }
 ];
 
 const App: React.FC = () => {
@@ -221,6 +223,12 @@ const App: React.FC = () => {
           break;
         case 'llama-guard':
           response = await aiService.getLlamaGuard(servicePrompt);
+          break;
+        case 'nemotron':
+          response = await aiService.getNemotronReasoning(servicePrompt);
+          break;
+        case 'mixtral':
+          response = await aiService.getMixtralMultilingual(servicePrompt);
           break;
         default:
           // Fallback for demo purposes if specific endpoint isn't mapped in aiService yet

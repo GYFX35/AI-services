@@ -202,6 +202,38 @@ def provide_llama_guard_assistance(prompt: str) -> str:
     except Exception as e:
         return f"Llama Guard Error: {e}"
 
+def provide_nemotron_reasoning(prompt: str) -> str:
+    """
+    Uses NVIDIA Nemotron for advanced reasoning and complex problem solving.
+    """
+    try:
+        model = get_nvidia_model(model_name="nvidia/nemotron-4-340b-instruct")
+        system_prompt = "You are an Elite Reasoning Agent powered by NVIDIA Nemotron. Provide a logical, step-by-step analysis and solution for the user's complex query."
+        prompt_template = ChatPromptTemplate.from_messages([
+            ("system", system_prompt),
+            ("user", "{prompt}")
+        ])
+        chain = prompt_template | model | StrOutputParser()
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Nemotron Reasoning Error: {e}"
+
+def provide_mixtral_multilingual_assistance(prompt: str) -> str:
+    """
+    Uses Mixtral 8x7B for high-quality multilingual assistance.
+    """
+    try:
+        model = get_nvidia_model(model_name="mistralai/mixtral-8x7b-instruct-v0.1")
+        system_prompt = "You are a Multilingual AI Specialist powered by Mixtral. Assist the user with their request in their preferred language with high accuracy and cultural context."
+        prompt_template = ChatPromptTemplate.from_messages([
+            ("system", system_prompt),
+            ("user", "{prompt}")
+        ])
+        chain = prompt_template | model | StrOutputParser()
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Mixtral Multilingual Error: {e}"
+
 def provide_monetization_advice(prompt: str) -> str:
     model = get_model()
     prompt_template = ChatPromptTemplate.from_messages([

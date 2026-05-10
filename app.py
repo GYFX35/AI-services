@@ -1456,6 +1456,28 @@ def llama_guard_endpoint():
     return jsonify({"status": "success", "message": message})
 
 
+@app.route('/api/v1/nvidia/nemotron', methods=['POST'])
+@require_api_key
+def nvidia_nemotron_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_nemotron_reasoning(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
+@app.route('/api/v1/nvidia/mixtral', methods=['POST'])
+@require_api_key
+def nvidia_mixtral_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_mixtral_multilingual_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
 @app.route('/api/v1/langflow/execute', methods=['POST'])
 @require_api_key
 def execute_langflow_endpoint():
