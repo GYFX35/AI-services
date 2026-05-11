@@ -68,6 +68,9 @@ const AI_SERVICES: AIService[] = [
   { id: 'logistics', name: 'Logistics Manager', category: 'Business', icon: Truck, description: 'Route optimization and movement management.' },
   { id: 'it-ops', name: 'IT Operations', category: 'Infrastructure', icon: Cpu, description: 'Server and network administration.' },
   { id: 'gov-admin', name: 'Gov Administrator', category: 'Public', icon: Building2, description: 'Navigating government services and documents.' },
+  { id: 'gov-policy', name: 'Policy Advisor', category: 'Public', icon: Scale, description: 'Public policy analysis and strategic recommendations.' },
+  { id: 'gov-engagement', name: 'Citizen Engagement', category: 'Public', icon: UserIcon, description: 'Strategies for civic participation and consultations.' },
+  { id: 'gov-smart-city', name: 'Smart City Strategist', category: 'Public', icon: Zap, description: 'Urban tech integration and data-driven infrastructure.' },
   { id: 'education', name: 'Science Educator', category: 'Academic', icon: BookOpen, description: 'Mathematics, physics, and biology education.' },
   { id: 'verification', name: 'Content Verifier', category: 'Security', icon: ShieldCheck, description: 'AI content and fake news detection.' },
   { id: 'maintenance', name: 'Hardware Expert', category: 'Support', icon: Wrench, description: 'Software & hardware troubleshooting.' },
@@ -99,6 +102,7 @@ const AI_SERVICES: AIService[] = [
 const App: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('marketplace');
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const [user, setUser] = useState<User | null>(null);
   const [credits, setCredits] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
@@ -191,6 +195,18 @@ const App: React.FC = () => {
         case 'itaas':
           response = await aiService.getITaaSAssistance(servicePrompt);
           break;
+        case 'gov-admin':
+          response = await aiService.getGovernmentAssistance(servicePrompt);
+          break;
+        case 'gov-policy':
+          response = await aiService.getPublicPolicyAssistance(servicePrompt);
+          break;
+        case 'gov-engagement':
+          response = await aiService.getCitizenEngagementAssistance(servicePrompt);
+          break;
+        case 'gov-smart-city':
+          response = await aiService.getSmartCityAssistance(servicePrompt);
+          break;
         case 'conflict-debug':
           response = await aiService.getConflictDebugAssistance(servicePrompt);
           break;
@@ -272,10 +288,13 @@ const App: React.FC = () => {
     }
   };
 
-  const filteredServices = AI_SERVICES.filter(service =>
-    service.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    service.category.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredServices = AI_SERVICES.filter(service => {
+    const matchesSearch = service.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         service.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         service.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedCategory === 'All' || service.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans">
@@ -546,8 +565,16 @@ const App: React.FC = () => {
             <div className="flex justify-between items-center mb-8">
               <h2 className="text-2xl font-bold text-gray-900">Featured Services</h2>
               <div className="flex space-x-2 overflow-x-auto pb-2">
-                {['All', 'Development', 'Business', 'Support', 'Security'].map(cat => (
-                  <button key={cat} className="whitespace-nowrap px-4 py-2 rounded-full border bg-white hover:bg-gray-50 text-sm font-medium">
+                {['All', 'Development', 'Business', 'Public', 'Support', 'Security', 'Advanced', 'Infrastructure', 'Science'].map(cat => (
+                  <button
+                    key={cat}
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`whitespace-nowrap px-4 py-2 rounded-full border text-sm font-medium transition-colors ${
+                      selectedCategory === cat
+                        ? 'bg-blue-600 text-white border-blue-600'
+                        : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                    }`}
+                  >
                     {cat}
                   </button>
                 ))}

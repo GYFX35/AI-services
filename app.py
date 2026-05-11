@@ -1080,6 +1080,36 @@ def government_assistance_endpoint():
     message = google_ai.provide_government_assistance(prompt)
     return jsonify({"status": "success", "message": message})
 
+@app.route('/api/v1/government/policy', methods=['POST'])
+@require_api_key
+def public_policy_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_public_policy_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
+@app.route('/api/v1/government/engagement', methods=['POST'])
+@require_api_key
+def citizen_engagement_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_citizen_engagement_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
+@app.route('/api/v1/government/smart-city', methods=['POST'])
+@require_api_key
+def smart_city_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_smart_city_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
 
 @app.route('/api/v1/biotech/assistance', methods=['POST'])
 @require_api_key
