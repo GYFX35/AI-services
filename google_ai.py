@@ -561,8 +561,44 @@ def provide_ecommerce_assistance(prompt: str) -> str:
 def provide_government_assistance(prompt: str) -> str:
     model = get_model()
     prompt_template = ChatPromptTemplate.from_messages([
-        ("system", "You are an expert government public administrator assistant."),
-        ("user", "Provide assistance with government services and document providing for: {prompt}")
+        ("system", "You are an expert government public administrator assistant. Your goal is to help citizens and officials navigate public services, understand bureaucratic processes, and facilitate document acquisition efficiently and transparently."),
+        ("user", "Provide comprehensive assistance with government services, administrative procedures, and document providing for: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
+def provide_public_policy_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert Public Policy Advisor and Analyst. Your role is to provide data-driven insights, policy evaluation, and strategic recommendations for government entities and public organizations."),
+        ("user", "Analyze and provide strategic advice on the following public policy issue: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
+def provide_citizen_engagement_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert in Citizen Engagement and Participatory Democracy. Your goal is to help governments foster better communication with citizens, design public consultation processes, and enhance civic participation."),
+        ("user", "Provide a strategy or plan to improve citizen engagement for: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
+def provide_smart_city_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert Smart City Strategist and Urban Technologist. Your role is to provide guidance on integrating AI, IoT, and data analytics into urban infrastructure to improve the quality of life for citizens."),
+        ("user", "Provide a technical and strategic plan for smart city integration regarding: {prompt}")
     ])
     chain = prompt_template | model | StrOutputParser()
     try:
