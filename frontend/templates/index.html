@@ -19,6 +19,7 @@
                 <li><a href="#maintenance-assistance">{{ _('Maintenance') }}</a></li>
                 <li><a href="#it-operations-assistance">{{ _('IT Ops') }}</a></li>
                 <li><a href="#cloud-infrastructure-assistance">{{ _('Cloud Infra') }}</a></li>
+                <li><a href="#arvr-optimization">{{ _('AR/VR Opt') }}</a></li>
                 <li><a href="#esports-assistance">{{ _('eSports') }}</a></li>
                 <li><a href="#fake-content-verification">{{ _('Verification') }}</a></li>
                 <li><a href="#military-assistance">{{ _('Military') }}</a></li>
@@ -252,6 +253,10 @@
                     <p>{{ _('Expert assistance for creating secure IP addresses, DNS configuration, and cloud server creation.') }}</p>
                 </div>
                 <div class="card">
+                    <h3>{{ _('AR/VR Optimization Specialist') }}</h3>
+                    <p>{{ _('Expert assistance for AR/VR performance tuning, asset optimization, and immersive experience strategy.') }}</p>
+                </div>
+                <div class="card">
                     <h3>{{ _('Llama Intelligence Specialist') }}</h3>
                     <p>{{ _('Deep reasoning and data-driven insights powered by Llama 3.1 405B for complex problem solving.') }}</p>
                 </div>
@@ -274,6 +279,22 @@
                 <div class="card">
                     <h3>{{ _('Claude Coding Specialist') }}</h3>
                     <p>{{ _('Elite code generation and architectural advice powered by Anthropic Claude.') }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- AR/VR Optimization Section -->
+        <section id="arvr-optimization" class="services">
+            <h2>{{ _('AR/VR Optimization Specialist') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('AR/VR Performance & Asset Support') }}</h3>
+                    <p>{{ _('Enter your request for AR/VR performance tuning, asset optimization, or immersive strategy below.') }}</p>
+                    <textarea id="arvr-optimization-input" placeholder="{{ _('Your AR/VR optimization request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="arvr-optimization-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="arvr-optimization-response-container">
+                        <pre id="arvr-optimization-response"></pre>
+                    </div>
                 </div>
             </div>
         </section>
