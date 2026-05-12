@@ -71,6 +71,7 @@ const AI_SERVICES: AIService[] = [
   { id: 'gov-policy', name: 'Policy Advisor', category: 'Public', icon: Scale, description: 'Public policy analysis and strategic recommendations.' },
   { id: 'gov-engagement', name: 'Citizen Engagement', category: 'Public', icon: UserIcon, description: 'Strategies for civic participation and consultations.' },
   { id: 'gov-smart-city', name: 'Smart City Strategist', category: 'Public', icon: Zap, description: 'Urban tech integration and data-driven infrastructure.' },
+  { id: 'gov-bias-detection', name: 'Bias Detector', category: 'Public', icon: ShieldAlert, description: 'Analyze government services and policies for AI bias and ethical fairness.' },
   { id: 'education', name: 'Science Educator', category: 'Academic', icon: BookOpen, description: 'Mathematics, physics, and biology education.' },
   { id: 'verification', name: 'Content Verifier', category: 'Security', icon: ShieldCheck, description: 'AI content and fake news detection.' },
   { id: 'maintenance', name: 'Hardware Expert', category: 'Support', icon: Wrench, description: 'Software & hardware troubleshooting.' },
@@ -208,6 +209,9 @@ const App: React.FC = () => {
           break;
         case 'gov-smart-city':
           response = await aiService.getSmartCityAssistance(servicePrompt);
+          break;
+        case 'gov-bias-detection':
+          response = await aiService.getBiasDetectionAssistance(servicePrompt);
           break;
         case 'conflict-debug':
           response = await aiService.getConflictDebugAssistance(servicePrompt);

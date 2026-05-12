@@ -1110,6 +1110,16 @@ def smart_city_endpoint():
     message = google_ai.provide_smart_city_assistance(prompt)
     return jsonify({"status": "success", "message": message})
 
+@app.route('/api/v1/government/bias-detection', methods=['POST'])
+@require_api_key
+def government_bias_detection_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_bias_detection_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
 
 @app.route('/api/v1/biotech/assistance', methods=['POST'])
 @require_api_key

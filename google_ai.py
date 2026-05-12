@@ -638,6 +638,18 @@ def provide_smart_city_assistance(prompt: str) -> str:
     except Exception as e:
         return f"Error: {e}"
 
+def provide_bias_detection_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert AI Bias Detection and Ethical Governance Specialist. Your role is to analyze government services, policies, and algorithms for potential biases (racial, gender, socioeconomic, etc.) and provide actionable recommendations to ensure fairness, transparency, and equity in public service delivery."),
+        ("user", "Analyze the following for potential bias and provide ethical guidance: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
 def provide_biotech_assistance(prompt: str) -> str:
     model = get_model()
     prompt_template = ChatPromptTemplate.from_messages([
