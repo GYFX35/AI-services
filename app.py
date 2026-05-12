@@ -1508,6 +1508,28 @@ def nvidia_mixtral_endpoint():
     return jsonify({"status": "success", "message": message})
 
 
+@app.route('/api/v1/anthropic/intelligence', methods=['POST'])
+@require_api_key
+def anthropic_intelligence_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_claude_intelligence(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
+@app.route('/api/v1/anthropic/coding', methods=['POST'])
+@require_api_key
+def anthropic_coding_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_claude_coding_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
 @app.route('/api/v1/langflow/execute', methods=['POST'])
 @require_api_key
 def execute_langflow_endpoint():

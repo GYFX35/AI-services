@@ -163,6 +163,38 @@ def generate_business_strategy(prompt: str) -> str:
     except Exception as e:
         return f"Error: {e}"
 
+def provide_claude_intelligence(prompt: str) -> str:
+    """
+    Uses Anthropic Claude for deep reasoning, strategic analysis, and nuanced understanding.
+    """
+    try:
+        model = get_claude_model()
+        system_prompt = "You are an Elite Intelligence Agent powered by Anthropic Claude. Provide deep reasoning, strategic analysis, and nuanced insights for the user's query."
+        prompt_template = ChatPromptTemplate.from_messages([
+            ("system", system_prompt),
+            ("user", "{prompt}")
+        ])
+        chain = prompt_template | model | StrOutputParser()
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Claude Intelligence Error: {e}"
+
+def provide_claude_coding_assistance(prompt: str) -> str:
+    """
+    Uses Anthropic Claude for elite code generation, debugging, and architectural advice.
+    """
+    try:
+        model = get_claude_model()
+        system_prompt = "You are an Elite Software Engineer and Architect powered by Anthropic Claude. Provide high-quality code generation, robust debugging, and expert architectural advice."
+        prompt_template = ChatPromptTemplate.from_messages([
+            ("system", system_prompt),
+            ("user", "{prompt}")
+        ])
+        chain = prompt_template | model | StrOutputParser()
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Claude Coding Error: {e}"
+
 def provide_llama_intelligence(prompt: str) -> str:
     """
     Uses Llama-powered intelligence for deep reasoning and data-driven insights.
