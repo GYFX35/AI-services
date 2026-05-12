@@ -28,6 +28,8 @@
                 <li><a href="#llama-intelligence">{{ _('Llama Intel') }}</a></li>
                 <li><a href="#nvidia-nemotron">{{ _('Nemotron') }}</a></li>
                 <li><a href="#nvidia-mixtral">{{ _('Mixtral') }}</a></li>
+                <li><a href="#anthropic-intelligence">{{ _('Claude Intel') }}</a></li>
+                <li><a href="#anthropic-coding">{{ _('Claude Coder') }}</a></li>
                 <li><a href="#purchase">{{ _('Purchase') }}</a></li>
                 <li><a href="#portfolio">{{ _('Portfolio') }}</a></li>
                 <li><a href="#contact">{{ _('Contact') }}</a></li>
@@ -265,6 +267,14 @@
                     <h3>{{ _('Mixtral Multilingual Specialist') }}</h3>
                     <p>{{ _('High-quality multilingual assistance powered by Mixtral 8x7B.') }}</p>
                 </div>
+                <div class="card">
+                    <h3>{{ _('Claude Intelligence Specialist') }}</h3>
+                    <p>{{ _('Deep reasoning and strategic analysis powered by Anthropic Claude.') }}</p>
+                </div>
+                <div class="card">
+                    <h3>{{ _('Claude Coding Specialist') }}</h3>
+                    <p>{{ _('Elite code generation and architectural advice powered by Anthropic Claude.') }}</p>
+                </div>
             </div>
         </section>
 
@@ -327,6 +337,38 @@
                     <button id="nvidia-mixtral-btn" class="btn">{{ _('Submit') }}</button>
                     <div class="response-container" id="nvidia-mixtral-response-container">
                         <pre id="nvidia-mixtral-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Anthropic Intelligence Section -->
+        <section id="anthropic-intelligence" class="services">
+            <h2>{{ _('Claude Intelligence Specialist') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Deep Reasoning & Analysis Support') }}</h3>
+                    <p>{{ _('Enter your request for deep reasoning and strategic analysis powered by Anthropic Claude.') }}</p>
+                    <textarea id="anthropic-intelligence-input" placeholder="{{ _('Your reasoning or analysis request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="anthropic-intelligence-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="anthropic-intelligence-response-container">
+                        <pre id="anthropic-intelligence-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Anthropic Coding Section -->
+        <section id="anthropic-coding" class="services">
+            <h2>{{ _('Claude Coding Specialist') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Elite Coding & Architecture Support') }}</h3>
+                    <p>{{ _('Enter your request for elite code generation or architectural advice powered by Anthropic Claude.') }}</p>
+                    <textarea id="anthropic-coding-input" placeholder="{{ _('Your coding or architecture request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="anthropic-coding-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="anthropic-coding-response-container">
+                        <pre id="anthropic-coding-response"></pre>
                     </div>
                 </div>
             </div>

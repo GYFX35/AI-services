@@ -61,6 +61,8 @@ export const aiService = {
   getLlamaGuard: (prompt: string) => apiClient.post('/llama/guard', { prompt }),
   getNemotronReasoning: (prompt: string) => apiClient.post('/nvidia/nemotron', { prompt }),
   getMixtralMultilingual: (prompt: string) => apiClient.post('/nvidia/mixtral', { prompt }),
+  getClaudeIntelligence: (prompt: string) => apiClient.post('/anthropic/intelligence', { prompt }),
+  getClaudeCoding: (prompt: string) => apiClient.post('/anthropic/coding', { prompt }),
 };
 
 export const userService = {

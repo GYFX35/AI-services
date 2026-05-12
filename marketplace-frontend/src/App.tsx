@@ -96,7 +96,9 @@ const AI_SERVICES: AIService[] = [
   { id: 'llama-intel', name: 'Llama Intelligence', category: 'Advanced', icon: Brain, description: 'Deep reasoning and data-driven insights powered by Llama 3.1.' },
   { id: 'llama-guard', name: 'Llama Guard', category: 'Security', icon: ShieldCheck, description: 'AI safety and content moderation using Llama Guard.' },
   { id: 'nemotron', name: 'Nemotron Reasoner', category: 'Advanced', icon: Zap, description: 'Elite reasoning and complex problem solving powered by NVIDIA Nemotron.' },
-  { id: 'mixtral', name: 'Mixtral Multilingual', category: 'Advanced', icon: Globe, description: 'High-quality multilingual assistance powered by Mixtral 8x7B.' }
+  { id: 'mixtral', name: 'Mixtral Multilingual', category: 'Advanced', icon: Globe, description: 'High-quality multilingual assistance powered by Mixtral 8x7B.' },
+  { id: 'claude-intel', name: 'Claude Intelligence', category: 'Advanced', icon: Brain, description: 'Deep reasoning and strategic analysis powered by Anthropic Claude.' },
+  { id: 'claude-coder', name: 'Claude Coder', category: 'Development', icon: Code2, description: 'Elite code generation and architectural advice powered by Anthropic Claude.' }
 ];
 
 const App: React.FC = () => {
@@ -245,6 +247,12 @@ const App: React.FC = () => {
           break;
         case 'mixtral':
           response = await aiService.getMixtralMultilingual(servicePrompt);
+          break;
+        case 'claude-intel':
+          response = await aiService.getClaudeIntelligence(servicePrompt);
+          break;
+        case 'claude-coder':
+          response = await aiService.getClaudeCoding(servicePrompt);
           break;
         default:
           // Fallback for demo purposes if specific endpoint isn't mapped in aiService yet

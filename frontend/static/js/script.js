@@ -2162,4 +2162,80 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- Anthropic Intelligence ---
+    const anthropicIntelligenceBtn = document.getElementById('anthropic-intelligence-btn');
+    if (anthropicIntelligenceBtn) {
+        anthropicIntelligenceBtn.addEventListener('click', async () => {
+            const input = document.getElementById('anthropic-intelligence-input');
+            const responseContainer = document.getElementById('anthropic-intelligence-response');
+            const apiKey = getApiKey("Please enter your API key to use the Claude Intelligence Specialist:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/anthropic/intelligence', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from Anthropic Claude');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
+    // --- Anthropic Coding ---
+    const anthropicCodingBtn = document.getElementById('anthropic-coding-btn');
+    if (anthropicCodingBtn) {
+        anthropicCodingBtn.addEventListener('click', async () => {
+            const input = document.getElementById('anthropic-coding-input');
+            const responseContainer = document.getElementById('anthropic-coding-response');
+            const apiKey = getApiKey("Please enter your API key to use the Claude Coding Specialist:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/anthropic/coding', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from Anthropic Claude');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
 });
