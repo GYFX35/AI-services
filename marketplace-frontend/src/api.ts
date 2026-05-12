@@ -54,6 +54,7 @@ export const aiService = {
   getAutoMLModelSelection: (prompt: string) => apiClient.post('/automl/model-selection', { prompt }),
   getAutoMLMLOps: (prompt: string) => apiClient.post('/automl/mlops', { prompt }),
   getCloudInfrastructureAssistance: (prompt: string) => apiClient.post('/cloud-infrastructure/assistance', { prompt }),
+  getARVROptimizationAssistance: (prompt: string) => apiClient.post('/arvr/optimization', { prompt }),
   getMonetizationAdvice: (prompt: string) => apiClient.post('/business/monetization', { prompt }),
   getPartnershipAdvice: (prompt: string) => apiClient.post('/business/partnership', { prompt }),
   getFundraisingAdvice: (prompt: string) => apiClient.post('/business/fundraising', { prompt }),

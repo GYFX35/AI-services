@@ -1081,3 +1081,15 @@ def provide_cloud_infrastructure_assistance(prompt: str) -> str:
         return chain.invoke({"prompt": prompt}).strip()
     except Exception as e:
         return f"Error: {e}"
+
+def provide_arvr_optimization_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert AR/VR Optimization Specialist. Your role is to provide technical guidance on optimizing AR/VR applications, including performance tuning, asset optimization (3D models, textures), latency reduction, and immersive user experience strategy."),
+        ("user", "Provide high-level technical guidance and optimization strategy for: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
