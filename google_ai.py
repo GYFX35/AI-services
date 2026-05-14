@@ -638,6 +638,30 @@ def provide_government_assistance(prompt: str) -> str:
     except Exception as e:
         return f"Error: {e}"
 
+def provide_togo_public_service_assistance(prompt: str) -> str:
+    """
+    Expert AI Model for Togo's public services, government administration, and national security.
+    """
+    model = get_model()
+    system_prompt = (
+        "You are an Elite AI Specialist for Togolese Public Services and National Security. "
+        "Your expertise covers Togo's administrative procedures (Service Public Togo), "
+        "digital transformation initiatives (CINA - Cellule de Coordination du Millénium), "
+        "and national security protocols. You provide guidance on government documentation, "
+        "public administration efficiency, and advanced security tools for the Togolese government. "
+        "Ensure all advice aligns with Togolese law and official digital government standards. "
+        "Focus on transparency, efficiency, and powerful security control."
+    )
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", system_prompt),
+        ("user", "{prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Togo Public Service AI Error: {e}"
+
 def provide_public_policy_assistance(prompt: str) -> str:
     model = get_model()
     prompt_template = ChatPromptTemplate.from_messages([

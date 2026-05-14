@@ -67,6 +67,7 @@ const AI_SERVICES: AIService[] = [
   { id: 'biotech', name: 'Biotech Specialist', category: 'Science', icon: FlaskConical, description: 'Molecular biology and regulatory research.' },
   { id: 'logistics', name: 'Logistics Manager', category: 'Business', icon: Truck, description: 'Route optimization and movement management.' },
   { id: 'it-ops', name: 'IT Operations', category: 'Infrastructure', icon: Cpu, description: 'Server and network administration.' },
+  { id: 'togo-gov', name: 'Togo Public Service', category: 'Public', icon: Building2, description: 'Elite AI for Togolese public services, government administration, and national security.' },
   { id: 'gov-admin', name: 'Gov Administrator', category: 'Public', icon: Building2, description: 'Navigating government services and documents.' },
   { id: 'gov-policy', name: 'Policy Advisor', category: 'Public', icon: Scale, description: 'Public policy analysis and strategic recommendations.' },
   { id: 'gov-engagement', name: 'Citizen Engagement', category: 'Public', icon: UserIcon, description: 'Strategies for civic participation and consultations.' },
@@ -204,6 +205,9 @@ const App: React.FC = () => {
           break;
         case 'gov-admin':
           response = await aiService.getGovernmentAssistance(servicePrompt);
+          break;
+        case 'togo-gov':
+          response = await aiService.getTogoAssistance(servicePrompt);
           break;
         case 'gov-policy':
           response = await aiService.getPublicPolicyAssistance(servicePrompt);
