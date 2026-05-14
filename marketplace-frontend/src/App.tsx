@@ -72,6 +72,10 @@ const AI_SERVICES: AIService[] = [
   { id: 'gov-engagement', name: 'Citizen Engagement', category: 'Public', icon: UserIcon, description: 'Strategies for civic participation and consultations.' },
   { id: 'gov-smart-city', name: 'Smart City Strategist', category: 'Public', icon: Zap, description: 'Urban tech integration and data-driven infrastructure.' },
   { id: 'gov-bias-detection', name: 'Bias Detector', category: 'Public', icon: ShieldAlert, description: 'Analyze government services and policies for AI bias and ethical fairness.' },
+  { id: 'military', name: 'Military Strategist', category: 'Public', icon: ShieldCheck, description: 'Defense analysis and strategic operational planning.' },
+  { id: 'gendarmerie', name: 'Gendarmerie Advisor', category: 'Public', icon: ShieldCheck, description: 'Specialized paramilitary and rural security guidance.' },
+  { id: 'police', name: 'Police Specialist', category: 'Public', icon: ShieldCheck, description: 'Optimizing law enforcement and community policing.' },
+  { id: 'security-opt', name: 'Security Optimizer', category: 'Public', icon: Zap, description: 'Performance tuning for public security services.' },
   { id: 'education', name: 'Science Educator', category: 'Academic', icon: BookOpen, description: 'Mathematics, physics, and biology education.' },
   { id: 'verification', name: 'Content Verifier', category: 'Security', icon: ShieldCheck, description: 'AI content and fake news detection.' },
   { id: 'maintenance', name: 'Hardware Expert', category: 'Support', icon: Wrench, description: 'Software & hardware troubleshooting.' },
@@ -212,6 +216,18 @@ const App: React.FC = () => {
           break;
         case 'gov-bias-detection':
           response = await aiService.getBiasDetectionAssistance(servicePrompt);
+          break;
+        case 'military':
+          response = await aiService.getMilitaryAssistance(servicePrompt);
+          break;
+        case 'gendarmerie':
+          response = await aiService.getGendarmerieAssistance(servicePrompt);
+          break;
+        case 'police':
+          response = await aiService.getPoliceAssistance(servicePrompt);
+          break;
+        case 'security-opt':
+          response = await aiService.getSecurityOptimization(servicePrompt);
           break;
         case 'conflict-debug':
           response = await aiService.getConflictDebugAssistance(servicePrompt);

@@ -1004,6 +1004,39 @@ def military_assistance_endpoint():
     return jsonify({"status": "success", "message": message})
 
 
+@app.route('/api/v1/gendarmerie/assistance', methods=['POST'])
+@require_api_key
+def gendarmerie_assistance_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_gendarmerie_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
+@app.route('/api/v1/police/assistance', methods=['POST'])
+@require_api_key
+def police_assistance_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_police_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
+@app.route('/api/v1/security/optimization', methods=['POST'])
+@require_api_key
+def security_optimization_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_security_optimization_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
 @app.route('/api/v1/podcast/assistance', methods=['POST'])
 @require_api_key
 def podcast_assistance_endpoint():

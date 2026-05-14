@@ -509,8 +509,44 @@ def provide_investigation_assistance(prompt: str) -> str:
 def provide_military_assistance(prompt: str) -> str:
     model = get_model()
     prompt_template = ChatPromptTemplate.from_messages([
-        ("system", "You are an expert military and security strategist."),
-        ("user", "Provide assistance and guidance for armies and security services based on: {prompt}")
+        ("system", "You are an expert Military Strategist and Defense Analyst. Your role is to provide strategic guidance, tactical analysis, and operational planning assistance for armed forces. Focus on modern warfare, defense technology, and national security optimization."),
+        ("user", "Provide comprehensive military assistance and strategic guidance for: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
+def provide_gendarmerie_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert Gendarmerie Specialist and Paramilitary Advisor. Your role is to assist with hybrid civilian-military security missions, rural policing strategies, public order maintenance, and specialized law enforcement operations."),
+        ("user", "Provide specialized gendarmerie assistance and operational guidance for: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
+def provide_police_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert Police Service and Law Enforcement Specialist. Your goal is to help optimize police performance, community policing strategies, crime prevention techniques, and urban security management."),
+        ("user", "Provide professional police service assistance and performance optimization for: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
+def provide_security_optimization_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert Security Performance and Optimization Specialist. Your role is to analyze and improve the efficiency of security services, integrating advanced AI analytics, resource management, and strategic planning to enhance public safety."),
+        ("user", "Analyze and provide an optimization plan for the following security service request: {prompt}")
     ])
     chain = prompt_template | model | StrOutputParser()
     try:
