@@ -4,8 +4,20 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="apple-touch-icon" href="./favicon.svg" />
     <title>Yendoukoa AI - AI Service Marketplace</title>
-    <script type="module" crossorigin src="./assets/index-BNBWLvg3.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js').catch(err => {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+        });
+      }
+    </script>
+    <script type="module" crossorigin src="./assets/index-CmhC_--J.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-ZK06nnmC.css">
   </head>
   <body>

@@ -2,6 +2,16 @@
 
 This project is a web-based AI agent that can perform several roles to assist with software development and business tasks.
 
+## 🚀 News Update: Multi-Platform Accessibility
+
+We are excited to announce that Yendoukoa AI is now accessible across all your devices and browsers!
+
+-   **Browsers:** Full support for **Chrome** and **Firefox** via our new browser extension.
+-   **Mobile:** Installable as a Progressive Web App (PWA) on **Android** and **iOS**.
+-   **Desktop:** Use it as a standalone app on **Windows**, **macOS**, and **Linux** through PWA installation or our browser extension.
+
+Stay productive everywhere with Yendoukoa AI!
+
 ## Devpost Challenge Submission
 
 This project is a submission for the **[Name of Devpost Challenge]**.
