@@ -1176,3 +1176,51 @@ def provide_cloud_infrastructure_assistance(prompt: str) -> str:
         return chain.invoke({"prompt": prompt}).strip()
     except Exception as e:
         return f"Error: {e}"
+
+def provide_iaas_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert IaaS (Infrastructure as a Service) Specialist. Your goal is to provide guidance on virtualized computing resources over the internet, including virtual machines, storage, and networking."),
+        ("user", "Provide high-level technical guidance and strategic advice for IaaS based on: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
+def provide_paas_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert PaaS (Platform as a Service) Specialist. Your goal is to provide guidance on platforms that allow customers to develop, run, and manage applications without the complexity of building and maintaining infrastructure."),
+        ("user", "Provide high-level technical guidance and strategic advice for PaaS based on: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
+def provide_saas_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert SaaS (Software as a Service) Specialist. Your goal is to provide guidance on software distribution models where applications are hosted by a provider and made available to customers over a network, typically the internet."),
+        ("user", "Provide high-level technical guidance and strategic advice for SaaS based on: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
+
+def provide_itaas_assistance(prompt: str) -> str:
+    model = get_model()
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert ITaaS (IT as a Service) Specialist. Your goal is to provide guidance on an operational model where the IT department or a provider delivers IT services to a business as a subscription-based service."),
+        ("user", "Provide high-level technical guidance and strategic advice for ITaaS based on: {prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Error: {e}"
