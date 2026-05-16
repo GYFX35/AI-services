@@ -163,6 +163,29 @@ def generate_business_strategy(prompt: str) -> str:
     except Exception as e:
         return f"Error: {e}"
 
+def provide_domain_codex_assistance(prompt: str) -> str:
+    """
+    Expert AI Model for Domain Codex Design, DHCP configuration, and USSP infrastructure.
+    """
+    model = get_model()
+    system_prompt = (
+        "You are an Elite Domain Codex Designer and Infrastructure Architect. "
+        "Your expertise covers custom domain design, DHCP address configuration, "
+        "and USSP (U-space Service Provider) infrastructure using Codex-level insights. "
+        "Provide high-level technical guidance, strategic design plans, and secure "
+        "implementation steps for advanced AI projects requiring specialized network "
+        "architectures and domain naming conventions. Our primary domain is ai.yendoukoa.com."
+    )
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", system_prompt),
+        ("user", "{prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Domain Codex AI Error: {e}"
+
 def provide_claude_intelligence(prompt: str) -> str:
     """
     Uses Anthropic Claude for deep reasoning, strategic analysis, and nuanced understanding.

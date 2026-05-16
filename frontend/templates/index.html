@@ -19,6 +19,7 @@
                 <li><a href="#maintenance-assistance">{{ _('Maintenance') }}</a></li>
                 <li><a href="#it-operations-assistance">{{ _('IT Ops') }}</a></li>
                 <li><a href="#cloud-infrastructure-assistance">{{ _('Cloud Infra') }}</a></li>
+                <li><a href="#domain-codex-assistance">{{ _('Domain Codex') }}</a></li>
                 <li><a href="#esports-assistance">{{ _('eSports') }}</a></li>
                 <li><a href="#fake-content-verification">{{ _('Verification') }}</a></li>
                 <li><a href="#military-assistance">{{ _('Military') }}</a></li>
@@ -252,6 +253,10 @@
                     <p>{{ _('Expert assistance for creating secure IP addresses, DNS configuration, and cloud server creation.') }}</p>
                 </div>
                 <div class="card">
+                    <h3>{{ _('Domain Codex Designer') }}</h3>
+                    <p>{{ _('Elite custom domain design and USSP (U-space Service Provider) infrastructure architect.') }}</p>
+                </div>
+                <div class="card">
                     <h3>{{ _('Llama Intelligence Specialist') }}</h3>
                     <p>{{ _('Deep reasoning and data-driven insights powered by Llama 3.1 405B for complex problem solving.') }}</p>
                 </div>
@@ -274,6 +279,22 @@
                 <div class="card">
                     <h3>{{ _('Claude Coding Specialist') }}</h3>
                     <p>{{ _('Elite code generation and architectural advice powered by Anthropic Claude.') }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Domain Codex Designer Section -->
+        <section id="domain-codex-assistance" class="services">
+            <h2>{{ _('Domain Codex Designer') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('DHCP, Codex Domain & USSP Support') }}</h3>
+                    <p>{{ _('Enter your request for custom domain design, DHCP configuration, or USSP infrastructure below.') }}</p>
+                    <textarea id="domain-codex-input" placeholder="{{ _('Your domain codex request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="domain-codex-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="domain-codex-response-container">
+                        <pre id="domain-codex-response"></pre>
+                    </div>
                 </div>
             </div>
         </section>
