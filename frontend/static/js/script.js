@@ -261,6 +261,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Digital Ecosystem Assistance ---
+    const digitalEcosystemBtn = document.getElementById('digital-ecosystem-btn');
+    if (digitalEcosystemBtn) {
+        digitalEcosystemBtn.addEventListener('click', async () => {
+            const input = document.getElementById('digital-ecosystem-input');
+            const responseContainer = document.getElementById('digital-ecosystem-response');
+            const apiKey = getApiKey("Please enter your API key to use the Digital Ecosystem Architect:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/digital-ecosystem/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the digital ecosystem architect');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- Domain Codex Assistance ---
     const domainCodexBtn = document.getElementById('domain-codex-btn');
     if (domainCodexBtn) {

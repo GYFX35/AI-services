@@ -47,6 +47,7 @@ export const aiService = {
   getPaaSAssistance: (prompt: string) => apiClient.post('/paas/assistance', { prompt }),
   getSaaSAssistance: (prompt: string) => apiClient.post('/saas/assistance', { prompt }),
   getITaaSAssistance: (prompt: string) => apiClient.post('/itaas/assistance', { prompt }),
+  getDigitalEcosystemAssistance: (prompt: string) => apiClient.post('/digital-ecosystem/assistance', { prompt }),
   getUSSDBlockchainAssistance: (prompt: string) => apiClient.post('/ussd-blockchain/assistance', { prompt }),
   getGovernmentAssistance: (prompt: string) => apiClient.post('/government/assistance', { prompt }),
   getTogoAssistance: (prompt: string) => apiClient.post('/togo/assistance', { prompt }),

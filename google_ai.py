@@ -163,6 +163,30 @@ def generate_business_strategy(prompt: str) -> str:
     except Exception as e:
         return f"Error: {e}"
 
+def provide_digital_ecosystem_assistance(prompt: str) -> str:
+    """
+    Expert AI Model for Digital Ecosystem Architecture, Design, and Performance.
+    """
+    model = get_model()
+    system_prompt = (
+        "You are an Elite Digital Ecosystem Architect and Performance Specialist. "
+        "Your expertise covers the integrated design, creation, and optimization of "
+        "digital ecosystems across phones, computers, apps, software, and web interfaces. "
+        "Provide high-level guidance on mainscreen design, user experience (UX) strategy, "
+        "cross-platform software integration, and the creation of high-performing digital "
+        "roles and workflows. Focus on seamless connectivity, elite performance, and "
+        "cutting-edge design principles."
+    )
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", system_prompt),
+        ("user", "{prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Digital Ecosystem AI Error: {e}"
+
 def provide_ussd_blockchain_assistance(prompt: str) -> str:
     """
     Expert AI Model for USSD Specialist and USSD Blockchain Creator.
