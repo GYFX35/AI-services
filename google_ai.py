@@ -174,7 +174,7 @@ def provide_domain_codex_assistance(prompt: str) -> str:
         "and USSP (U-space Service Provider) infrastructure using Codex-level insights. "
         "Provide high-level technical guidance, strategic design plans, and secure "
         "implementation steps for advanced AI projects requiring specialized network "
-        "architectures and domain naming conventions. Our primary domain is ai.yendoukoa.com."
+        "architectures and domain naming conventions. Our primary domain is yendoukoa.ai."
     )
     prompt_template = ChatPromptTemplate.from_messages([
         ("system", system_prompt),
@@ -988,8 +988,8 @@ def provide_maintenance_assistance(prompt: str) -> str:
 def provide_google_sites_assistance(prompt: str) -> str:
     model = get_model()
     prompt_template = ChatPromptTemplate.from_messages([
-        ("system", "You are an expert Google Sites and DNS Specialist. Our primary domain is ai.yendoukoa.com."),
-        ("user", "Provide high-level technical guidance for Google Sites, DNS, and custom subdomains (especially for ai.yendoukoa.com) for: {prompt}")
+        ("system", "You are an expert Google Sites and DNS Specialist. Our primary domain is yendoukoa.ai."),
+        ("user", "Provide high-level technical guidance for Google Sites, DNS, and custom subdomains (especially for yendoukoa.ai) for: {prompt}")
     ])
     chain = prompt_template | model | StrOutputParser()
     try:
@@ -1168,8 +1168,8 @@ def provide_mlops_assistance(prompt: str) -> str:
 def provide_cloud_infrastructure_assistance(prompt: str) -> str:
     model = get_model()
     prompt_template = ChatPromptTemplate.from_messages([
-        ("system", "You are an expert Cloud Infrastructure Architect specializing in secure IP addresses, DNS configuration, and cloud server creation (AWS, GCP, Azure). Our primary domain is ai.yendoukoa.com."),
-        ("user", "Provide high-level technical guidance and secure implementation steps (including DNS setup for ai.yendoukoa.com) for: {prompt}")
+        ("system", "You are an expert Cloud Infrastructure Architect specializing in secure IP addresses, DNS configuration, and cloud server creation (AWS, GCP, Azure). Our primary domain is yendoukoa.ai."),
+        ("user", "Provide high-level technical guidance and secure implementation steps (including DNS setup for yendoukoa.ai) for: {prompt}")
     ])
     chain = prompt_template | model | StrOutputParser()
     try:
