@@ -31,6 +31,7 @@ import {
   Layout,
   Mail,
   TrendingUp,
+  Smartphone,
   Cloud,
   Server,
   DollarSign,
@@ -105,7 +106,8 @@ const AI_SERVICES: AIService[] = [
   { id: 'nemotron', name: 'Nemotron Reasoner', category: 'Advanced', icon: Zap, description: 'Elite reasoning and complex problem solving powered by NVIDIA Nemotron.' },
   { id: 'mixtral', name: 'Mixtral Multilingual', category: 'Advanced', icon: Globe, description: 'High-quality multilingual assistance powered by Mixtral 8x7B.' },
   { id: 'claude-intel', name: 'Claude Intelligence', category: 'Advanced', icon: Brain, description: 'Deep reasoning and strategic analysis powered by Anthropic Claude.' },
-  { id: 'claude-coder', name: 'Claude Coder', category: 'Development', icon: Code2, description: 'Elite code generation and architectural advice powered by Anthropic Claude.' }
+  { id: 'claude-coder', name: 'Claude Coder', category: 'Development', icon: Code2, description: 'Elite code generation and architectural advice powered by Anthropic Claude.' },
+  { id: 'ussd-blockchain', name: 'USSD Blockchain Expert', category: 'Development', icon: Smartphone, description: 'Design and create USSD applications integrated with blockchain technology.' }
 ];
 
 const App: React.FC = () => {
@@ -206,6 +208,9 @@ const App: React.FC = () => {
           break;
         case 'itaas':
           response = await aiService.getITaaSAssistance(servicePrompt);
+          break;
+        case 'ussd-blockchain':
+          response = await aiService.getUSSDBlockchainAssistance(servicePrompt);
           break;
         case 'gov-admin':
           response = await aiService.getGovernmentAssistance(servicePrompt);
