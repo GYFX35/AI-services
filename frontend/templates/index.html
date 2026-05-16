@@ -22,6 +22,7 @@
                 <li><a href="#domain-codex-assistance">{{ _('Domain Codex') }}</a></li>
                 <li><a href="#esports-assistance">{{ _('eSports') }}</a></li>
                 <li><a href="#fake-content-verification">{{ _('Verification') }}</a></li>
+                <li><a href="#malware-defense">{{ _('Malware Defender') }}</a></li>
                 <li><a href="#military-assistance">{{ _('Military') }}</a></li>
                 <li><a href="#marketing-assistance">{{ _('Marketing') }}</a></li>
                 <li><a href="#investment-trading-assistance">{{ _('Investment') }}</a></li>
@@ -175,6 +176,10 @@
                 <div class="card">
                     <h3>{{ _('AI Content & Fake News Verifier') }}</h3>
                     <p>{{ _('Expert in digital forensics for AI content detection, fact-checking, and identifying fake news or misinformation.') }}</p>
+                </div>
+                <div class="card">
+                    <h3>{{ _('Malware Defender') }}</h3>
+                    <p>{{ _('Elite specialist for detecting, preventing, and removing all types of malware, providing advanced cybersecurity guidance.') }}</p>
                 </div>
                 <div class="card">
                     <h3>{{ _('Automatic Learning Role') }}</h3>
@@ -691,6 +696,22 @@
                     <button id="ia-researcher-btn" class="btn">{{ _('Submit') }}</button>
                     <div class="response-container" id="ia-researcher-response-container">
                         <pre id="ia-researcher-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Malware Defender Section -->
+        <section id="malware-defense" class="services">
+            <h2>{{ _('Malware Defender') }}</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>{{ _('Advanced Malware Defense & Cybersecurity') }}</h3>
+                    <p>{{ _('Enter your request for malware detection, prevention, or cybersecurity hardening strategies.') }}</p>
+                    <textarea id="malware-defense-input" placeholder="{{ _('Your malware defense request') }}" class="styled-textarea" rows="4"></textarea>
+                    <button id="malware-defense-btn" class="btn">{{ _('Submit') }}</button>
+                    <div class="response-container" id="malware-defense-response-container">
+                        <pre id="malware-defense-response"></pre>
                     </div>
                 </div>
             </div>
