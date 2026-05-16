@@ -1140,6 +1140,29 @@ def generic_ai_service(system_message: str, user_prompt: str) -> str:
     except Exception as e:
         return f"Error: {e}"
 
+def provide_malware_defense_assistance(prompt: str) -> str:
+    """
+    Expert AI Model for Malware Defense and Cybersecurity.
+    """
+    model = get_model()
+    system_prompt = (
+        "You are an Elite Malware Defense Specialist and Cybersecurity Architect. "
+        "Your expertise covers all types of malware, including viruses, trojans, ransomware, "
+        "spyware, adware, and rootkits. Provide high-level technical guidance on "
+        "detection, prevention, removal strategies, and system hardening. "
+        "Advise on advanced threat intelligence, behavioral analysis, and "
+        "incident response protocols to protect against sophisticated cyber attacks."
+    )
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", system_prompt),
+        ("user", "{prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Malware Defense AI Error: {e}"
+
 def provide_feature_engineering_assistance(prompt: str) -> str:
     model = get_model()
     prompt_template = ChatPromptTemplate.from_messages([

@@ -36,3 +36,12 @@ def test_security_optimization_endpoint(client, auth_headers):
                                headers=auth_headers)
         assert response.status_code == 200
         assert response.json['message'] == "Security optimization response"
+
+def test_malware_defense_endpoint(client, auth_headers):
+    with patch('google_ai.provide_malware_defense_assistance') as mock_ai:
+        mock_ai.return_value = "Malware defense response"
+        response = client.post('/api/v1/malware-defense/assistance',
+                               json={'prompt': 'test malware prompt'},
+                               headers=auth_headers)
+        assert response.status_code == 200
+        assert response.json['message'] == "Malware defense response"
