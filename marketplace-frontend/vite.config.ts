@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   base: './',
   server: {
+    host: '0.0.0.0', // Support DHCP and external access
     proxy: {
       '/api': {
         target: 'http://127.0.0.1:5001',

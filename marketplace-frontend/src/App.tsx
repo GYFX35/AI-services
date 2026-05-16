@@ -87,6 +87,7 @@ const AI_SERVICES: AIService[] = [
   { id: 'investment', name: 'Investment Specialist', category: 'Business', icon: TrendingUp, description: 'Investment optimization and trading assistance.' },
   { id: 'autogpt', name: 'AutoGPT Agent', category: 'Advanced', icon: Bot, description: 'Autonomous agent for multi-step task planning and strategy.' },
   { id: 'cloud-infra', name: 'Cloud Infra Architect', category: 'Infrastructure', icon: Server, description: 'Expert in secure IPs, DNS, and cloud server creation.' },
+  { id: 'domain-codex', name: 'Domain Codex Designer', category: 'Infrastructure', icon: Globe, description: 'Design custom domains and USSP configurations using Codex-level AI.' },
   { id: 'iaas', name: 'IaaS Specialist', category: 'Infrastructure', icon: Cpu, description: 'Infrastructure as a Service expert for virtualized resources.' },
   { id: 'paas', name: 'PaaS Specialist', category: 'Infrastructure', icon: Cloud, description: 'Platform as a Service expert for application development environments.' },
   { id: 'saas', name: 'SaaS Specialist', category: 'Infrastructure', icon: Globe, description: 'Software as a Service expert for internet-delivered applications.' },
@@ -190,6 +191,9 @@ const App: React.FC = () => {
           break;
         case 'cloud-infra':
           response = await aiService.getCloudInfrastructureAssistance(servicePrompt);
+          break;
+        case 'domain-codex':
+          response = await aiService.getDomainCodexAssistance(servicePrompt);
           break;
         case 'iaas':
           response = await aiService.getIaaSAssistance(servicePrompt);

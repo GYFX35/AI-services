@@ -163,6 +163,29 @@ def generate_business_strategy(prompt: str) -> str:
     except Exception as e:
         return f"Error: {e}"
 
+def provide_domain_codex_assistance(prompt: str) -> str:
+    """
+    Expert AI model for Domain Design and USSP (U-space Service Provider) configuration using Codex-level insights.
+    """
+    model = get_model() # Using Gemini as the base, acting with Codex-level coding/config expertise
+    system_prompt = (
+        "You are an Elite Domain Architect and USSP Specialist powered by Codex-level intelligence. "
+        "Your expertise includes designing custom domains, configuring DNS for USSP (U-space Service Provider) infrastructure, "
+        "and optimizing networking for dynamic DHCP environments. "
+        "Provide professional guidance on domain naming, registrar selection, DNS record configuration (A, AAAA, CNAME, TXT), "
+        "and integration with USSP APIs for drone and airspace management. "
+        "Focus on high-security, low-latency, and resilient architecture."
+    )
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", system_prompt),
+        ("user", "{prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"Domain Codex AI Error: {e}"
+
 def provide_claude_intelligence(prompt: str) -> str:
     """
     Uses Anthropic Claude for deep reasoning, strategic analysis, and nuanced understanding.

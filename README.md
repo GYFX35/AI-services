@@ -16,7 +16,7 @@ Stay productive everywhere with Yendoukoa AI!
 
 This project is a submission for the **[Name of Devpost Challenge]**.
 
-*   **Live Demo:** [https://yendoukoa.google.ai](https://yendoukoa.google.ai)
+*   **Live Demo:** [https://yendoukoa.ai](https://yendoukoa.ai)
 *   **Video Walkthrough:** [Link to Video Walkthrough]
 
 ## Sponsorship
@@ -107,7 +107,7 @@ Enter a full website URL (e.g., `https://example.com`) to scan the page for brok
    ```
 
 3. **Open your web browser:**
-   Navigate to `http://127.0.0.1:5000` to access the application.
+   Navigate to `http://localhost:5000` or your DHCP-assigned IP address to access the application.
 
 ## Developer Deployment and Integration
 

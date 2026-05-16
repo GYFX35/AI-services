@@ -1517,6 +1517,17 @@ def cloud_infrastructure_assistance_endpoint():
     return jsonify({"status": "success", "message": message})
 
 
+@app.route('/api/v1/domain-codex/assistance', methods=['POST'])
+@require_api_key
+def domain_codex_assistance_endpoint():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({"error": _("Prompt is required")}), 400
+    message = google_ai.provide_domain_codex_assistance(prompt)
+    return jsonify({"status": "success", "message": message})
+
+
 @app.route('/api/v1/llama/intelligence', methods=['POST'])
 @require_api_key
 def llama_intelligence_endpoint():
@@ -1992,7 +2003,8 @@ if __name__ == '__main__':
             ]
             db.session.bulk_save_objects(projects)
             db.session.commit()
-    app.run(port=5001)
+    # Listen on all available interfaces (0.0.0.0) to support DHCP/dynamic IP addresses
+    app.run(host='0.0.0.0', port=5001)
 
 @app.cli.command("init-db")
 def init_db_command():
