@@ -16,7 +16,7 @@ Stay productive everywhere with Yendoukoa AI!
 
 This project is a submission for the **[Name of Devpost Challenge]**.
 
-*   **Live Demo:** [https://ai.yendoukoa.com](https://ai.yendoukoa.com)
+*   **Live Demo:** [https://yendoukoa.ai](https://yendoukoa.ai)
 *   **Video Walkthrough:** [Link to Video Walkthrough]
 
 ## Sponsorship
