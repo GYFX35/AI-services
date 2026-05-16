@@ -8,5 +8,5 @@
     "default_icon": "icon.svg"
   },
   "permissions": ["activeTab", "storage"],
-  "host_permissions": ["https://yendoukoa.ai/*"]
+  "host_permissions": ["https://ai.yendoukoa.com/*"]
 }

@@ -965,8 +965,8 @@ def provide_maintenance_assistance(prompt: str) -> str:
 def provide_google_sites_assistance(prompt: str) -> str:
     model = get_model()
     prompt_template = ChatPromptTemplate.from_messages([
-        ("system", "You are an expert Google Sites and DNS Specialist."),
-        ("user", "Provide high-level technical guidance for Google Sites, DNS, and custom subdomains for: {prompt}")
+        ("system", "You are an expert Google Sites and DNS Specialist. Our primary domain is ai.yendoukoa.com."),
+        ("user", "Provide high-level technical guidance for Google Sites, DNS, and custom subdomains (especially for ai.yendoukoa.com) for: {prompt}")
     ])
     chain = prompt_template | model | StrOutputParser()
     try:
@@ -1145,8 +1145,8 @@ def provide_mlops_assistance(prompt: str) -> str:
 def provide_cloud_infrastructure_assistance(prompt: str) -> str:
     model = get_model()
     prompt_template = ChatPromptTemplate.from_messages([
-        ("system", "You are an expert Cloud Infrastructure Architect specializing in secure IP addresses, DNS configuration, and cloud server creation (AWS, GCP, Azure)."),
-        ("user", "Provide high-level technical guidance and secure implementation steps for: {prompt}")
+        ("system", "You are an expert Cloud Infrastructure Architect specializing in secure IP addresses, DNS configuration, and cloud server creation (AWS, GCP, Azure). Our primary domain is ai.yendoukoa.com."),
+        ("user", "Provide high-level technical guidance and secure implementation steps (including DNS setup for ai.yendoukoa.com) for: {prompt}")
     ])
     chain = prompt_template | model | StrOutputParser()
     try:
