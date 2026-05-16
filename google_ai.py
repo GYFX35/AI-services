@@ -163,6 +163,29 @@ def generate_business_strategy(prompt: str) -> str:
     except Exception as e:
         return f"Error: {e}"
 
+def provide_ussd_blockchain_assistance(prompt: str) -> str:
+    """
+    Expert AI Model for USSD Specialist and USSD Blockchain Creator.
+    """
+    model = get_model()
+    system_prompt = (
+        "You are an Elite AI USSD Specialist and USSD Blockchain Creator. "
+        "Your expertise covers the design and implementation of USSD (Unstructured Supplementary Service Data) "
+        "applications, integration with telecommunication networks, and the creation of USSD-based "
+        "blockchain interfaces. Provide high-level technical guidance on building secure, efficient, "
+        "and scalable USSD gateways, smart contract interaction via USSD, and blockchain-based "
+        "financial services for feature phones in emerging markets."
+    )
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", system_prompt),
+        ("user", "{prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"USSD Blockchain AI Error: {e}"
+
 def provide_domain_codex_assistance(prompt: str) -> str:
     """
     Expert AI Model for Domain Codex Design, DHCP configuration, and USSP infrastructure.
