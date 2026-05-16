@@ -1,8 +1,9 @@
 import pytest
 from app import app, db, User
 
-def test_autogpt_assistance_endpoint(client, auth_headers):
+def test_autogpt_assistance_endpoint(client, auth_headers, mocker):
     """Test the AutoGPT assistance endpoint."""
+    mocker.patch('google_ai.provide_autogpt_assistance', return_value='Mocked AutoGPT response')
     response = client.post('/api/v1/autogpt/assistance',
                            json={'prompt': 'Plan a world tour'},
                            headers=auth_headers)

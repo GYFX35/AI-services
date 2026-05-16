@@ -261,6 +261,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- AI Domain Assistance ---
+    const aiDomainBtn = document.getElementById('ai-domain-btn');
+    if (aiDomainBtn) {
+        aiDomainBtn.addEventListener('click', async () => {
+            const input = document.getElementById('ai-domain-input');
+            const responseContainer = document.getElementById('ai-domain-response');
+            const apiKey = getApiKey("Please enter your API key to use the AI Domain & DHCP Architect:");
+
+            if (!apiKey) {
+                responseContainer.textContent = 'API key is required.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/ai-domain/assistance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({
+                        prompt: input.value
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to get a response from the AI domain architect');
+                }
+
+                const result = await response.json();
+                responseContainer.textContent = result.message;
+            } catch (error) {
+                responseContainer.textContent = `Error: ${error.message}`;
+            }
+        });
+    }
+
     // --- Domain Codex Assistance ---
     const domainCodexBtn = document.getElementById('domain-codex-btn');
     if (domainCodexBtn) {

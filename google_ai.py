@@ -174,7 +174,7 @@ def provide_domain_codex_assistance(prompt: str) -> str:
         "and USSP (U-space Service Provider) infrastructure using Codex-level insights. "
         "Provide high-level technical guidance, strategic design plans, and secure "
         "implementation steps for advanced AI projects requiring specialized network "
-        "architectures and domain naming conventions. Our primary domain is ai.yendoukoa.com."
+        "architectures and domain naming conventions. Our primary domain is yendoukoa.ai."
     )
     prompt_template = ChatPromptTemplate.from_messages([
         ("system", system_prompt),
@@ -185,6 +185,28 @@ def provide_domain_codex_assistance(prompt: str) -> str:
         return chain.invoke({"prompt": prompt}).strip()
     except Exception as e:
         return f"Domain Codex AI Error: {e}"
+
+def provide_ai_domain_assistance(prompt: str) -> str:
+    """
+    Expert AI Model for AI Domain design and DHCP address configuration for Yendoukoa AI.
+    """
+    model = get_model()
+    system_prompt = (
+        "You are an Elite AI Domain Architect and Network Engineer for Yendoukoa AI. "
+        "Your role is to design advanced AI domains and configure DHCP addresses "
+        "tailored for the Yendoukoa AI ecosystem. Our primary domain is yendoukoa.ai. "
+        "Provide technical specifications, network diagrams (in text), and strategic guidance "
+        "on how to integrate AI-driven domain naming with dynamic DHCP address allocation."
+    )
+    prompt_template = ChatPromptTemplate.from_messages([
+        ("system", system_prompt),
+        ("user", "{prompt}")
+    ])
+    chain = prompt_template | model | StrOutputParser()
+    try:
+        return chain.invoke({"prompt": prompt}).strip()
+    except Exception as e:
+        return f"AI Domain Architect Error: {e}"
 
 def provide_claude_intelligence(prompt: str) -> str:
     """
@@ -988,8 +1010,8 @@ def provide_maintenance_assistance(prompt: str) -> str:
 def provide_google_sites_assistance(prompt: str) -> str:
     model = get_model()
     prompt_template = ChatPromptTemplate.from_messages([
-        ("system", "You are an expert Google Sites and DNS Specialist. Our primary domain is ai.yendoukoa.com."),
-        ("user", "Provide high-level technical guidance for Google Sites, DNS, and custom subdomains (especially for ai.yendoukoa.com) for: {prompt}")
+        ("system", "You are an expert Google Sites and DNS Specialist. Our primary domain is yendoukoa.ai."),
+        ("user", "Provide high-level technical guidance for Google Sites, DNS, and custom subdomains (especially for yendoukoa.ai) for: {prompt}")
     ])
     chain = prompt_template | model | StrOutputParser()
     try:
@@ -1168,8 +1190,8 @@ def provide_mlops_assistance(prompt: str) -> str:
 def provide_cloud_infrastructure_assistance(prompt: str) -> str:
     model = get_model()
     prompt_template = ChatPromptTemplate.from_messages([
-        ("system", "You are an expert Cloud Infrastructure Architect specializing in secure IP addresses, DNS configuration, and cloud server creation (AWS, GCP, Azure). Our primary domain is ai.yendoukoa.com."),
-        ("user", "Provide high-level technical guidance and secure implementation steps (including DNS setup for ai.yendoukoa.com) for: {prompt}")
+        ("system", "You are an expert Cloud Infrastructure Architect specializing in secure IP addresses, DNS configuration, and cloud server creation (AWS, GCP, Azure). Our primary domain is yendoukoa.ai."),
+        ("user", "Provide high-level technical guidance and secure implementation steps (including DNS setup for yendoukoa.ai) for: {prompt}")
     ])
     chain = prompt_template | model | StrOutputParser()
     try:
